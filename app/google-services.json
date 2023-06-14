@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "56736000080",
+    "project_id": "karanharshgroup8",
+    "storage_bucket": "karanharshgroup8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:56736000080:android:4d15f4298418babc5f4955",
+        "android_client_info": {
+          "package_name": "com.example.touristguide"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "56736000080-j04a2bpap6nelufpuj5e1l8hgqn0t74k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfQeYfRYM2PgVOqi4Z9A__YKXEst5dXec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "56736000080-j04a2bpap6nelufpuj5e1l8hgqn0t74k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
