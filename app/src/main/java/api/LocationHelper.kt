@@ -1,6 +1,6 @@
 package api
 
-import com.google.type.LatLng
+import com.google.android.gms.maps.model.LatLng
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -102,7 +102,7 @@ class LocationHelper private constructor(){
         return null
     }
 
-    fun performForwardGeocoding(context: Context, location: LatLng) : Address?{
+    fun performForwardGeocoding(context: Context, location:LatLng) : Address?{
 
         val geocoder = Geocoder(context, Locale.getDefault())
 

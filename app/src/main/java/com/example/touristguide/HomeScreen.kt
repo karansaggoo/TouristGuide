@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,19 +12,26 @@ import android.view.ViewGroup
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
+import api.LocationHelper
 import com.example.touristguide.databinding.FragmentHomeScreenBinding
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.maps.model.LatLng
 
 
 class HomeScreen : Fragment() {
 
     private var _binding : FragmentHomeScreenBinding? = null
+    private lateinit var locationHelper: LocationHelper
+    private lateinit var locationCallback: LocationCallback
     private val binding get() = _binding!!
+    private val TAG = this.javaClass.canonicalName
     private lateinit var prefs: SharedPreferences
     var name = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        this.locationHelper = LocationHelper.instance
 
 
     }
@@ -34,6 +42,37 @@ class HomeScreen : Fragment() {
     ): View? {
         _binding = com.example.touristguide.databinding.FragmentHomeScreenBinding.inflate(inflater, container, false)
         val view = binding.root
+        val result = locationHelper.getLastLocation(requireContext())
+
+
+        if (result != null) {
+//            Log.e(
+//                TAG,
+//                "onCreate: result of getLastLocation : ${result.value!!.latitude} ${result.value!!.longitude}",
+//            )
+
+            result.observe(viewLifecycleOwner) { location ->
+                if (location != null) {
+                    Log.e(TAG, "onCreate: location : ${location}")
+
+                    val address = locationHelper.performForwardGeocoding(
+                        requireActivity().applicationContext,
+                        location = LatLng(location.latitude, location.longitude)
+                    )
+
+                    if (address != null) {
+                        binding.tvAddress.visibility = View.VISIBLE
+                        binding.tvAddress.text = address.thoroughfare
+
+                        //Log.e("ded",address.getAddressLine(0))
+                    }
+                    //                    else {
+//                        // binding.tvLocationAddress.text = location.toString()
+//                    }
+                }
+            }
+        }
+
 
         return view
     }
