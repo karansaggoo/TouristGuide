@@ -1,4 +1,4 @@
-package api
+package com.example.touristguide.api
 
 import com.google.android.gms.maps.model.LatLng
 import android.Manifest

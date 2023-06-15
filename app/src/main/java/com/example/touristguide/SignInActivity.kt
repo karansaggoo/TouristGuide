@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import api.LocationHelper
+import com.example.touristguide.api.LocationHelper
 import com.example.touristguide.databinding.ActivitySignInBinding
 import com.example.touristguide.model.UserRepository
 import com.google.firebase.auth.FirebaseAuth

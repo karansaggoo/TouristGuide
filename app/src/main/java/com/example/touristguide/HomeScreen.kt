@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
-import api.LocationHelper
+import com.example.touristguide.api.LocationHelper
 import com.example.touristguide.databinding.FragmentHomeScreenBinding
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.maps.model.LatLng
