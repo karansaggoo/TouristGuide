@@ -1,6 +1,7 @@
 package com.example.project_g08.api
 
 
+import com.example.touristguide.api.IAPIResponse2
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -37,5 +38,11 @@ object RetrofitInstance {
 
     // update this to return an instance of the Retrofit instance associated
     // with your base url
+    val retrofitService: IAPIResponse by lazy {
+        retrofit.create(IAPIResponse::class.java)
+    }
+    val retrofitService2: IAPIResponse2 by lazy{
+        retrofit.create(IAPIResponse2::class.java)
+    }
 
 }
