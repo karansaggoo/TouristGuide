@@ -9,5 +9,18 @@
         android:id="@+id/homeScreen"
         android:name="com.example.touristguide.HomeScreen"
         android:label="fragment_home_screen"
-        tools:layout="@layout/fragment_home_screen" />
+        tools:layout="@layout/fragment_home_screen" >
+        <action
+            android:id="@+id/action_homeScreen_to_list2"
+            app:destination="@id/list2" />
+    </fragment>
+    <fragment
+        android:id="@+id/list2"
+        android:name="com.example.touristguide.List"
+        android:label="fragment_list"
+        tools:layout="@layout/fragment_list" >
+        <argument
+            android:name="category"
+            app:argType="string" />
+    </fragment>
 </navigation>
