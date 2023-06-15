@@ -49,5 +49,26 @@
         <argument
             android:name="place_id"
             app:argType="string" />
+        <action
+            android:id="@+id/action_detailFragment_to_addReview"
+            app:destination="@id/addReview" />
+        <argument
+            android:name="icon"
+            app:argType="string" />
+        <argument
+            android:name="rating"
+            app:argType="float" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/addReview"
+        android:name="com.example.touristguide.AddReview"
+        android:label="fragment_add_review"
+        tools:layout="@layout/fragment_add_review" >
+        <argument
+            android:name="name"
+            app:argType="string" />
     </fragment>
 </navigation>

@@ -60,6 +60,10 @@ class DetailFragment : Fragment() {
             //binding.detailTime.setText("hytbgf")
             binding.detailrating.setText(placeDetailFromAPI.result.rating.toString())
             binding.detailaddress.setText(placeDetailFromAPI.result.formatted_address)
+            binding.addReviewBtn.setOnClickListener(){
+                val action = DetailFragmentDirections.actionDetailFragmentToAddReview(name = args.name)
+                findNavController().navigate(action)
+            }
 
         }
     }
