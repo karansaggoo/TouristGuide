@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import api.LocationHelper
 import com.example.touristguide.databinding.ActivitySignInBinding
 import com.example.touristguide.model.UserRepository
 import com.google.firebase.auth.FirebaseAuth
@@ -16,11 +17,14 @@ class SignInActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var prefs: SharedPreferences
     private lateinit var userRepository : UserRepository
+    private lateinit var locationHelper: LocationHelper
     var validData = true
     var email = ""
     var password = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        this.locationHelper = LocationHelper.instance
+        this.locationHelper.checkPermissions(this)
         binding = ActivitySignInBinding.inflate(layoutInflater)
         if (getSupportActionBar() != null) {
             getSupportActionBar()?.hide();
