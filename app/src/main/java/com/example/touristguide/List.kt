@@ -93,6 +93,9 @@ class List : Fragment(),onPlaceClickListener {
 
     override fun onItemClickListener(place_id:String , place:com.example.touristguide.model.Result) {
 
+        val action = ListDirections.actionList2ToDetailFragment(place_id)
+        findNavController().navigate(action)
+
 
 
     }

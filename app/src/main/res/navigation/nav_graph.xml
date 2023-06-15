@@ -45,5 +45,9 @@
         android:id="@+id/detailFragment"
         android:name="com.example.touristguide.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="place_id"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -1,59 +1,66 @@
 package com.example.touristguide
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.example.project_g08.api.RetrofitInstance
+import com.example.touristguide.api.IAPIResponse2
+import com.example.touristguide.databinding.FragmentDetailBinding
+import com.example.touristguide.databinding.FragmentHomeScreenBinding
+import com.example.touristguide.model.Place
+import com.example.touristguide.model.PlaceDetail
+import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class Detail : Fragment() {
+    private var _binding : FragmentDetailBinding? = null
+    private val binding get() = _binding!!
+    private val args:DetailFragmentArgs by navArgs()
+    //private lateinit var placeListFromAPI: Place
+    //private lateinit var placeDetailFromAPI: PlaceDetail
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class DetailFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+        _binding = FragmentDetailBinding.inflate(inflater, container, false)
+        val view = binding.root
+
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DetailFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DetailFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        var api: IAPIResponse2 = RetrofitInstance.retrofitService2
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            var placeDetailFromAPI = api.getDetails(args.placeId)
+            if (placeDetailFromAPI.result.opening_hours!=null){
+                var timing:String = ""
+                for(i in placeDetailFromAPI.result.opening_hours!!.weekday_text){
+                    timing = timing + i;
+                    timing = timing + "\n"
+                    binding.detailTime.setText(timing)
                 }
             }
+            Log.d("details","${placeDetailFromAPI.result}")
+            binding.detailName.setText(placeDetailFromAPI.result.name)
+            //binding.detailTime.setText("hytbgf")
+            binding.detailrating.setText(placeDetailFromAPI.result.rating.toString())
+            binding.detailaddress.setText(placeDetailFromAPI.result.formatted_address)
+
+        }
     }
 }
