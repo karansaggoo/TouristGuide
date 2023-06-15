@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeScreen_to_list2"
             app:destination="@id/list2" />
+        <action
+            android:id="@+id/action_homeScreen_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/list2"
@@ -22,5 +25,17 @@
         <argument
             android:name="category"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.touristguide.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" >
+        <argument
+            android:name="lat"
+            app:argType="float" />
+        <argument
+            android:name="log"
+            app:argType="float" />
     </fragment>
 </navigation>

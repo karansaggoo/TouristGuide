@@ -63,6 +63,12 @@ class HomeScreen : Fragment() {
                     if (address != null) {
                         binding.tvAddress.visibility = View.VISIBLE
                         binding.tvAddress.text = address.thoroughfare
+                        binding.tvAddress.setOnClickListener {
+                            val lat = address.latitude
+                            val log = address.longitude
+                            val action = HomeScreenDirections.actionHomeScreenToMapFragment(lat.toFloat(),log.toFloat())
+                            findNavController().navigate(action)
+                        }
 
                         //Log.e("ded",address.getAddressLine(0))
                     }
