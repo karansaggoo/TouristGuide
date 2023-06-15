@@ -25,6 +25,9 @@
         <argument
             android:name="category"
             app:argType="string" />
+        <action
+            android:id="@+id/action_list2_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
@@ -38,4 +41,9 @@
             android:name="log"
             app:argType="float" />
     </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.touristguide.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" />
 </navigation>
