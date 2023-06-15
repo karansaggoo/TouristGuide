@@ -17,7 +17,7 @@ import com.example.touristguide.model.Place
 import com.example.touristguide.model.PlaceDetail
 import kotlinx.coroutines.launch
 
-class Detail : Fragment() {
+class DetailFragment : Fragment() {
     private var _binding : FragmentDetailBinding? = null
     private val binding get() = _binding!!
     private val args:DetailFragmentArgs by navArgs()
