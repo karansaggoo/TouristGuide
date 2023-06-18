@@ -36,8 +36,7 @@ class WishListRepository(private val context: Context) {
     }
 
     //Get all user's favorite news from the "favorites" sub-collection
-    fun getFavouriteNews() {
-        if (loggedInUserID.isNotBlank()) {
+    fun getFavouriteWish() {
             db.collection(COLLECTION_WISHLIST)
                 .document(loggedInUserID)
                 .collection(COLLECTION_USERS)
@@ -70,7 +69,7 @@ class WishListRepository(private val context: Context) {
                         Log.d("harsh","null")
                     }
                 })
-        }
+
     }
 
     //Delete a favorite news from Firestore with document id equals to the given docId
