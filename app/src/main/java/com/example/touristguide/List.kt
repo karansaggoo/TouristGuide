@@ -1,5 +1,6 @@
 package com.example.touristguide
 
+import android.app.AlertDialog
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
@@ -8,11 +9,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.project_g08.api.IAPIResponse
 import com.example.project_g08.api.RetrofitInstance
 import com.example.touristguide.adapter.PlaceAdapter
@@ -21,9 +25,7 @@ import com.example.touristguide.api.IAPIResponse2
 import com.example.touristguide.api.LocationHelper
 import com.example.touristguide.databinding.FragmentHomeScreenBinding
 import com.example.touristguide.databinding.FragmentListBinding
-import com.example.touristguide.model.Detail
-import com.example.touristguide.model.Place
-import com.example.touristguide.model.PlaceDetail
+import com.example.touristguide.model.*
 import com.google.firebase.firestore.local.LruGarbageCollector
 import kotlinx.coroutines.launch
 
@@ -36,9 +38,11 @@ class List : Fragment(),onPlaceClickListener {
     private  val args:ListArgs by navArgs()
     private lateinit var placeListFromAPI: Place
     private lateinit var placeDetailFromAPI:PlaceDetail
+    private lateinit var wishListRepository: WishListRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        wishListRepository = WishListRepository(requireContext())
 
     }
 
@@ -90,7 +94,48 @@ class List : Fragment(),onPlaceClickListener {
             Log.d("world","${PlaceList.size}")
             Log.d("world", "${placeListFromAPI.results}")
         }
+
+        val simpleCallback: ItemTouchHelper.SimpleCallback =
+            object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    return false
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            if (direction == ItemTouchHelper.LEFT) {
+                val addDialog = AlertDialog.Builder(requireContext())
+                    .setTitle("Do you want to save this ?")
+                    .setPositiveButton("Yes") { dialog, which ->
+                        var position = viewHolder.adapterPosition
+                        var image = ""
+                        if(PlaceList[position].icon!=null){
+                            image = PlaceList[position].icon.toString()
+                        }
+
+                        val wish = WishListPlace(name = PlaceList[position].name, icon =  image, place_id = PlaceList[position].place_id, rating = PlaceList[position].rating)
+                        wishListRepository.addFavouriteWish(wish)
+                        Toast.makeText(requireContext(), "News is added", Toast.LENGTH_SHORT).show()
+                        adapter.notifyDataSetChanged()
+
+                    }
+                    .setNegativeButton("No"){dialog ,which->
+                        adapter.notifyDataSetChanged()
+                        dialog.dismiss()
+
+                    }
+                    .create()
+                addDialog.show()
+            }
+        }
     }
+    val helper = ItemTouchHelper(simpleCallback)
+    helper.attachToRecyclerView(binding!!.rvView)
+
+}
 
     override fun onItemClickListener(place_id:String , place:com.example.touristguide.model.Result) {
 
