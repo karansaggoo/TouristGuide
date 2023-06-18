@@ -33,7 +33,7 @@ class Detail(var name:String?=null,var formatted_address:String?=null,var format
 }
 
 
-class PlaceDetail(var result:Detail){
+class PlaceDetail(var result:Detail?){
     override fun toString(): String {
         return "PlaceDetail(results=$result)"
     }

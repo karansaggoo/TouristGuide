@@ -46,20 +46,38 @@ class DetailFragment : Fragment() {
         var api: IAPIResponse2 = RetrofitInstance.retrofitService2
 
         viewLifecycleOwner.lifecycleScope.launch {
+//            var placeDetailFromAPI = api.getDetails(args.placeId)
+////            if (placeDetailFromAPI.result!!.opening_hours!=null){
+////                var timing:String = ""
+////                for(i in placeDetailFromAPI.result!!.opening_hours!!.weekday_text){
+////                    timing = timing + i;
+////                    timing = timing + "\n"
+////                    binding.detailTime.setText(timing)
+////                }
+////            }
+//            Log.d("details","${placeDetailFromAPI.result}")
+//            binding.detailName.setText(placeDetailFromAPI.result!!.name)
+//            //binding.detailTime.setText("hytbgf")
+//            binding.detailrating.setText(placeDetailFromAPI.result!!.rating.toString())
+//            binding.detailaddress.setText(placeDetailFromAPI.result!!.formatted_address)
+//            binding.addReviewBtn.setOnClickListener(){
+//                val action = DetailFragmentDirections.actionDetailFragmentToAddReview(name = args.name)
+//                findNavController().navigate(action)
+
             var placeDetailFromAPI = api.getDetails(args.placeId)
-            if (placeDetailFromAPI.result.opening_hours!=null){
+            if (placeDetailFromAPI.result!!.opening_hours!=null){
                 var timing:String = ""
-                for(i in placeDetailFromAPI.result.opening_hours!!.weekday_text){
+                for(i in placeDetailFromAPI.result!!.opening_hours!!.weekday_text){
                     timing = timing + i;
                     timing = timing + "\n"
                     binding.detailTime.setText(timing)
                 }
             }
             Log.d("details","${placeDetailFromAPI.result}")
-            binding.detailName.setText(placeDetailFromAPI.result.name)
-            //binding.detailTime.setText("hytbgf")
-            binding.detailrating.setText(placeDetailFromAPI.result.rating.toString())
-            binding.detailaddress.setText(placeDetailFromAPI.result.formatted_address)
+            binding.detailName.setText(placeDetailFromAPI.result!!.name)
+            binding.detailTime.setText("hytbgf")
+            binding.detailrating.setText(placeDetailFromAPI.result!!.rating.toString())
+            binding.detailaddress.setText(placeDetailFromAPI.result!!.formatted_address)
             binding.addReviewBtn.setOnClickListener(){
                 val action = DetailFragmentDirections.actionDetailFragmentToAddReview(name = args.name)
                 findNavController().navigate(action)

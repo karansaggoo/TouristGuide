@@ -22,8 +22,8 @@ private val clickListener: onPlaceClickListener) : RecyclerView.Adapter<PlaceAda
            }
 
             if(currentPlace.photos!=null){
-                var url = "https://maps.googleapis.com/maps/api/place/photo?${currentPlace.photos!![0].photo_reference}&key=AIzaSyBTmys4lYnABAKI4gEbAByuxiL2nCbAm9o"
-                Glide.with(binding.tvTitle.context).load(url).into(binding.ivPic)
+                //var url = "https://maps.googleapis.com/maps/api/place/photo?${currentPlace.photos!![0].photo_reference}&key=AIzaSyBTmys4lYnABAKI4gEbAByuxiL2nCbAm9o"
+                Glide.with(binding.tvTitle.context).load(currentPlace.icon).into(binding.ivPic)
             }else{
                 binding.ivPic.setImageResource(R.drawable.image)
             }

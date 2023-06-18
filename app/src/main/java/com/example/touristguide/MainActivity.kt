@@ -9,6 +9,7 @@ import android.view.MenuItem
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.touristguide.databinding.ActivityMainBinding
 
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         this.navController = navHostFragment.navController
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
+        setupWithNavController(binding.bottomNav, navController)
 
     }
     override fun onSupportNavigateUp(): Boolean {

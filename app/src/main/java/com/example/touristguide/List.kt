@@ -79,6 +79,7 @@ class List : Fragment(),onPlaceClickListener {
                 "library"->placeListFromAPI=api.getLibrary(location)
                 "shop"->placeListFromAPI=api.getShopping(location)
                 "theater"->placeListFromAPI=api.getTheatre(location)
+                "bar"->placeListFromAPI=api.getTheatre(location)
 
 
             }
@@ -93,7 +94,7 @@ class List : Fragment(),onPlaceClickListener {
 
     override fun onItemClickListener(place_id:String , place:com.example.touristguide.model.Result) {
 
-        val action = ListDirections.actionList2ToDetailFragment( place.name,place.icon, place.rating!!,place_id)
+        val action = ListDirections.actionList2ToDetailFragment( place.place_id,place.icon,place.rating!!,place.name,)
         findNavController().navigate(action)
 
 
