@@ -9,6 +9,7 @@ import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.lang.Float
 
 class WishListRepository(private val context: Context) {
 
@@ -40,14 +41,15 @@ class WishListRepository(private val context: Context) {
             db.collection(COLLECTION_WISHLIST)
                 .document(loggedInUserID)
                 .collection(COLLECTION_USERS)
-                .addSnapshotListener(EventListener { snapshot, error ->
+                .addSnapshotListener(EventListener{snapshot,error ->
                     if (error != null) {
                         return@EventListener
                     }else{
-                        Log.d("harsh","error")
+                        Log.d("harsh","error ${error}")
                     }
 
                     if (snapshot != null) {
+                        Log.e("harsh","hellp")
                         val wishList = ArrayList<WishListPlace>()
 
                         for (documentChange in snapshot.documentChanges) {
@@ -55,7 +57,7 @@ class WishListRepository(private val context: Context) {
                             wish.name = documentChange.document.get("name").toString()
                             wish.icon = documentChange.document.get("icon").toString()
                             wish.place_id = documentChange.document.get("place_id").toString()
-                            wish.rating = documentChange.document.get("rating") as Float?
+                            wish.rating = documentChange.document.get("rating").toString()
 
                             when (documentChange.type) {
                                 DocumentChange.Type.ADDED -> wishList.add(wish)

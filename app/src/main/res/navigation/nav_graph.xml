@@ -71,4 +71,13 @@
             android:name="name"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/wishList2"
+        android:name="com.example.touristguide.WishList"
+        android:label="fragment_wish_list"
+        tools:layout="@layout/fragment_wish_list" >
+        <action
+            android:id="@+id/action_wishList2_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
 </navigation>

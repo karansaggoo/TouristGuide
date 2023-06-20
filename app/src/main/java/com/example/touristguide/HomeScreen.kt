@@ -11,11 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.example.touristguide.api.LocationHelper
 import com.example.touristguide.databinding.FragmentHomeScreenBinding
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.maps.model.LatLng
+import com.google.protobuf.DescriptorProtos.SourceCodeInfo.Location
 
 
 class HomeScreen : Fragment() {
@@ -27,6 +29,7 @@ class HomeScreen : Fragment() {
     private val TAG = this.javaClass.canonicalName
     private lateinit var prefs: SharedPreferences
     var name = ""
+    private var result:MutableLiveData<android.location.Location>? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +45,7 @@ class HomeScreen : Fragment() {
     ): View? {
         _binding = com.example.touristguide.databinding.FragmentHomeScreenBinding.inflate(inflater, container, false)
         val view = binding.root
-        val result = locationHelper.getLastLocation(requireContext())
+        result = locationHelper.getLastLocation(requireContext())
 
 
         if (result != null) {
@@ -51,7 +54,7 @@ class HomeScreen : Fragment() {
 //                "onCreate: result of getLastLocation : ${result.value!!.latitude} ${result.value!!.longitude}",
 //            )
 
-            result.observe(viewLifecycleOwner) { location ->
+            result!!.observe(viewLifecycleOwner) { location ->
                 if (location != null) {
                     Log.e(TAG, "onCreate: location : ${location}")
 
