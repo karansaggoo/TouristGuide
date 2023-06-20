@@ -108,6 +108,7 @@ class WishList : Fragment(),onWishClickListener {
 
     override fun onItemClickListener(place_id: String, place: WishListPlace) {
 
+
     }
 
 

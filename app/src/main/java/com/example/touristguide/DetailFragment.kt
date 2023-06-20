@@ -75,7 +75,6 @@ class DetailFragment : Fragment() {
             }
             Log.d("details","${placeDetailFromAPI.result}")
             binding.detailName.setText(placeDetailFromAPI.result!!.name)
-            binding.detailTime.setText("hytbgf")
             binding.detailrating.setText(placeDetailFromAPI.result!!.rating.toString())
             binding.detailaddress.setText(placeDetailFromAPI.result!!.formatted_address)
             binding.addReviewBtn.setOnClickListener(){
