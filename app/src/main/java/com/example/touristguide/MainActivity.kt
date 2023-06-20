@@ -6,23 +6,28 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.touristguide.api.LocationHelper
 import com.example.touristguide.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
+    private lateinit var locationHelper: LocationHelper
     private lateinit var prefs: SharedPreferences
     var name = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         prefs=applicationContext.getSharedPreferences(packageName, AppCompatActivity.MODE_PRIVATE)
         super.onCreate(savedInstanceState)
+        this.locationHelper = LocationHelper.instance
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -54,6 +59,11 @@ class MainActivity : AppCompatActivity() {
                 return super.onOptionsItemSelected(item)
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        var result = locationHelper.getLastLocation(this)
     }
 
     fun deletePreferences() {

@@ -15,6 +15,7 @@ import com.example.touristguide.databinding.FragmentDetailBinding
 import com.example.touristguide.databinding.FragmentHomeScreenBinding
 import com.example.touristguide.model.Place
 import com.example.touristguide.model.PlaceDetail
+import com.example.touristguide.model.Review
 import kotlinx.coroutines.launch
 
 class DetailFragment : Fragment() {
@@ -22,7 +23,7 @@ class DetailFragment : Fragment() {
     private val binding get() = _binding!!
     private val args:DetailFragmentArgs by navArgs()
     //private lateinit var placeListFromAPI: Place
-    //private lateinit var placeDetailFromAPI: PlaceDetail
+    private lateinit var placeDetailFromAPI: PlaceDetail
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,7 +65,7 @@ class DetailFragment : Fragment() {
 //                val action = DetailFragmentDirections.actionDetailFragmentToAddReview(name = args.name)
 //                findNavController().navigate(action)
 
-            var placeDetailFromAPI = api.getDetails(args.placeId)
+             placeDetailFromAPI = api.getDetails(args.placeId)
             if (placeDetailFromAPI.result!!.opening_hours!=null){
                 var timing:String = ""
                 for(i in placeDetailFromAPI.result!!.opening_hours!!.weekday_text){
@@ -79,6 +80,11 @@ class DetailFragment : Fragment() {
             binding.detailaddress.setText(placeDetailFromAPI.result!!.formatted_address)
             binding.addReviewBtn.setOnClickListener(){
                 val action = DetailFragmentDirections.actionDetailFragmentToAddReview(name = args.name)
+                findNavController().navigate(action)
+            }
+            binding.reviewBtn.setOnClickListener {
+                val action = DetailFragmentDirections.actionDetailFragmentToViewReview(
+                    placeDetailFromAPI.result!!.reviews!!)
                 findNavController().navigate(action)
             }
 

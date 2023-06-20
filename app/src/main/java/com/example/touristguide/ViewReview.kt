@@ -16,11 +16,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.fragment.navArgs
 import com.example.touristguide.databinding.FragmentViewReviewBinding
 import com.example.touristguide.databinding.FragmentWishListBinding
 import com.example.touristguide.model.Review
@@ -30,6 +32,7 @@ import com.example.touristguide.model.Review
 class ViewReview : Fragment() {
     private var _binding: FragmentViewReviewBinding? = null
     private val binding get() = _binding!!
+    private val args:ViewReviewArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +52,7 @@ class ViewReview : Fragment() {
             setContent {
                 // In Compose world
                 MaterialTheme {
+                    ReviewList(reviews = args.reviews)
 
 
                 }
@@ -67,7 +71,7 @@ class ViewReview : Fragment() {
 
 
 @Composable
-fun ReviewList(reviews: ArrayList<Review>) {
+fun ReviewList(reviews: Array<Review>) {
     LazyColumn {
         items(reviews){review->
             ReviewCard(rvw = review)
@@ -79,9 +83,10 @@ fun ReviewList(reviews: ArrayList<Review>) {
 
 @Composable
 fun ReviewCard(rvw: Review) {
-    Row(modifier = Modifier.padding(all = 8.dp)) {
+    Row(modifier = Modifier.padding(all = 20.dp).border(1.5.dp,MaterialTheme.colors.primary,
+        RectangleShape)) {
 
-        Column {
+        Column(modifier = Modifier.padding(all = 20.dp)) {
             Text(
                 text = rvw.author_name,
                 color = Color(0xFFFFa500),

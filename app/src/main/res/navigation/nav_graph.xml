@@ -61,6 +61,9 @@
         <argument
             android:name="name"
             app:argType="string" />
+        <action
+            android:id="@+id/action_detailFragment_to_viewReview"
+            app:destination="@id/viewReview" />
     </fragment>
     <fragment
         android:id="@+id/addReview"
@@ -79,5 +82,14 @@
         <action
             android:id="@+id/action_wishList2_to_detailFragment"
             app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewReview"
+        android:name="com.example.touristguide.ViewReview"
+        android:label="fragment_view_review"
+        tools:layout="@layout/fragment_view_review" >
+        <argument
+            android:name="reviews"
+            app:argType="com.example.touristguide.model.Review[]" />
     </fragment>
 </navigation>

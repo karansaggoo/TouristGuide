@@ -1,5 +1,8 @@
 package com.example.touristguide.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 
 class Photo(var photo_reference: String){
     override fun toString(): String {
@@ -13,8 +16,8 @@ class Result(var name:String,var icon:String,var place_id:String,var photos:List
     }
 }
 
-
-class Review(var author_name:String,var relative_time_description:String , var text:String){
+@Parcelize
+class Review(var author_name:String,var relative_time_description:String , var text:String):Parcelable{
     override fun toString(): String {
         return "Review(author_name='$author_name', relative_time_description='$relative_time_description', text='$text')"
     }
@@ -26,7 +29,7 @@ class Timing(var weekday_text:List<String>){
     }
 }
 
-class Detail(var name:String?=null,var formatted_address:String?=null,var formatted_phone_number:String?=null,var opening_hours:Timing?=null,var reviews:List<Review>?=null, var rating: Float?=null){
+class Detail(var name:String?=null,var formatted_address:String?=null,var formatted_phone_number:String?=null,var opening_hours:Timing?=null,var reviews:Array<Review>?=null, var rating: Float?=null){
     override fun toString(): String {
         return "Detail(name=$name, formatted_address=$formatted_address, formatted_phone_number=$formatted_phone_number, opening_hours=$opening_hours, reviews=$reviews, rating=$rating)"
     }
