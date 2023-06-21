@@ -2,4 +2,30 @@
     <string name="app_name">TouristGuide</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_label">"TouristGuide"</string>
+    <string name="place_map">Map</string>
+    <string name="place_detail">Place Detail</string>
+    <string name="add_review">Add Review</string>
+    <string name="view_review">View Review</string>
+    <string name="wishlist">WishList</string>
+    <string name="pass_hint">Type Your Password</string>
+    <string name="sign_in_btn">Sign In</string>
+    <string name="sign_up_btn">Not Registered Yet , Sign Up !</string>
+    <string name="name_hint">Type your Name</string>
+    <string name="type_your_email">Type your Email</string>
+    <string name="type_your_password">Type Your Password</string>
+    <string name="retype_your_password">Retype Your Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="already_reg">Already Registered , Sign In !</string>
+    <string name="type_your_review">Type your Review</string>
+    <string name="submit_review">Submit Review</string>
+    <string name="place_name">Name:</string>
+    <string name="place_timing">Timing:</string>
+    <string name="place_address">Address :</string>
+    <string name="place_rating">Rating:</string>
+    <string name="view_review_btn">View Review</string>
+    <string name="add_review_btn">Add Review</string>
+    <string name="welcome_txt">Welcome</string>
+    <string name="hello">hello</string>
+    <string name="search_bar_hint">Enter here to search</string>
 </resources>

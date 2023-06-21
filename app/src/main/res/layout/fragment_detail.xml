@@ -35,7 +35,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name:"
+                android:text="@string/place_name"
                 android:textColor="@color/yellow"
                 android:textStyle="bold"
                 android:layout_marginStart="10dp"
@@ -44,14 +44,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="name"
                 android:layout_marginStart="10dp"
                 android:textSize="16sp"
+                android:text="@string/place_name"
                 android:id="@+id/detailName"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Timing:"
+                android:text="@string/place_timing"
                 android:textColor="@color/yellow"
                 android:textStyle="bold"
                 android:layout_marginStart="10dp"
@@ -60,14 +60,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="time"
+                android:text="@string/place_timing"
                 android:layout_marginStart="10dp"
                 android:textSize="16sp"
                 android:id="@+id/detailTime"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Address :"
+                android:text="@string/place_address"
                 android:textColor="@color/yellow"
                 android:textStyle="bold"
                 android:layout_marginStart="10dp"
@@ -76,14 +76,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Address"
+                android:text="@string/place_address"
                 android:layout_marginStart="10dp"
                 android:textSize="16sp"
                 android:id="@+id/detailaddress"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rating:"
+                android:text="@string/place_rating"
                 android:textColor="@color/yellow"
                 android:textStyle="bold"
                 android:layout_marginStart="10dp"
@@ -92,7 +92,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="rating"
+                android:text="@string/place_rating"
                 android:layout_marginStart="10dp"
                 android:textSize="16sp"
                 android:id="@+id/detailrating"/>
@@ -101,13 +101,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
-                android:text="View Review"/>
+                android:text="@string/view_review_btn"/>
             <Button
                 android:id="@+id/addReview_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
-                android:text="Add Review"/>
+                android:text="@string/add_review_btn"/>
         </LinearLayout>
     </ScrollView>
 
