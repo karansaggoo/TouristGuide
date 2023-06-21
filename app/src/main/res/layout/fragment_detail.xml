@@ -89,13 +89,30 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:textSize="18sp"/>
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="rating"
-                android:layout_marginStart="10dp"
-                android:textSize="16sp"
-                android:id="@+id/detailrating"/>
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="rating"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp"
+                    android:id="@+id/detailrating"/>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/ic_baseline_star_24"
+                    />
+            </LinearLayout>
+
             <Button
                 android:id="@+id/review_btn"
                 android:layout_width="match_parent"

@@ -32,15 +32,33 @@
             android:layout_marginTop="25dp"
             android:layout_marginStart="30dp"
             android:layout_toEndOf="@id/iv_pic"/>
-        <TextView
-            android:layout_width="80dp"
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:id="@+id/tv_rating"
-            android:text="time"
             android:textSize="16sp"
             android:layout_toEndOf="@id/tv_title"
             android:layout_marginTop="25dp"
-            android:layout_marginStart="100dp"
-            android:textColor="@color/yellow"/>
+            android:layout_marginStart="60dp"
+            android:textColor="@color/yellow"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="rating"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/purple_500"
+                android:textSize="18dp"
+                android:id="@+id/tv_rating"/>
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/ic_baseline_star_24"
+                />
+        </LinearLayout>
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
