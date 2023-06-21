@@ -1,5 +1,6 @@
 package com.example.touristguide
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.text.method.TextKeyListener.clear
@@ -108,6 +109,22 @@ class WishList : Fragment(),onWishClickListener {
 
     override fun onItemClickListener(place_id: String, place: WishListPlace) {
 
+
+    }
+
+    override fun onItemLongClickListener(place: WishListPlace) {
+        val alert = AlertDialog.Builder(requireContext())
+            .setTitle("Confirmation")
+            .setMessage("Do you want to remove it from your wish list?")
+            .setNegativeButton("Cancel", null)
+            .setPositiveButton("Confirm") { which, dialog ->
+                wishListRepository.deleteFromWishList(place.id)
+                WishList.clear()
+                wishListRepository.getFavouriteWish()
+                wishAdapter.notifyDataSetChanged()
+            }
+
+        alert.show()
 
     }
 
