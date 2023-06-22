@@ -55,6 +55,11 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 true
             }
+            R.id.review->{
+                var intent = Intent(this,UserReviewActivity::class.java)
+                startActivity(intent)
+                true
+            }
             else -> {
                 return super.onOptionsItemSelected(item)
             }
