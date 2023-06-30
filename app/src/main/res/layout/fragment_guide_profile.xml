@@ -117,7 +117,11 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:hint="@string/add_tour_description"
-          android:inputType="text|textMultiLine"
+          android:inputType="textMultiLine"
+          android:gravity="start"
+          android:lines="5"
+          android:maxLines="5"
+          android:scrollbars="vertical"
           />
    </com.google.android.material.textfield.TextInputLayout>
    <androidx.appcompat.widget.AppCompatButton
@@ -133,7 +137,7 @@
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintHorizontal_bias="0.5"
        app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintTop_toBottomOf="@+id/loc_layout" />
+       app:layout_constraintTop_toBottomOf="@+id/desc_layout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

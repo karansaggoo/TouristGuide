@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeScreen_to_mapFragment"
             app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_homeScreen_to_guideProfile"
+            app:destination="@id/guideProfile" />
     </fragment>
     <fragment
         android:id="@+id/list2"
@@ -92,4 +95,9 @@
             android:name="reviews"
             app:argType="com.example.touristguide.model.Review[]" />
     </fragment>
+    <fragment
+        android:id="@+id/guideProfile"
+        android:name="com.example.touristguide.GuideProfile"
+        android:label="fragment_guide_profile"
+        tools:layout="@layout/fragment_guide_profile" />
 </navigation>
