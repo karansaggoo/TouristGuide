@@ -174,8 +174,20 @@
             android:visibility="invisible"
 
             />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            app:fabCustomSize="70dp"
+            android:src="@drawable/ic_baseline_add_24"
+            android:backgroundTint="@color/yellow"
+            android:contentDescription="@string/add_tour_guide"
+            android:layout_margin="16dp" />
 
     </LinearLayout>
+
+
 
 
 
