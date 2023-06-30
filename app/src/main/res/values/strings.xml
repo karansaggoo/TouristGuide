@@ -28,4 +28,9 @@
     <string name="welcome_txt">Welcome</string>
     <string name="hello">hello</string>
     <string name="search_bar_hint">Enter here to search</string>
+    <string name="time_not_available">Not Available</string>
+    <string name="update_profile">Update profile</string>
+    <string name="enter_your_phone_number">Enter your Phone number</string>
+    <string name="enter_your_location">Enter your Location of Interest</string>
+    <string name="add_tour_description">Add Tour description</string>
 </resources>
