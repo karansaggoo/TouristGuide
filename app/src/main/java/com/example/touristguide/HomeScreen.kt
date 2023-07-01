@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.touristguide.api.LocationHelper
 import com.example.touristguide.databinding.FragmentHomeScreenBinding
 import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationResult
 import com.google.android.gms.maps.model.LatLng
 import com.google.protobuf.DescriptorProtos.SourceCodeInfo.Location
 
@@ -93,7 +94,8 @@ class HomeScreen : Fragment() {
         binding.name.setText("${name}")
         binding.btn1.setOnClickListener {
             val category = "restaurant"
-            val action = HomeScreenDirections.actionHomeScreenToList2(category)
+            //val action = HomeScreenDirections.actionHomeScreenToList2(category)
+            val action = HomeScreenDirections.actionHomeScreenToGuideProfile()
             findNavController().navigate(action)
         }
 
@@ -147,6 +149,122 @@ class HomeScreen : Fragment() {
         }
 
     }
+    fun initiateLocationListener(){
+
+        locationCallback = object : LocationCallback(){
+
+            override fun onLocationResult(locationResult: LocationResult) {
+                super.onLocationResult(locationResult)
+
+                //use the updated location
+                if(locationResult.lastLocation != null){
+                    Log.e(
+                        TAG,
+                        "onLocationResult: changed location : ${locationResult.lastLocation!!.latitude} " +
+                                "${locationResult.lastLocation!!.longitude}")
+
+                    val address = locationHelper.performForwardGeocoding(requireContext(),
+                        location = LatLng(locationResult.lastLocation!!.latitude, locationResult.lastLocation!!.longitude))
+
+                    if (address != null) {
+                        binding.tvAddress.visibility = View.VISIBLE
+                        binding.tvAddress.text = address.thoroughfare
+                        binding.tvAddress.setOnClickListener {
+                            val lat = address.latitude
+                            val log = address.longitude
+                            val action = HomeScreenDirections.actionHomeScreenToMapFragment(lat.toFloat(),log.toFloat())
+                            findNavController().navigate(action)
+                        }
+
+                        //Log.e("ded",address.getAddressLine(0))
+                    }else {
+                        binding.tvAddress.text = locationResult.lastLocation!!.toString()
+                    }
+                }else{
+                    Log.e(TAG, "onLocationResult: No change observed in location", )
+                }
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (result != null) {
+//            Log.e(
+//                TAG,
+//                "onCreate: result of getLastLocation : ${result.value!!.latitude} ${result.value!!.longitude}",
+//            )
+
+            result!!.observe(viewLifecycleOwner) { location ->
+                if (location != null) {
+                    Log.e(TAG, "onCreate: location : ${location}")
+
+                    val address = locationHelper.performForwardGeocoding(
+                        requireActivity().applicationContext,
+                        location = LatLng(location.latitude, location.longitude)
+                    )
+
+                    if (address != null) {
+                        binding.tvAddress.visibility = View.VISIBLE
+                        binding.tvAddress.text = address.thoroughfare
+                        binding.tvAddress.setOnClickListener {
+                            val lat = address.latitude
+                            val log = address.longitude
+                            val action = HomeScreenDirections.actionHomeScreenToMapFragment(lat.toFloat(),log.toFloat())
+                            findNavController().navigate(action)
+                        }
+
+                        //Log.e("ded",address.getAddressLine(0))
+                    }
+                    //                    else {
+//                        // binding.tvLocationAddress.text = location.toString()
+//                    }
+                }
+            }
+        }
+
+        initiateLocationListener()
+        locationHelper.requestLocationUpdates(requireContext(), locationCallback)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (result != null) {
+//            Log.e(
+//                TAG,
+//                "onCreate: result of getLastLocation : ${result.value!!.latitude} ${result.value!!.longitude}",
+//            )
+
+            result!!.observe(viewLifecycleOwner) { location ->
+                if (location != null) {
+                    Log.e(TAG, "onCreate: location : ${location}")
+
+                    val address = locationHelper.performForwardGeocoding(
+                        requireActivity().applicationContext,
+                        location = LatLng(location.latitude, location.longitude)
+                    )
+
+                    if (address != null) {
+                        binding.tvAddress.visibility = View.VISIBLE
+                        binding.tvAddress.text = address.thoroughfare
+                        binding.tvAddress.setOnClickListener {
+                            val lat = address.latitude
+                            val log = address.longitude
+                            val action = HomeScreenDirections.actionHomeScreenToMapFragment(lat.toFloat(),log.toFloat())
+                            findNavController().navigate(action)
+                        }
+
+                        //Log.e("ded",address.getAddressLine(0))
+                    }
+                    //                    else {
+//                        // binding.tvLocationAddress.text = location.toString()
+//                    }
+                }
+            }
+        }
+        locationHelper.stopLocationUpdates(requireContext(), locationCallback)
+    }
+
 
 
 }

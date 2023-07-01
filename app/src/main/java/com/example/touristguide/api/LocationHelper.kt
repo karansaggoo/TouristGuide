@@ -10,12 +10,14 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationRequest
+import android.os.Looper
 import android.renderscript.RenderScript
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import java.lang.Exception
@@ -101,6 +103,30 @@ class LocationHelper private constructor(){
 
         return null
     }
+
+    @SuppressLint("MissingPermission")
+    fun requestLocationUpdates(context: Context, locationCallback: LocationCallback){
+        if (locationPermissionGranted){
+            try{
+                this.getFusedLocationProviderClient(context).requestLocationUpdates(this.locationRequest, locationCallback, Looper.getMainLooper())
+            }catch (ex: Exception){
+                Log.e(TAG, "requestLocationUpdates: Failed to get lcoation updates ${ex}", )
+            }
+        }else{
+            Log.e(TAG, "requestLocationUpdates: No permission", )
+        }
+    }
+
+    fun stopLocationUpdates(context: Context, locationCallback: LocationCallback){
+        try{
+            this.getFusedLocationProviderClient(context).removeLocationUpdates(locationCallback)
+        }catch (ex: Exception){
+            Log.e(TAG, "stopLocationUpdates: Failed to stop lcoation updates ${ex}", )
+        }
+    }
+
+
+
 
     fun performForwardGeocoding(context: Context, location:LatLng) : Address?{
 

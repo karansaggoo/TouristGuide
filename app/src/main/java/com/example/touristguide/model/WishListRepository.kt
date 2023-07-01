@@ -21,7 +21,7 @@ class WishListRepository(private val context: Context) {
     var userWishListLive = MutableLiveData<List<WishListPlace>>()
 
     init {
-            loggedInUserID = prefs.getString("USER_NAME","").toString()
+            loggedInUserID = prefs.getString("USER_EMAIL","").toString()
     }
 
     //Add a news into "favorites" sub-collection of the current user document
@@ -86,7 +86,7 @@ class WishListRepository(private val context: Context) {
 
         }
         catch (ex: Exception) {
-            Log.e("ERROR", "deleteFromFavorite(): Couldn't delete a given news from favorite")
+            Log.e("ERROR", "deleteFromFavorite(): Couldn't delete a given place from wishlist")
         }
     }
 }
