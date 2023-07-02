@@ -1,14 +1,19 @@
 package com.example.touristguide
 
+import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import com.example.touristguide.databinding.FragmentDetailBinding
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts.*
+import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia.ImageOnly
+import androidx.fragment.app.Fragment
 import com.example.touristguide.databinding.FragmentGuideProfileBinding
+
 
 class GuideProfile : Fragment() {
     private var _binding : FragmentGuideProfileBinding? = null
@@ -32,19 +37,23 @@ class GuideProfile : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.photoPicker.setOnClickListener {
-            var intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.setType("images/jpeg")
-            intent.putExtra(Intent.EXTRA_LOCAL_ONLY,true)
-            startActivityForResult(Intent.createChooser(intent,"complete action using"),RC_PHOTO_PICKER)
+
+                pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
+
+//            var intent = Intent(Intent.ACTION_GET_CONTENT)
+//            intent.setType("images/*")
+//           // intent.putExtra(Intent.EXTRA_LOCAL_ONLY,true)
+//            startActivityForResult(Intent.createChooser(intent,"complete action using"),RC_PHOTO_PICKER)
         }
 
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode==RC_PHOTO_PICKER && resultCode== AppCompatActivity.RESULT_OK){
+        if(requestCode==RC_PHOTO_PICKER && resultCode== RESULT_OK){
             var selectedImageUri = data!!.data
             if (selectedImageUri != null) {
+                binding.profilePic.setImageURI(selectedImageUri)
 //                var photoRef = mChatPhotoStorageRefeference.child(selectedImageUri.lastPathSegment!!)
 //                photoRef.putFile(selectedImageUri).addOnSuccessListener { taskSnapshot ->
 //                    var downloadUrl = taskSnapshot.uploadSessionUri
@@ -56,7 +65,20 @@ class GuideProfile : Fragment() {
     }
 
 
-
+    var pickMedia = registerForActivityResult(
+        PickVisualMedia()
+    ) { uri: Uri? ->
+        // Callback is invoked after the user selects a media item or closes the
+        // photo picker.
+        if (uri != null) {
+            binding.profilePic.setImageURI(uri)
+            Log.d("PhotoPicker", "Selected URI: $uri")
+        } else {
+            Log.d("PhotoPicker", "No media selected")
+        }
     }
+
+
+}
 
 
