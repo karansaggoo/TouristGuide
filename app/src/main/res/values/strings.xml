@@ -34,4 +34,6 @@
     <string name="enter_your_location">Enter your Location of Interest</string>
     <string name="add_tour_description">Add Tour description</string>
     <string name="add_tour_guide">Add tour Guide</string>
+    <string name="enter_location_to_search">Enter location to search</string>
+    <string name="search">search</string>
 </resources>

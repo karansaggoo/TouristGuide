@@ -13,12 +13,17 @@ import androidx.activity.result.contract.ActivityResultContracts.*
 import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia.ImageOnly
 import androidx.fragment.app.Fragment
 import com.example.touristguide.databinding.FragmentGuideProfileBinding
+import com.example.touristguide.model.Guide
+import com.example.touristguide.model.GuideRepository
 
 
 class GuideProfile : Fragment() {
     private var _binding : FragmentGuideProfileBinding? = null
     private val binding get() = _binding!!
+    lateinit var guideRepository: GuideRepository
     private final var RC_PHOTO_PICKER =2
+    private var selectedImageUri:Uri? =null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +35,7 @@ class GuideProfile : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentGuideProfileBinding.inflate(inflater, container, false)
+        guideRepository = GuideRepository(requireContext())
         val view = binding.root
         return view
     }
@@ -46,12 +52,16 @@ class GuideProfile : Fragment() {
 //            startActivityForResult(Intent.createChooser(intent,"complete action using"),RC_PHOTO_PICKER)
         }
 
+        binding.profileUpdate.setOnClickListener {
+            guideRepository.addUserToDB(Guide("harsh","Harsh",123456,"toronto","YYZ",selectedImageUri.toString()))
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode==RC_PHOTO_PICKER && resultCode== RESULT_OK){
-            var selectedImageUri = data!!.data
+             selectedImageUri = data!!.data
             if (selectedImageUri != null) {
                 binding.profilePic.setImageURI(selectedImageUri)
 //                var photoRef = mChatPhotoStorageRefeference.child(selectedImageUri.lastPathSegment!!)
@@ -63,8 +73,6 @@ class GuideProfile : Fragment() {
             }
         }
     }
-
-
     var pickMedia = registerForActivityResult(
         PickVisualMedia()
     ) { uri: Uri? ->
@@ -77,6 +85,9 @@ class GuideProfile : Fragment() {
             Log.d("PhotoPicker", "No media selected")
         }
     }
+
+
+
 
 
 }
