@@ -22,12 +22,12 @@ class GuideAdapter(private val context: Context,
 //            if(currentPlace.rating!=null){
 //                binding.tvRating.setText(currentPlace.rating!!.toString())
 //            }
-
+            Glide.with(binding.guideName.context).load(currentGuide.imageUri).into(binding.profilePic)
             if(currentGuide.imageUri!=""){
                 //var url = "https://maps.googleapis.com/maps/api/place/photo?${currentPlace.photos!![0].photo_reference}&key=AIzaSyBTmys4lYnABAKI4gEbAByuxiL2nCbAm9o"
                 Glide.with(binding.guideName.context).load(currentGuide.imageUri).into(binding.profilePic)
             }else{
-               // binding.ivPic.setImageResource(R.drawable.image)
+               binding.profilePic.setImageResource(R.drawable.food)
             }
 
             //Set a click listener to open a selected news on the browser

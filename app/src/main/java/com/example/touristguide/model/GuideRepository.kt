@@ -59,14 +59,14 @@ class GuideRepository(private val context:Context) {
                 .whereEqualTo(FIELD_LOC, location)
                 .addSnapshotListener(EventListener{ snapshot, error ->
                     if (error != null){
-                        Log.e(TAG, "searchUserWithEmail: Listening to collection documents FAILED ${error}")
+                        Log.e(TAG, "searchGuideWithLocation: Listening to collection documents FAILED ${error}")
                         return@EventListener
                     }
 
                     if (snapshot != null){
                         Log.e(
                             TAG,
-                            "searchUserWithEmail: ${snapshot.size()} Received the documents from collection ${snapshot}"
+                            "searchGuideWithLocation: ${snapshot.size()} Received the documents from collection ${snapshot}"
                         )
 
                         val guideArrayList:MutableList<Guide> = ArrayList<Guide>()
@@ -84,6 +84,7 @@ class GuideRepository(private val context:Context) {
                         }
 
                         guideList.postValue(guideArrayList)
+                        Log.e("datafromfirebase","${guideArrayList}")
 
 
                         //process the received documents

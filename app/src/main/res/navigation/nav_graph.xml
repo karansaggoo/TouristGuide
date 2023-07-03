@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homeScreen_to_guideProfile"
             app:destination="@id/guideProfile" />
+        <action
+            android:id="@+id/action_homeScreen_to_guideSearch"
+            app:destination="@id/guideSearch" />
     </fragment>
     <fragment
         android:id="@+id/list2"
@@ -100,4 +103,9 @@
         android:name="com.example.touristguide.GuideProfile"
         android:label="fragment_guide_profile"
         tools:layout="@layout/fragment_guide_profile" />
+    <fragment
+        android:id="@+id/guideSearch"
+        android:name="com.example.touristguide.guideSearch"
+        android:label="fragment_guide_search"
+        tools:layout="@layout/fragment_guide_search" />
 </navigation>
