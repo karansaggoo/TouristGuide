@@ -58,6 +58,11 @@ class GuideProfile : Fragment() {
                 guideRepository.addUserToDB(Guide(email = "harsh", name = "fcd", tel = 123456, desc = "vfdctvf", loc = "toronto", imageUri = ""))
             }
             else{
+                var email = binding.guideEmail
+                var name = binding.guideName
+                var tel = binding.guideTel
+                var desc= binding.guideDesc
+                var loc = binding.guideLoc
                 guideRepository.addUserToDB(Guide(email = "harsh", name = "fcd", tel = 123456, desc = "vfdctvf", loc = "toronto", imageUri = selectedImageUri!!))
             }
             }

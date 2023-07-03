@@ -105,5 +105,58 @@ class GuideRepository(private val context:Context) {
         }
     }
 
+    fun getGuideByEmail(email:String){
+        try{
+            db.collection(COLLECTION_NAME)
+                .whereEqualTo(FIELD_LOC, email)
+                .addSnapshotListener(EventListener{ snapshot, error ->
+                    if (error != null){
+                        Log.e(TAG, "searchGuideWithLocation: Listening to collection documents FAILED ${error}")
+                        return@EventListener
+                    }
+
+                    if (snapshot != null){
+                        Log.e(
+                            TAG,
+                            "searchGuideWithEmail: ${snapshot.size()} Received the documents from collection ${snapshot}"
+                        )
+
+                        val guideArrayList:MutableList<Guide> = ArrayList<Guide>()
+                        for(documentChange in snapshot.documentChanges){
+                            val currentGuide: Guide = documentChange.document.toObject(Guide::class.java)
+
+
+                            currentGuide.id=documentChange.document.id
+
+                            when(documentChange.type){
+                                DocumentChange.Type.ADDED->{guideArrayList.add(currentGuide)}
+                                DocumentChange.Type.MODIFIED->{}
+                                DocumentChange.Type.REMOVED->{}
+                            }
+                        }
+
+                        guideList.postValue(guideArrayList)
+                        Log.e("datafromfirebase","${guideArrayList}")
+
+
+                        //process the received documents
+                        //save the doc ID to the SharedPreferences
+//                        for(doc in snapshot.documentChanges){
+//                            val currentUser : User = doc.document.toObject(User::class.java)
+//                            editor.putString("USER_NAME",currentUser.name)
+//                            Log.e(TAG, "searchUserWithEmail: user found  : ${currentUser.name}", )
+//                            editor.commit()
+//                        }
+                    }else{
+                        Log.e(TAG, "searchUserWithEmail: No Documents received from collection")
+                    }
+                })
+
+        }catch(ex: Exception){
+            Log.e(TAG, "docId : ${ex}")
+        }
+    }
+
+
 
 }
