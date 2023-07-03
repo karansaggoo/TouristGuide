@@ -48,25 +48,7 @@ class GuideProfile : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.photoPicker.setOnClickListener {
 
-                pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
-
-        }
-
-        binding.profileUpdate.setOnClickListener {
-            if(selectedImageUri==null){
-                guideRepository.addUserToDB(Guide(email = "harsh", name = "fcd", tel = 123456, desc = "vfdctvf", loc = "toronto", imageUri = ""))
-            }
-            else{
-                var email = binding.guideEmail
-                var name = binding.guideName
-                var tel = binding.guideTel
-                var desc= binding.guideDesc
-                var loc = binding.guideLoc
-                guideRepository.addUserToDB(Guide(email = "harsh", name = "fcd", tel = 123456, desc = "vfdctvf", loc = "toronto", imageUri = selectedImageUri!!))
-            }
-            }
 
 
 
@@ -83,50 +65,6 @@ class GuideProfile : Fragment() {
 
 
     }
-
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if(requestCode==RC_PHOTO_PICKER && resultCode== RESULT_OK){
-//             selectedImageUri = data!!.data
-//            if (selectedImageUri != null) {
-//                binding.profilePic.setImageURI(selectedImageUri)
-////                var photoRef = mChatPhotoStorageRefeference.child(selectedImageUri.lastPathSegment!!)
-////                photoRef.putFile(selectedImageUri).addOnSuccessListener { taskSnapshot ->
-////                    var downloadUrl = taskSnapshot.uploadSessionUri
-////                    var friendlyMessage = FriendlyMessage(null,mUsername,downloadUrl.toString())
-////                    mMessageDatabaseReference.push().setValue(friendlyMessage)
-////
-//            }
-//        }
-//    }
-    var pickMedia = registerForActivityResult(
-        PickVisualMedia()
-    ) { uri: Uri? ->
-        // Callback is invoked after the user selects a media item or closes the
-        // photo picker.
-        if (uri != null) {
-            binding.profilePic.setImageURI(uri)
-            var photoRef = photoStorageRefeference.child(uri.lastPathSegment!!)
-            photoRef.putFile(uri).addOnSuccessListener { taskSnapshot ->
-                var downloadUrl = taskSnapshot.uploadSessionUri
-                selectedImageUri = downloadUrl.toString()
-                Log.d("PhotoPicker", "Selected URI: $uri")
-            }
-        }else {
-            Log.d("PhotoPicker", "No media selected")
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        //binding.guideName.setText(guideRepository.guide.name)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        //binding.guideName.setText(guideRepository.guide.name)
-    }
-
 
 
 

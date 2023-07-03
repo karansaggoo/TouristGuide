@@ -1,32 +1,34 @@
 package com.example.touristguide
 
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
+import com.example.touristguide.databinding.FragmentGuideProfileBinding
+import com.example.touristguide.databinding.FragmentGuideProfileUpdateBinding
+import com.example.touristguide.model.Guide
+import com.example.touristguide.model.GuideRepository
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [guideProfileUpdate.newInstance] factory method to
- * create an instance of this fragment.
- */
 class guideProfileUpdate : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding : FragmentGuideProfileUpdateBinding? = null
+    private val binding get() = _binding!!
+    lateinit var guideRepository: GuideRepository
+    private final var RC_PHOTO_PICKER =2
+    private var selectedImageUri:String?=null
+    private lateinit var photoStorageRefeference: StorageReference
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
@@ -34,26 +36,54 @@ class guideProfileUpdate : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_guide_profile_update, container, false)
+        _binding = FragmentGuideProfileUpdateBinding.inflate(inflater, container, false)
+        photoStorageRefeference  = FirebaseStorage.getInstance().getReference().child("profile_photos")
+        guideRepository = GuideRepository(requireContext())
+        val view = binding.root
+        return view
+
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment guideProfileUpdate.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            guideProfileUpdate().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.photoPicker.setOnClickListener {
+
+            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+
+        }
+
+        binding.profileUpdate.setOnClickListener {
+            if(selectedImageUri==null){
+                guideRepository.addUserToDB(Guide(email = "harsh", name = "fcd", tel = 123456, desc = "vfdctvf", loc = "toronto", imageUri = ""))
             }
+            else{
+                var email = binding.guideEmail
+                var name = binding.guideName
+                var tel = binding.guideTel
+                var desc= binding.guideDesc
+                var loc = binding.guideLoc
+                guideRepository.addUserToDB(Guide(email = "harsh", name = "fcd", tel = 123456, desc = "vfdctvf", loc = "toronto", imageUri = selectedImageUri!!))
+            }
+        }
     }
+
+    var pickMedia = registerForActivityResult(
+        ActivityResultContracts.PickVisualMedia()
+    ) { uri: Uri? ->
+        // Callback is invoked after the user selects a media item or closes the
+        // photo picker.
+        if (uri != null) {
+            binding.profilePic.setImageURI(uri)
+            var photoRef = photoStorageRefeference.child(uri.lastPathSegment!!)
+            photoRef.putFile(uri).addOnSuccessListener { taskSnapshot ->
+                var downloadUrl = taskSnapshot.uploadSessionUri
+                selectedImageUri = downloadUrl.toString()
+                Log.d("PhotoPicker", "Selected URI: $uri")
+            }
+        }else {
+            Log.d("PhotoPicker", "No media selected")
+        }
+    }
+
+
 }
