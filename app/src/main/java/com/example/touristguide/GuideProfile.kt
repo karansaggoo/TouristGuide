@@ -54,8 +54,14 @@ class GuideProfile : Fragment() {
         }
 
         binding.profileUpdate.setOnClickListener {
-            guideRepository.addUserToDB(Guide(email = "harsh", name = "fcd", tel = 123456, desc = "vfdctvf", loc = "toronto", imageUri = selectedImageUri!!))
-        }
+            if(selectedImageUri==null){
+                guideRepository.addUserToDB(Guide(email = "harsh", name = "fcd", tel = 123456, desc = "vfdctvf", loc = "toronto", imageUri = ""))
+            }
+            else{
+                guideRepository.addUserToDB(Guide(email = "harsh", name = "fcd", tel = 123456, desc = "vfdctvf", loc = "toronto", imageUri = selectedImageUri!!))
+            }
+            }
+
 
     }
 
