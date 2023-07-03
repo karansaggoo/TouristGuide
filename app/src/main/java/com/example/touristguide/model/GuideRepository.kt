@@ -108,7 +108,7 @@ class GuideRepository(private val context:Context) {
     fun getGuideByEmail(email:String){
         try{
             db.collection(COLLECTION_NAME)
-                .whereEqualTo(FIELD_LOC, email)
+                .whereEqualTo(FIELD_USER_EMAIL, email)
                 .addSnapshotListener(EventListener{ snapshot, error ->
                     if (error != null){
                         Log.e(TAG, "searchGuideWithLocation: Listening to collection documents FAILED ${error}")

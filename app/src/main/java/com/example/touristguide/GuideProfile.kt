@@ -4,6 +4,7 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.method.TextKeyListener.clear
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -68,6 +69,19 @@ class GuideProfile : Fragment() {
             }
 
 
+
+        guideRepository.getGuideByEmail("harsh")
+        guideRepository.guideList.observe(viewLifecycleOwner){
+                list ->
+            if(list != null){
+                for(guide in list){
+                    binding.guideName.setText(guide.name)
+                }
+            }
+        }
+
+
+
     }
 
 //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -101,6 +115,16 @@ class GuideProfile : Fragment() {
         }else {
             Log.d("PhotoPicker", "No media selected")
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        //binding.guideName.setText(guideRepository.guide.name)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //binding.guideName.setText(guideRepository.guide.name)
     }
 
 
