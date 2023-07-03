@@ -17,31 +17,45 @@
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintTop_toTopOf="parent"
        app:layout_constraintVertical_bias="0.19" />
+
    <TextView
        android:id="@+id/guide_name"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
+       android:textSize="20dp"
+       android:textColor="@color/yellow"
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintEnd_toEndOf="parent"
        android:layout_margin="16dp"
        app:layout_constraintTop_toBottomOf="@id/profile_pic"/>
    <TextView
-       android:layout_width="match_parent"
+       android:id="@+id/guide_tel"
+       android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintEnd_toEndOf="parent"
        android:layout_margin="16dp"
        app:layout_constraintTop_toBottomOf="@id/guide_name"/>
-
+   <TextView
+       android:id="@+id/guide_desc"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       android:layout_margin="16dp"
+       app:layout_constraintTop_toBottomOf="@id/guide_tel"/>
    <Button
-       android:id="@+id/review_btn"
+       android:id="@+id/btn"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintBottom_toBottomOf="parent"
+       android:text="@string/update_profile"
        android:layout_margin="16dp"
-       android:text="Book guide"/>
+       />
+
+
 
 
 

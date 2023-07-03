@@ -52,16 +52,30 @@ class GuideProfile : Fragment() {
 
 
 
-        guideRepository.getGuideByEmail("harsh")
+        guideRepository.getGuideByEmail("karan")
+
         guideRepository.guideList.observe(viewLifecycleOwner){
                 list ->
             if(list != null){
                 for(guide in list){
                     binding.guideName.setText(guide.name)
+                    binding.guideTel.setText("tel:${guide.tel}")
+                    binding.guideDesc.setText(guide.desc)
                 }
-            }
+           }
+            //else{
+//                Log.e("list","empty")
+//                binding.guideName.setText("You need to create profile first")
+//                binding.btn.setText("Create profile")
+//            }
         }
 
+        guideRepository.firstTime.observe(viewLifecycleOwner){
+            if(it){
+                binding.guideName.setText("You need to create profile first")
+                binding.btn.setText("Create profile")
+            }
+        }
 
 
     }

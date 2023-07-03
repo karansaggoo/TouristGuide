@@ -27,6 +27,7 @@ class GuideRepository(private val context:Context) {
     private val FIELD_URI="uri"
     private val sharedPreference = context.getSharedPreferences("com.example.touristguide", Context.MODE_PRIVATE)
     private var editor = sharedPreference.edit()
+    var firstTime = MutableLiveData<Boolean>(false)
 
     fun addUserToDB(newUser: Guide){
         try{
@@ -68,6 +69,7 @@ class GuideRepository(private val context:Context) {
                             TAG,
                             "searchGuideWithLocation: ${snapshot.size()} Received the documents from collection ${snapshot}"
                         )
+
 
                         val guideArrayList:MutableList<Guide> = ArrayList<Guide>()
                         for(documentChange in snapshot.documentChanges){
@@ -120,6 +122,11 @@ class GuideRepository(private val context:Context) {
                             TAG,
                             "searchGuideWithEmail: ${snapshot.size()} Received the documents from collection ${snapshot}"
                         )
+
+                        if(snapshot.size()==0){
+                            firstTime.value=true
+                            Log.e("tvFd","ytgfdx")
+                        }
 
                         val guideArrayList:MutableList<Guide> = ArrayList<Guide>()
                         for(documentChange in snapshot.documentChanges){
