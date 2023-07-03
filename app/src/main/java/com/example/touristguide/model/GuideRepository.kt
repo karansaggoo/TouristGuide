@@ -53,7 +53,7 @@ class GuideRepository(private val context:Context) {
             Log.e(TAG, "addUserToDB: ${ex.toString()}")
         }
     }
-    fun getReviewByEmail(location:String){
+    fun getGuideByLoc(location:String){
         try{
             db.collection(COLLECTION_NAME)
                 .whereEqualTo(FIELD_LOC, location)
