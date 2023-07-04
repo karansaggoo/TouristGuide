@@ -21,6 +21,7 @@ class SignInActivity : AppCompatActivity() {
     var validData = true
     var email = ""
     var password = ""
+    var acctype = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.locationHelper = LocationHelper.instance
@@ -33,12 +34,20 @@ class SignInActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
         prefs=applicationContext.getSharedPreferences(packageName, MODE_PRIVATE)
         userRepository = UserRepository(applicationContext)
+        acctype = prefs.getString("USER_ACCOUNT_TYPE","").toString()
 
         if(prefs.contains("USER_EMAIL")){
-            goToMain()
+            if( acctype=="customer"){
+                goToMain()
+            }
+            if (acctype=="guide"){
+                goToGuideProfile()
+            }
+//            goToMain()
         }
         else{
             binding.signInButton.setOnClickListener {
+
                 validateData()
                 saveToPrefs(email)
                 userRepository.getDocID(email)
@@ -78,7 +87,13 @@ class SignInActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.d(TAG, "onComplete: Sign In Successful")
-                    goToMain()
+                    if( acctype=="customer"){
+                        goToMain()
+                    }
+                    if (acctype=="guide"){
+                        goToGuideProfile()
+                    }
+//                    goToMain()
                 } else {
                     Log.e(TAG, "onComplete: Sign In Failed", task.exception)
                     Toast.makeText(
@@ -93,6 +108,11 @@ class SignInActivity : AppCompatActivity() {
         val mainIntent = Intent(this, MainActivity::class.java)
         startActivity(mainIntent)
         finish()
+    }
+    private fun goToGuideProfile(){
+//        val mainIntent = Intent(this, MainActivity::class.java)
+//        startActivity(mainIntent)
+//        finish()
     }
     private fun clearField(){
         binding.emailEt.setText("")

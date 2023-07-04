@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/homeScreen"
         android:name="com.example.touristguide.HomeScreen"
-        android:label="fragment_home_screen"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_home_screen" >
         <action
             android:id="@+id/action_homeScreen_to_list2"
@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/list2"
         android:name="com.example.touristguide.List"
-        android:label="fragment_list"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_list" >
         <argument
             android:name="category"
@@ -32,7 +32,7 @@
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.example.touristguide.MapFragment"
-        android:label="fragment_map"
+        android:label="@string/place_map"
         tools:layout="@layout/fragment_map" >
         <argument
             android:name="lat"
@@ -44,7 +44,7 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.example.touristguide.DetailFragment"
-        android:label="fragment_detail"
+        android:label="@string/place_detail"
         tools:layout="@layout/fragment_detail" >
         <argument
             android:name="place_id"
@@ -68,7 +68,7 @@
     <fragment
         android:id="@+id/addReview"
         android:name="com.example.touristguide.AddReview"
-        android:label="fragment_add_review"
+        android:label="@string/add_review"
         tools:layout="@layout/fragment_add_review" >
         <argument
             android:name="name"
@@ -77,7 +77,7 @@
     <fragment
         android:id="@+id/wishList2"
         android:name="com.example.touristguide.WishList"
-        android:label="fragment_wish_list"
+        android:label="@string/wishlist"
         tools:layout="@layout/fragment_wish_list" >
         <action
             android:id="@+id/action_wishList2_to_detailFragment"
@@ -86,7 +86,7 @@
     <fragment
         android:id="@+id/viewReview"
         android:name="com.example.touristguide.ViewReview"
-        android:label="fragment_view_review"
+        android:label="@string/view_review"
         tools:layout="@layout/fragment_view_review" >
         <argument
             android:name="reviews"

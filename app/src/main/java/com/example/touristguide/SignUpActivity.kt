@@ -20,17 +20,25 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var prefs: SharedPreferences
     lateinit var userRepository : UserRepository
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding =ActivitySignUpBinding.inflate(layoutInflater)
+        if (getSupportActionBar() != null) {
+            getSupportActionBar()?.hide();
+        }
         setContentView(binding.root)
 
         userRepository = UserRepository(applicationContext)
         mAuth = FirebaseAuth.getInstance()
 
-        binding.signUpButton.setOnClickListener {
-            validateData()
+        binding.signUpButtonCustomer.setOnClickListener {
+            validateData("customer")
+            clearField()
+        }
+        binding.signUpButtonGuide.setOnClickListener {
+            validateData("guide")
             clearField()
         }
 
@@ -40,11 +48,13 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun validateData() {
+    private fun validateData(accountype:String) {
         var validData = true
         var email = ""
         var name = ""
         var password = ""
+        var accType = accountype
+
         if (binding.emailEt.getText().toString().isEmpty()) {
             binding.emailEt.setError("Email Cannot be Empty")
             validData = false
@@ -76,17 +86,17 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
         if (validData) {
-            createAccount(email, name, password)
+            createAccount(email, name, password ,accType)
         } else {
             Toast.makeText(this, "Please provide correct inputs", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun createAccount(email: String,name:String ,password: String) {
+    private fun createAccount(email: String,name:String ,password: String , accType: String) {
         mAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this){ task ->
                 if (task.isSuccessful) {
-                    userRepository.addUserToDB(User(email = email,name=name,password = password))
+                    userRepository.addUserToDB(User(email = email,name=name,password = password, accountType = accType))
                     goToSignIn()
 //                        saveToPrefs(email, password)
 

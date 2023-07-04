@@ -15,6 +15,7 @@ class UserRepository(private val context: Context) {
     private val FIELD_USER_EMAIL = "email"
     private val FIELD_USER_NAME = "name"
     private val FIELD_PASSWORD = "password"
+    private val FIELD_ACCOUNT_TYPE = "accountType"
     private val sharedPreference = context.getSharedPreferences("com.example.touristguide", Context.MODE_PRIVATE)
     private var editor = sharedPreference.edit()
 
@@ -25,6 +26,7 @@ class UserRepository(private val context: Context) {
             data[FIELD_USER_EMAIL] = newUser.email;
             data[FIELD_USER_NAME] = newUser.name;
             data[FIELD_PASSWORD] = newUser.password;
+            data[FIELD_ACCOUNT_TYPE] = newUser.accountType;
 
             db.collection(COLLECTION_NAME).add(data).addOnSuccessListener { docRef ->
                 Log.d(TAG, "addUserToDB: Document added with ID ${docRef.id}")
@@ -93,7 +95,8 @@ class UserRepository(private val context: Context) {
                         for(doc in snapshot.documentChanges){
                             val currentUser : User = doc.document.toObject(User::class.java)
                             editor.putString("USER_NAME",currentUser.name)
-                            Log.e(TAG, "searchUserWithEmail: user found  : ${currentUser.name}", )
+                            editor.putString("USER_ACCOUNT_TYPE",currentUser.accountType)
+                            Log.e(TAG, "searchUserWithEmail: user found================================  : ${currentUser.name}", )
                             editor.commit()
                         }
                     }else{
