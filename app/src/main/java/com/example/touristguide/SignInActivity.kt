@@ -22,6 +22,7 @@ class SignInActivity : AppCompatActivity() {
     var email = ""
     var password = ""
     var acctype = ""
+   ;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.locationHelper = LocationHelper.instance
@@ -37,21 +38,22 @@ class SignInActivity : AppCompatActivity() {
         acctype = prefs.getString("USER_ACCOUNT_TYPE","").toString()
 
         if(prefs.contains("USER_EMAIL")){
-            if( acctype=="customer"){
+            if( acctype == "customer"){
                 goToMain()
             }
-            if (acctype=="guide"){
+            if (acctype == "guide"){
+                Log.d(TAG, "================onComplete: Sign In Successful1guide333==================")
                 goToGuideProfile()
             }
-//            goToMain()
+
         }
         else{
             binding.signInButton.setOnClickListener {
-
                 validateData()
-                saveToPrefs(email)
                 userRepository.getDocID(email)
                 userRepository.getName(email)
+                saveToPrefs(email,userRepository.curUserAccType)
+                signIn(email, password)
                 clearField()
 
             }
@@ -75,25 +77,27 @@ class SignInActivity : AppCompatActivity() {
         } else {
             password = binding.passET.text.toString()
         }
-        if (validData) {
-            signIn(email, password)
-        } else {
-            Toast.makeText(this, "Please provide correct inputs", Toast.LENGTH_SHORT).show()
-        }
+//        if (validData) {
+//            signIn(email, password)
+//        } else {
+//            Toast.makeText(this, "Please provide correct inputs", Toast.LENGTH_SHORT).show()
+//        }
     }
 
     private fun signIn(email: String, password: String) {
         mAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Log.d(TAG, "onComplete: Sign In Successful")
-                    if( acctype=="customer"){
+                    Log.d(TAG, "================onComplete: Sign In Successful1==================")
+                    if( userRepository.curUserAccType == "customer"){
                         goToMain()
+                        Log.d(TAG, "================onComplete: Sign In Successful1kdacmldclkdn==================")
                     }
-                    if (acctype=="guide"){
+                    if ( userRepository.curUserAccType == "guide"){
                         goToGuideProfile()
+                        Log.d(TAG, "================onComplete: Sign In Successful1guide==================")
                     }
-//                    goToMain()
+
                 } else {
                     Log.e(TAG, "onComplete: Sign In Failed", task.exception)
                     Toast.makeText(
@@ -110,9 +114,9 @@ class SignInActivity : AppCompatActivity() {
         finish()
     }
     private fun goToGuideProfile(){
-//        val mainIntent = Intent(this, MainActivity::class.java)
-//        startActivity(mainIntent)
-//        finish()
+        val guideIntent = Intent(this, GuideMainActivity::class.java)
+        startActivity(guideIntent)
+        finish()
     }
     private fun clearField(){
         binding.emailEt.setText("")
@@ -120,7 +124,8 @@ class SignInActivity : AppCompatActivity() {
 
     }
 
-    private fun saveToPrefs(email: String){
+    private fun saveToPrefs(email: String ,acctype :String){
         prefs.edit().putString("USER_EMAIL", email).apply()
+        prefs.edit().putString("USER_ACCOUNT_TYPE", acctype).apply()
     }
 }

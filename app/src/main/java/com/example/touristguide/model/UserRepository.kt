@@ -18,6 +18,7 @@ class UserRepository(private val context: Context) {
     private val FIELD_ACCOUNT_TYPE = "accountType"
     private val sharedPreference = context.getSharedPreferences("com.example.touristguide", Context.MODE_PRIVATE)
     private var editor = sharedPreference.edit()
+    var curUserAccType = ""
 
     fun addUserToDB(newUser: User){
         try{
@@ -95,8 +96,9 @@ class UserRepository(private val context: Context) {
                         for(doc in snapshot.documentChanges){
                             val currentUser : User = doc.document.toObject(User::class.java)
                             editor.putString("USER_NAME",currentUser.name)
-                            editor.putString("USER_ACCOUNT_TYPE",currentUser.accountType)
-                            Log.e(TAG, "searchUserWithEmail: user found================================  : ${currentUser.name}", )
+
+                            curUserAccType = currentUser.accountType
+                            Log.e(TAG, "searchUserWithEmail: user found================================  : ${currentUser.accountType}", )
                             editor.commit()
                         }
                     }else{
