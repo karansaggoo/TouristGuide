@@ -33,11 +33,6 @@ class WishAdapter(private val context:Context,
             itemView.setOnClickListener(){
                 clickListener.onItemClickListener(currentPlace.place_id , currentPlace)
             }
-
-            itemView.setOnLongClickListener(){
-                clickListener.onItemLongClickListener((currentPlace))
-                true
-            }
         }
     }
 

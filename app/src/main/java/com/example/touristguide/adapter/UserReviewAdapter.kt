@@ -13,10 +13,7 @@ import com.example.touristguide.databinding.UserReviewItemBinding
 class UserReviewAdapter(context: Context, var data:ArrayList<ReviewDB>):
                             ArrayAdapter<ReviewDB>(context,0,data) {
 
-//    override fun getItem(position: Int): ReviewDB {
-//
-//        return data[position]
-//    }
+
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val currrntReview = getItem(position)

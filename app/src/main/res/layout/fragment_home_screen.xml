@@ -22,7 +22,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/welcome_txt"
+            android:text="Welcome"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -30,7 +30,7 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/hello"
+            android:text="hello"
             android:textColor="@color/black"
             android:textSize="35dp"
             android:textStyle="bold" />
@@ -70,7 +70,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="8dp"
                 android:background="@color/white"
-                android:hint="@string/search_bar_hint" />
+                android:hint="Enter here to search" />
         </LinearLayout>
 
         <LinearLayout

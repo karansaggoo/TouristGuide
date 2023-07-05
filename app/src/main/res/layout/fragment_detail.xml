@@ -22,7 +22,7 @@
             android:id="@+id/detailImage"
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
-            android:src="@drawable/food"
+            android:src="@drawable/shop"
             android:scaleType="centerCrop"/>
     </androidx.cardview.widget.CardView>
     <ScrollView
@@ -44,9 +44,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/place_name"
                 android:layout_marginStart="10dp"
                 android:textSize="16sp"
+                android:text="@string/place_name"
                 android:id="@+id/detailName"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/time_not_available"
+                android:text="@string/place_timing"
                 android:layout_marginStart="10dp"
                 android:textSize="16sp"
                 android:id="@+id/detailTime"/>
@@ -92,6 +92,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+<<<<<<<<< Temporary merge branch 1
+                android:text="@string/place_rating"
+                android:layout_marginStart="10dp"
+                android:textSize="16sp"
+                android:id="@+id/detailrating"/>
+=========
                 android:layout_marginLeft="5dp"
                 android:layout_gravity="center"
                 android:orientation="horizontal">
@@ -99,7 +105,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/place_rating"
+                    android:text="rating"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:textSize="16sp"
@@ -112,6 +118,8 @@
                     android:src="@drawable/ic_baseline_star_24"
                     />
             </LinearLayout>
+
+>>>>>>>>> Temporary merge branch 2
             <Button
                 android:id="@+id/review_btn"
                 android:layout_width="match_parent"
