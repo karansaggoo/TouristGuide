@@ -94,9 +94,7 @@ class HomeScreen : Fragment() {
         binding.name.setText("${name}")
         binding.btn1.setOnClickListener {
             val category = "restaurant"
-            //val action = HomeScreenDirections.actionHomeScreenToList2(category)
-            val action = HomeScreenDirections.actionHomeScreenToGuideProfile()
-           // val action = HomeScreenDirections.actionHomeScreenToGuideSearch()
+            val action = HomeScreenDirections.actionHomeScreenToList2(category)
             findNavController().navigate(action)
         }
 
@@ -147,6 +145,12 @@ class HomeScreen : Fragment() {
             val category = "theater"
             val action = HomeScreenDirections.actionHomeScreenToList2(category)
             findNavController().navigate(action)
+        }
+
+        binding.fab.setOnClickListener {
+            val action = HomeScreenDirections.actionHomeScreenToGuideSearch()
+            findNavController().navigate(action)
+
         }
 
     }

@@ -83,9 +83,9 @@ class DetailFragment : Fragment() {
                 findNavController().navigate(action)
             }
             binding.reviewBtn.setOnClickListener {
-                val action = DetailFragmentDirections.actionDetailFragmentToViewReview(
-                    placeDetailFromAPI.result!!.reviews!!)
-                findNavController().navigate(action)
+                 val action = DetailFragmentDirections.actionDetailFragmentToViewReview(
+                        placeDetailFromAPI.result!!.reviews!!)
+                    findNavController().navigate(action)
             }
 
         }

@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.Glide.with
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.with
 import com.example.touristguide.R
 import com.example.touristguide.WishList
 import com.example.touristguide.databinding.GuideViewBinding
 import com.example.touristguide.databinding.PlaceViewBinding
+
 import com.example.touristguide.model.Guide
 import com.example.touristguide.model.WishListPlace
 
@@ -22,6 +25,7 @@ class GuideAdapter(private val context: Context,
 //            if(currentPlace.rating!=null){
 //                binding.tvRating.setText(currentPlace.rating!!.toString())
 //            }
+
             Glide.with(binding.guideName.context).load(currentGuide.imageUri).into(binding.profilePic)
             if(currentGuide.imageUri!=""){
                 //var url = "https://maps.googleapis.com/maps/api/place/photo?${currentPlace.photos!![0].photo_reference}&key=AIzaSyBTmys4lYnABAKI4gEbAByuxiL2nCbAm9o"

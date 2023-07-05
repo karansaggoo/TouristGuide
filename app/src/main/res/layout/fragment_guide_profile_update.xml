@@ -47,6 +47,7 @@
             android:id="@+id/guide_email"
             style="@style/LoginTextInputInnerFieldStyle"
             android:layout_width="match_parent"
+            android:clickable="false"
             android:layout_height="wrap_content"
             android:hint="@string/type_your_email"
             android:enabled="false"
@@ -68,6 +69,7 @@
             style="@style/LoginTextInputInnerFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="false"
             android:hint="@string/name_hint"
             android:enabled="false"
             />

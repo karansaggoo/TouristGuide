@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_2"
+    app:startDestination="@id/guide_main">
+
+    <fragment
+        android:id="@+id/guideProfile2"
+        android:name="com.example.touristguide.guideProfileUpdate"
+        android:label="fragment_guide_profile_update"
+        tools:layout="@layout/fragment_guide_profile_update" />
+    <fragment
+        android:id="@+id/guide_main"
+        android:name="com.example.touristguide.Guide_main"
+        android:label="Guide_main" >
+        <action
+            android:id="@+id/action_guide_main_to_booking3"
+            app:destination="@id/booking3" />
+    </fragment>
+    <fragment
+        android:id="@+id/booking3"
+        android:name="com.example.touristguide.GuideProfile"
+        android:label="fragment_guide_profile"
+        tools:layout="@layout/fragment_guide_profile" >
+        <action
+            android:id="@+id/action_booking3_to_guideProfile2"
+            app:destination="@id/guideProfile2" />
+    </fragment>
+</navigation>

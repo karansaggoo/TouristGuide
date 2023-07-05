@@ -17,9 +17,6 @@
             android:id="@+id/action_homeScreen_to_mapFragment"
             app:destination="@id/mapFragment" />
         <action
-            android:id="@+id/action_homeScreen_to_guideProfile"
-            app:destination="@id/guideProfile" />
-        <action
             android:id="@+id/action_homeScreen_to_guideSearch"
             app:destination="@id/guideSearch" />
     </fragment>

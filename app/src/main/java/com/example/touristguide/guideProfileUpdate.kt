@@ -1,5 +1,6 @@
 package com.example.touristguide
 
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import com.example.touristguide.databinding.FragmentGuideProfileBinding
 import com.example.touristguide.databinding.FragmentGuideProfileUpdateBinding
 import com.example.touristguide.model.Guide
@@ -23,8 +25,10 @@ class guideProfileUpdate : Fragment() {
     lateinit var guideRepository: GuideRepository
     private final var RC_PHOTO_PICKER =2
     private var selectedImageUri:String?=null
+    private lateinit var prefs: SharedPreferences
     private lateinit var photoStorageRefeference: StorageReference
-
+    var email = ""
+    var name = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +50,13 @@ class guideProfileUpdate : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        prefs=requireContext().getSharedPreferences("com.example.touristguide", AppCompatActivity.MODE_PRIVATE)
+         email = prefs.getString("USER_EMAIL","").toString()
+        name = prefs.getString("USER_NAME","").toString()
+        binding.guideName.setText(name)
+        binding.guideEmail.setText(email)
+
+
         binding.photoPicker.setOnClickListener {
 
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
@@ -53,16 +64,21 @@ class guideProfileUpdate : Fragment() {
         }
 
         binding.profileUpdate.setOnClickListener {
+            var tel = binding.guideTel.text.toString()
+            var desc= binding.guideDesc.text.toString()
+            var loc = binding.guideLoc.text.toString()
             if(selectedImageUri==null){
-                guideRepository.addUserToDB(Guide(email = "harsh", name = "fcd", tel = 123456, desc = "vfdctvf", loc = "toronto", imageUri = ""))
+                Log.e("user",loc)
+                Log.e("user",desc)
+                Log.e("user",tel)
+                guideRepository.addUserToDB(Guide(email = email, name = name, tel = tel , desc = desc, loc = loc, imageUri = ""))
             }
             else{
-                var email = binding.guideEmail
-                var name = binding.guideName
-                var tel = binding.guideTel
-                var desc= binding.guideDesc
-                var loc = binding.guideLoc
-                guideRepository.addUserToDB(Guide(email = "harsh", name = "fcd", tel = 123456, desc = "vfdctvf", loc = "toronto", imageUri = selectedImageUri!!))
+                Log.e("user",loc)
+                Log.e("user",desc)
+                Log.e("user",tel)
+                guideRepository.addUserToDB(Guide(email = email, name = name, tel = tel , desc = desc, loc = loc, imageUri = ""))
+
             }
         }
     }

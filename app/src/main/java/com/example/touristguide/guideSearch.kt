@@ -1,5 +1,6 @@
 package com.example.touristguide
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.text.method.TextKeyListener.clear
 import android.util.Log
@@ -47,37 +48,74 @@ class guideSearch : Fragment(),onGuideClickListener {
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.searchBtn.setOnClickListener {
+            GuideRepository.getGuideByLoc(binding.guideLoc.text.toString())
+            Log.e("location",binding.guideLoc.text.toString())
+            GuideList.clear()
+            guideAdapter.notifyDataSetChanged()
+
+            //Get up-to-date favorite list from Firestore
+            GuideRepository.guideList.observe(viewLifecycleOwner){
+                    list ->
+                GuideList.clear()
+                if(list != null){
+                    for(guide in list){
+                        binding.tvError.visibility=View.INVISIBLE
+                        GuideList.clear()
+                        binding.rvView.visibility=View.VISIBLE
+                        GuideList.add(guide)
+                        guideAdapter.notifyDataSetChanged()
+                    }
+                }else{
+                    Log.e("wrong","location")
+                }
+            }
+            GuideRepository.firstTime.observe(viewLifecycleOwner){
+                if(it){
+                    GuideList.clear()
+                    guideAdapter.notifyDataSetChanged()
+                    binding.tvError.visibility=View.VISIBLE
+                    binding.tvError.setText("No Guide for location entered")
+                }
+            }
+            Log.e("guidelist","${GuideList}")
+        }
+    }
+
     override fun onStart() {
         super.onStart()
-
-        GuideList =  ArrayList()
-        guideAdapter = GuideAdapter(requireContext(), GuideList, this)
-        binding.rvView.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvView.adapter = guideAdapter
-
-        GuideList.clear()
-        Log.e("harsh","calling")
-        GuideRepository.getGuideByLoc("toronto")
-        Log.e("guidelist","${GuideList}")
-        guideAdapter.notifyDataSetChanged()
+//
+//        GuideList =  ArrayList()
+//        guideAdapter = GuideAdapter(requireContext(), GuideList, this)
+//        binding.rvView.layoutManager = LinearLayoutManager(requireContext())
+//        binding.rvView.adapter = guideAdapter
+//
+//        GuideList.clear()
+//        Log.e("harsh","calling")
+//        GuideRepository.getGuideByLoc(binding.guideLoc.toString())
+//        Log.e("guidelist","${GuideList}")
+//        guideAdapter.notifyDataSetChanged()
     }
 
     override fun onResume() {
         super.onResume()
-        GuideRepository.getGuideByLoc("toronto")
-
-        //Get up-to-date favorite list from Firestore
-        GuideRepository.guideList.observe(this){
-                list ->
-            GuideList.clear()
-            if(list != null){
-                for(guide in list){
-                    GuideList.add(guide)
-                    guideAdapter.notifyDataSetChanged()
-                }
-            }
-        }
-        Log.e("guidelist","${GuideList}")
+//        GuideRepository.getGuideByLoc(binding.guideLoc.toString())
+//
+//        //Get up-to-date favorite list from Firestore
+//        GuideRepository.guideList.observe(this){
+//                list ->
+//            GuideList.clear()
+//            if(list != null){
+//                for(guide in list){
+//                    binding.rvView.visibility=View.VISIBLE
+//                    GuideList.add(guide)
+//                    guideAdapter.notifyDataSetChanged()
+//                }
+//            }
+//        }
+//        Log.e("guidelist","${GuideList}")
     }
 
 

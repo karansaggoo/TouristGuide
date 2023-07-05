@@ -89,18 +89,17 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:textSize="18sp"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-<<<<<<<<< Temporary merge branch 1
                 android:text="@string/place_rating"
                 android:layout_marginStart="10dp"
                 android:textSize="16sp"
-                android:id="@+id/detailrating"/>
-=========
+                android:id="@+id/detailrating_layout"
                 android:layout_marginLeft="5dp"
                 android:layout_gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -118,8 +117,6 @@
                     android:src="@drawable/ic_baseline_star_24"
                     />
             </LinearLayout>
-
->>>>>>>>> Temporary merge branch 2
             <Button
                 android:id="@+id/review_btn"
                 android:layout_width="match_parent"
@@ -132,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
                 android:text="@string/add_review_btn"/>
-        </LinearLayout>
     </ScrollView>
-
 </LinearLayout>
+
+

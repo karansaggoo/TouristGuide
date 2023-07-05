@@ -2,6 +2,7 @@ package com.example.touristguide
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.text.method.TextKeyListener.clear
@@ -12,7 +13,9 @@ import android.view.ViewGroup
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts.*
 import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia.ImageOnly
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.touristguide.databinding.FragmentGuideProfileBinding
 import com.example.touristguide.model.Guide
 import com.example.touristguide.model.GuideRepository
@@ -24,6 +27,7 @@ class GuideProfile : Fragment() {
     private var _binding : FragmentGuideProfileBinding? = null
     private val binding get() = _binding!!
     lateinit var guideRepository: GuideRepository
+    private lateinit var prefs: SharedPreferences
     private final var RC_PHOTO_PICKER =2
     private var selectedImageUri:String?=null
     private lateinit var photoStorageRefeference:StorageReference
@@ -48,16 +52,19 @@ class GuideProfile : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        prefs=requireContext().getSharedPreferences("com.example.touristguide", AppCompatActivity.MODE_PRIVATE)
+        var email = prefs.getString("USER_EMAIL","").toString()
 
 
 
 
-        guideRepository.getGuideByEmail("karan")
+        guideRepository.getGuideByEmail(email)
 
         guideRepository.guideList.observe(viewLifecycleOwner){
                 list ->
             if(list != null){
                 for(guide in list){
+                    binding.profilePic.visibility=View.VISIBLE
                     binding.guideName.setText(guide.name)
                     binding.guideTel.setText("tel:${guide.tel}")
                     binding.guideDesc.setText(guide.desc)
@@ -77,7 +84,21 @@ class GuideProfile : Fragment() {
             }
         }
 
+        binding.btn.setOnClickListener {
+            val action = GuideProfileDirections.actionBooking3ToGuideProfile2()
+            findNavController().navigate(action)
+        }
 
+
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
 

@@ -70,6 +70,10 @@ class GuideRepository(private val context:Context) {
                             "searchGuideWithLocation: ${snapshot.size()} Received the documents from collection ${snapshot}"
                         )
 
+                        if(snapshot.size()==0){
+                            firstTime.value=true
+                        }
+
 
                         val guideArrayList:MutableList<Guide> = ArrayList<Guide>()
                         for(documentChange in snapshot.documentChanges){
