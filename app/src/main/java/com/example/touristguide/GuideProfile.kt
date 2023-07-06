@@ -65,6 +65,7 @@ class GuideProfile : Fragment() {
             if(list != null){
                 for(guide in list){
                     binding.profilePic.visibility=View.VISIBLE
+                    binding.guideName.visibility=View.VISIBLE
                     binding.guideName.setText(guide.name)
                     binding.guideTel.setText("tel:${guide.tel}")
                     binding.guideDesc.setText(guide.desc)
