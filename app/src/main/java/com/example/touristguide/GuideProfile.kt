@@ -31,6 +31,7 @@ class GuideProfile : Fragment() {
     private final var RC_PHOTO_PICKER =2
     private var selectedImageUri:String?=null
     private lateinit var photoStorageRefeference:StorageReference
+    var flag = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,13 +81,14 @@ class GuideProfile : Fragment() {
 
         guideRepository.firstTime.observe(viewLifecycleOwner){
             if(it){
+                flag = it
                 binding.guideName.setText("You need to create profile first")
                 binding.btn.setText("Create profile")
             }
         }
 
         binding.btn.setOnClickListener {
-            val action = GuideProfileDirections.actionBooking3ToGuideProfile2()
+            val action = GuideProfileDirections.actionBooking3ToGuideProfile2(flag)
             findNavController().navigate(action)
         }
 

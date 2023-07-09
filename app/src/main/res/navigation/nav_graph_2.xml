@@ -9,7 +9,11 @@
         android:id="@+id/guideProfile2"
         android:name="com.example.touristguide.guideProfileUpdate"
         android:label="fragment_guide_profile_update"
-        tools:layout="@layout/fragment_guide_profile_update" />
+        tools:layout="@layout/fragment_guide_profile_update" >
+        <argument
+            android:name="flag"
+            app:argType="boolean" />
+    </fragment>
     <fragment
         android:id="@+id/guide_main"
         android:name="com.example.touristguide.Guide_main"

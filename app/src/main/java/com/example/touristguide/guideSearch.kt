@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.runtime.snapshots.Snapshot.Companion.observe
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.touristguide.adapter.GuideAdapter
 import com.example.touristguide.adapter.WishAdapter
@@ -119,8 +120,10 @@ class guideSearch : Fragment(),onGuideClickListener {
     }
 
 
-    override fun onItemClickListener(place_id: String, guide: Guide) {
-        TODO("Not yet implemented")
+    override fun onItemClickListener(guide: Guide) {
+        val action = guideSearchDirections.actionGuideSearchToGuideBook(guide)
+        findNavController().navigate(action)
+
     }
 
 

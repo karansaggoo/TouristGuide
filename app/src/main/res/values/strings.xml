@@ -38,4 +38,6 @@
     <string name="search">search</string>
     <string name="book_guide">Book guide</string>
     <string name="checkout">Checkout</string>
+    <string name="name">Name</string>
+    <string name="enter_the_tour_price">Enter the tour price</string>
 </resources>

@@ -25,6 +25,7 @@ class GuideRepository(private val context:Context) {
     private val FIELD_DESC = "desc"
     private val FIELD_LOC = "loc"
     private val FIELD_URI="uri"
+    private val FIELD_PRICE = "price"
     private val sharedPreference = context.getSharedPreferences("com.example.touristguide", Context.MODE_PRIVATE)
     private var editor = sharedPreference.edit()
     var firstTime = MutableLiveData<Boolean>(false)
@@ -39,6 +40,7 @@ class GuideRepository(private val context:Context) {
             data[FIELD_TEL] = newUser.tel
             data[FIELD_DESC] = newUser.desc
             data[FIELD_URI]=newUser.imageUri
+            data[FIELD_PRICE] = newUser.price
 
 
             db.collection(COLLECTION_NAME).add(data).addOnSuccessListener { docRef ->
@@ -167,6 +169,32 @@ class GuideRepository(private val context:Context) {
             Log.e(TAG, "docId : ${ex}")
         }
     }
+
+
+    fun updateUserToDB(newUser: Guide){
+        try{
+            val data: MutableMap<String, Any> = HashMap()
+
+            data[FIELD_USER_EMAIL] = newUser.email;
+            data[FIELD_USER_NAME] = newUser.name;
+            data[FIELD_LOC] = newUser.loc
+            data[FIELD_TEL] = newUser.tel
+            data[FIELD_DESC] = newUser.desc
+            data[FIELD_URI]=newUser.imageUri
+
+
+            db.collection(COLLECTION_NAME).document(newUser.id).update(data).addOnSuccessListener {
+                Log.e(TAG,"update successfull")
+            }
+            .addOnFailureListener{
+                Log.e(TAG, "update unsuccessful")
+            }
+
+        }catch(ex: Exception){
+            Log.e(TAG, "updateUserToDB: ${ex.toString()}")
+        }
+    }
+
 
 
 

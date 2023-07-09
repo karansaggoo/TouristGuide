@@ -22,21 +22,26 @@ class GuideAdapter(private val context: Context,
     class GuideViewHolder(var binding: GuideViewBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(currentGuide: Guide, clickListener: onGuideClickListener){
             binding.guideName.setText(currentGuide.name)
+            binding.guideTel.setText("tel:${currentGuide.tel}")
 //            if(currentPlace.rating!=null){
 //                binding.tvRating.setText(currentPlace.rating!!.toString())
 //            }
 
-            Glide.with(binding.guideName.context).load(currentGuide.imageUri).into(binding.profilePic)
+            binding.profilePic.setImageResource(R.drawable.ic_baseline_person_24)
+
+            //  Glide.with(binding.guideName.context).load(currentGuide.imageUri).into(binding.profilePic)
             if(currentGuide.imageUri!=""){
                 //var url = "https://maps.googleapis.com/maps/api/place/photo?${currentPlace.photos!![0].photo_reference}&key=AIzaSyBTmys4lYnABAKI4gEbAByuxiL2nCbAm9o"
-                Glide.with(binding.guideName.context).load(currentGuide.imageUri).into(binding.profilePic)
+                //Glide.with(binding.guideName.context).load(currentGuide.imageUri).into(binding.profilePic)
+                binding.profilePic.setImageResource(R.drawable.ic_baseline_person_24)
+
             }else{
-               binding.profilePic.setImageResource(R.drawable.food)
+               binding.profilePic.setImageResource(R.drawable.ic_baseline_person_24)
             }
 
             //Set a click listener to open a selected news on the browser
             itemView.setOnClickListener(){
-                clickListener.onItemClickListener(currentGuide.id , currentGuide)
+                clickListener.onItemClickListener(currentGuide)
             }
 
 

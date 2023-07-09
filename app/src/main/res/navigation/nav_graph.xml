@@ -96,13 +96,21 @@
             app:argType="com.example.touristguide.model.Review[]" />
     </fragment>
     <fragment
-        android:id="@+id/guideProfile"
-        android:name="com.example.touristguide.GuideProfile"
-        android:label="fragment_guide_profile"
-        tools:layout="@layout/fragment_guide_profile" />
-    <fragment
         android:id="@+id/guideSearch"
         android:name="com.example.touristguide.guideSearch"
         android:label="fragment_guide_search"
-        tools:layout="@layout/fragment_guide_search" />
+        tools:layout="@layout/fragment_guide_search" >
+        <action
+            android:id="@+id/action_guideSearch_to_guideBook"
+            app:destination="@id/guideBook" />
+    </fragment>
+    <fragment
+        android:id="@+id/guideBook"
+        android:name="com.example.touristguide.Booking"
+        android:label="fragment_guide_search"
+        tools:layout="@layout/fragment_booking" >
+        <argument
+            android:name="guide"
+            app:argType="com.example.touristguide.model.Guide" />
+    </fragment>
 </navigation>
