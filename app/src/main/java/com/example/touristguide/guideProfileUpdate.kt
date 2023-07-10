@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.ui.input.key.Key.Companion.G
 import androidx.navigation.fragment.navArgs
 import com.example.touristguide.databinding.FragmentGuideProfileBinding
 import com.example.touristguide.databinding.FragmentGuideProfileUpdateBinding
@@ -93,14 +94,18 @@ class guideProfileUpdate : Fragment() {
                     Log.e("user",loc)
                     Log.e("user",desc)
                     Log.e("user",tel)
-                    guideRepository.addUserToDB(Guide(email = email, name = name, tel = tel , desc = desc, loc = loc, imageUri = "", price = price))
+                    guideRepository.updateUserToDB(Guide(id =args.id ,email = email, name = name, tel = tel , desc = desc, loc = loc, imageUri = "", price = price))
+                   // guideRepository.addUserToDB(Guide(email = email, name = name, tel = tel , desc = desc, loc = loc, imageUri = "", price = price))
 
                 }
                 else{
                     Log.e("user",loc)
                     Log.e("user",desc)
                     Log.e("user",tel)
-                    guideRepository.addUserToDB(Guide(email = email, name = name, tel = tel , desc = desc, loc = loc, imageUri = selectedImageUri!!))
+                    guideRepository.updateUserToDB(Guide(id =args.id ,email = email, name = name, tel = tel , desc = desc, loc = loc, imageUri = selectedImageUri!!, price = price))
+
+
+                    //guideRepository.addUserToDB(Guide(email = email, name = name, tel = tel , desc = desc, loc = loc, imageUri = selectedImageUri!!))
 
                 }
             }

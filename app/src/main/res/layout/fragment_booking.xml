@@ -10,7 +10,7 @@
         android:id="@+id/profile_pic"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:background="@drawable/border2"
+        android:background="@drawable/border"
         android:src="@drawable/ic_baseline_person_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:textAllCaps="true"
-        android:textColor="@color/orange"
+        android:textColor="@color/black"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,6 +36,7 @@
         android:layout_width="20dp"
         android:layout_height="20sp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/ic_baseline_local_phone_24"
         app:layout_constraintEnd_toStartOf="@id/guide_tel"
         app:layout_constraintBottom_toBottomOf="@id/guide_tel"/>
@@ -43,6 +44,8 @@
         android:id="@+id/guide_tel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_marginBottom="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="20sp"
@@ -54,9 +57,56 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:padding="8dp"
-        android:layout_margin="16dp"
+        android:layout_marginHorizontal="16dp"
+        android:textColor="@color/black"
         android:background="@drawable/border"
         app:layout_constraintTop_toBottomOf="@id/guide_tel"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/member_layout"
+        style="@style/LoginTextInputOuterFieldStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        app:boxStrokeColor="@color/yellow"
+        app:hintTextColor="@color/yellow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guide_desc">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/num_member"
+            style="@style/LoginTextInputInnerFieldStyle"
+            android:layout_width="match_parent"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:hint="@string/enter_number_of_group_members"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/date_layout"
+        style="@style/LoginTextInputOuterFieldStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        app:boxStrokeColor="@color/yellow"
+        app:hintTextColor="@color/yellow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/member_layout">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tour_date"
+            style="@style/LoginTextInputInnerFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:clickable="false"
+            android:hint="@string/enter_number_of_group_members"
+
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/btn"
         android:layout_width="match_parent"

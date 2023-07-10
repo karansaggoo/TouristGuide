@@ -25,6 +25,7 @@ class GuideRepository(private val context:Context) {
     private val FIELD_DESC = "desc"
     private val FIELD_LOC = "loc"
     private val FIELD_URI="uri"
+    private val FIELD_ID = "id"
     private val FIELD_PRICE = "price"
     private val sharedPreference = context.getSharedPreferences("com.example.touristguide", Context.MODE_PRIVATE)
     private var editor = sharedPreference.edit()
@@ -34,6 +35,7 @@ class GuideRepository(private val context:Context) {
         try{
             val data: MutableMap<String, Any> = HashMap()
 
+            data[FIELD_ID] = newUser.id
             data[FIELD_USER_EMAIL] = newUser.email;
             data[FIELD_USER_NAME] = newUser.name;
             data[FIELD_LOC] = newUser.loc

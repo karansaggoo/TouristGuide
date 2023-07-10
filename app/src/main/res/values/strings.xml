@@ -40,4 +40,5 @@
     <string name="checkout">Checkout</string>
     <string name="name">Name</string>
     <string name="enter_the_tour_price">Enter the tour price</string>
+    <string name="enter_number_of_group_members">Enter number of group members</string>
 </resources>

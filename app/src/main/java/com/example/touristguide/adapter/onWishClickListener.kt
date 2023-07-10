@@ -5,5 +5,6 @@ import com.example.touristguide.model.WishListPlace
 
 interface onWishClickListener {
     fun onItemClickListener(place_id:String , place:WishListPlace)
+    fun onItemLongClickListener(place:WishListPlace)
 
 }

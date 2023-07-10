@@ -32,6 +32,7 @@ class GuideProfile : Fragment() {
     private var selectedImageUri:String?=null
     private lateinit var photoStorageRefeference:StorageReference
     var flag = false
+    var id = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +66,7 @@ class GuideProfile : Fragment() {
                 list ->
             if(list != null){
                 for(guide in list){
+                    id  =guide.id
                     binding.profilePic.visibility=View.VISIBLE
                     binding.guideName.visibility=View.VISIBLE
                     binding.guideName.setText(guide.name)
@@ -88,7 +90,7 @@ class GuideProfile : Fragment() {
         }
 
         binding.btn.setOnClickListener {
-            val action = GuideProfileDirections.actionBooking3ToGuideProfile2(flag)
+            val action = GuideProfileDirections.actionBooking3ToGuideProfile2(flag,id)
             findNavController().navigate(action)
         }
 

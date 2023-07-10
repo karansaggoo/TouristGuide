@@ -32,6 +32,7 @@ private val clickListener: onPlaceClickListener) : RecyclerView.Adapter<PlaceAda
             itemView.setOnClickListener(){
                 clickListener.onItemClickListener(currentPlace.place_id , currentPlace)
             }
+
         }
     }
 
