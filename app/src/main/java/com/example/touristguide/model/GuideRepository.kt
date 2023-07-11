@@ -17,8 +17,10 @@ class GuideRepository(private val context:Context) {
 
     private val db = Firebase.firestore
     var guideList = MutableLiveData<List<Guide>>()
+    var bookingList = MutableLiveData<List<TourBooking>>()
     //    private val FIELD_USER_ID = "id"
     private val COLLECTION_NAME = "guide"
+    private val COLLECTION_BOOKING_NAME="Bookings"
     private val FIELD_USER_EMAIL = "email"
     private val FIELD_USER_NAME = "name"
     private val FIELD_TEL = "tel"
@@ -28,7 +30,6 @@ class GuideRepository(private val context:Context) {
     private val FIELD_ID = "id"
     private val FIELD_PRICE = "price"
     private val sharedPreference = context.getSharedPreferences("com.example.touristguide", Context.MODE_PRIVATE)
-    private var editor = sharedPreference.edit()
     var firstTime = MutableLiveData<Boolean>(false)
 
     fun addUserToDB(newUser: Guide){
@@ -47,8 +48,6 @@ class GuideRepository(private val context:Context) {
 
             db.collection(COLLECTION_NAME).add(data).addOnSuccessListener { docRef ->
                 Log.d(TAG, "addGuideToDB: Document added with ID ${docRef.id}")
-                editor.putString("USER_DOC_ID",docRef.id)
-                editor.commit()
 
             }.addOnFailureListener{
                 Log.e(TAG, "addUserToDB: ${it}")
@@ -195,6 +194,76 @@ class GuideRepository(private val context:Context) {
         }catch(ex: Exception){
             Log.e(TAG, "updateUserToDB: ${ex.toString()}")
         }
+    }
+
+
+
+    fun addTourBooking(newBooking:TourBooking) {
+        try{
+            db.collection(COLLECTION_BOOKING_NAME).add(newBooking).addOnSuccessListener { docRef ->
+                Log.d(TAG, "addBookingToDB: Document added with ID ${docRef.id}")
+
+            }.addOnFailureListener{
+                Log.e(TAG, "addBookingToDB: ${it}")
+            }
+        }catch(ex: Exception){
+            Log.e(TAG, "addBookingToDB: ${ex.toString()}")
+        }
+    }
+
+
+    fun getBookingByEmail(email:String){
+        try{
+            db.collection(COLLECTION_BOOKING_NAME)
+                .whereEqualTo("guideEmail", email)
+                .addSnapshotListener(EventListener{ snapshot, error ->
+                    if (error != null){
+                        Log.e(TAG, "searchGuideBookingsWithEmail: Listening to collection documents FAILED ${error}")
+                        return@EventListener
+                    }
+
+                    if (snapshot != null){
+                        Log.e(
+                            TAG,
+                            "searchGuideBookingsWithEmail: ${snapshot.size()} Received the documents from collection ${snapshot}"
+                        )
+
+
+                        val guideBookingArrayList:MutableList<TourBooking> = ArrayList<TourBooking>()
+                        for(documentChange in snapshot.documentChanges){
+                            val currentBooking: TourBooking = documentChange.document.toObject(TourBooking::class.java)
+
+
+                            currentBooking.id=documentChange.document.id
+
+                            when(documentChange.type){
+                                DocumentChange.Type.ADDED->{guideBookingArrayList.add(currentBooking)}
+                                DocumentChange.Type.MODIFIED->{}
+                                DocumentChange.Type.REMOVED->{}
+                            }
+                        }
+
+                        bookingList.postValue(guideBookingArrayList)
+                        Log.e("datafromfirebase","${guideBookingArrayList}")
+
+
+                        //process the received documents
+                        //save the doc ID to the SharedPreferences
+//                        for(doc in snapshot.documentChanges){
+//                            val currentUser : User = doc.document.toObject(User::class.java)
+//                            editor.putString("USER_NAME",currentUser.name)
+//                            Log.e(TAG, "searchUserWithEmail: user found  : ${currentUser.name}", )
+//                            editor.commit()
+//                        }
+                    }else{
+                        Log.e(TAG, "searchGuideBookingsWithEmail: No Documents received from collection")
+                    }
+                })
+
+        }catch(ex: Exception){
+            Log.e(TAG, "docId : ${ex}")
+        }
+
     }
 
 
