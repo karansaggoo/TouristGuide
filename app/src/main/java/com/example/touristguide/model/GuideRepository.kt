@@ -181,6 +181,7 @@ class GuideRepository(private val context:Context) {
             data[FIELD_LOC] = newUser.loc
             data[FIELD_TEL] = newUser.tel
             data[FIELD_DESC] = newUser.desc
+            data[FIELD_PRICE] = newUser.price
             data[FIELD_URI]=newUser.imageUri
 
 

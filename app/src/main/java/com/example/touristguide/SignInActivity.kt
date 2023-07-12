@@ -22,7 +22,6 @@ class SignInActivity : AppCompatActivity() {
     var email = ""
     var password = ""
     var acctype = ""
-   ;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.locationHelper = LocationHelper.instance
@@ -35,25 +34,33 @@ class SignInActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
         prefs=applicationContext.getSharedPreferences(packageName, MODE_PRIVATE)
         userRepository = UserRepository(applicationContext)
-        acctype = prefs.getString("USER_ACCOUNT_TYPE","").toString()
+
+
 
         if(prefs.contains("USER_EMAIL")){
-            if( acctype == "customer"){
-                goToMain()
+            acctype = prefs.getString("USER_ACCOUNT_TYPE","").toString()
+            if(prefs.contains("USER_ACCOUNT_TYPE")) {
+                Log.d(
+                    TAG,
+                    "===============Existing Sign In With Acc Type ${acctype}=================="
+                )
+                if (acctype == "customer") {
+                    Log.d(TAG, "================Sign In Customer Existing==================")
+                    goToMain()
+                }
+                if (acctype == "guide") {
+                    Log.d(TAG, "================Sign In Guide Existing==================")
+                    goToGuideProfile()
+                }
             }
-            if (acctype == "guide"){
-                Log.d(TAG, "================onComplete: Sign In Successful1guide333==================")
-                goToGuideProfile()
-            }
-
         }
         else{
             binding.signInButton.setOnClickListener {
+                Log.d(TAG, "Button Press")
                 validateData()
                 userRepository.getDocID(email)
                 userRepository.getName(email)
-                saveToPrefs(email,userRepository.curUserAccType)
-                signIn(email, password)
+                saveToPrefs(email)
                 clearField()
 
             }
@@ -77,25 +84,27 @@ class SignInActivity : AppCompatActivity() {
         } else {
             password = binding.passET.text.toString()
         }
-//        if (validData) {
-//            signIn(email, password)
-//        } else {
-//            Toast.makeText(this, "Please provide correct inputs", Toast.LENGTH_SHORT).show()
-//        }
+        if (validData) {
+            signIn(email, password)
+        } else {
+            Toast.makeText(this, "Please provide correct inputs", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun signIn(email: String, password: String) {
         mAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Log.d(TAG, "================onComplete: Sign In Successful1==================")
+                    Log.d(TAG, "=============== New Sign with ${userRepository.curUserAccType} ==================")
                     if( userRepository.curUserAccType == "customer"){
                         goToMain()
-                        Log.d(TAG, "================onComplete: Sign In Successful1kdacmldclkdn==================")
+                        Log.d(TAG, "================Sign In Customer New==================")
+                        prefs.edit().putString("USER_ACCOUNT_TYPE", userRepository.curUserAccType).apply()
                     }
                     if ( userRepository.curUserAccType == "guide"){
                         goToGuideProfile()
-                        Log.d(TAG, "================onComplete: Sign In Successful1guide==================")
+                        Log.d(TAG, "================Sign In Guide New==================")
+                        prefs.edit().putString("USER_ACCOUNT_TYPE", userRepository.curUserAccType).apply()
                     }
 
                 } else {
@@ -124,8 +133,7 @@ class SignInActivity : AppCompatActivity() {
 
     }
 
-    private fun saveToPrefs(email: String ,acctype :String){
+    private fun saveToPrefs(email: String){
         prefs.edit().putString("USER_EMAIL", email).apply()
-        prefs.edit().putString("USER_ACCOUNT_TYPE", acctype).apply()
     }
 }

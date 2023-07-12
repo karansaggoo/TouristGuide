@@ -14,8 +14,11 @@
             android:name="flag"
             app:argType="boolean" />
         <argument
-            android:name="id"
-            app:argType="string" />
+            android:name="guide"
+            app:argType="com.example.touristguide.model.Guide" />
+        <action
+            android:id="@+id/action_guideProfile2_to_booking3"
+            app:destination="@id/booking3" />
     </fragment>
     <fragment
         android:id="@+id/guide_main"

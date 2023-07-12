@@ -33,6 +33,7 @@ class GuideProfile : Fragment() {
     private lateinit var photoStorageRefeference:StorageReference
     var flag = false
     var id = ""
+    var guide = Guide()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,19 +57,19 @@ class GuideProfile : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         prefs=requireContext().getSharedPreferences("com.example.touristguide", AppCompatActivity.MODE_PRIVATE)
         var email = prefs.getString("USER_EMAIL","").toString()
-
-
-
-
         guideRepository.getGuideByEmail(email)
-
         guideRepository.guideList.observe(viewLifecycleOwner){
                 list ->
             if(list != null){
                 for(guide in list){
                     id  =guide.id
+                    this.guide = guide
                     binding.profilePic.visibility=View.VISIBLE
                     binding.guideName.visibility=View.VISIBLE
+                    binding.guideTel.visibility = View.VISIBLE
+                    binding.telIcon.visibility = View.VISIBLE
+                    binding.guideDesc.visibility=View.VISIBLE
+
                     binding.guideName.setText(guide.name)
                     binding.guideTel.setText("tel:${guide.tel}")
                     binding.guideDesc.setText(guide.desc)
@@ -90,7 +91,7 @@ class GuideProfile : Fragment() {
         }
 
         binding.btn.setOnClickListener {
-            val action = GuideProfileDirections.actionBooking3ToGuideProfile2(flag,id)
+            val action = GuideProfileDirections.actionBooking3ToGuideProfile2(flag,guide)
             findNavController().navigate(action)
         }
 

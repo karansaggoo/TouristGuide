@@ -12,6 +12,7 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.input.key.Key.Companion.G
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.touristguide.databinding.FragmentGuideProfileBinding
 import com.example.touristguide.databinding.FragmentGuideProfileUpdateBinding
@@ -58,6 +59,10 @@ class guideProfileUpdate : Fragment() {
         name = prefs.getString("USER_NAME","").toString()
         binding.guideName.setText(name)
         binding.guideEmail.setText(email)
+        binding.guideTel.setText(args.guide.tel)
+        binding.guideDesc.setText(args.guide.desc)
+        binding.guideLoc.setText(args.guide.loc)
+        binding.guidePrice.setText(args.guide.price)
         binding.photoPicker.setOnClickListener {
 
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
@@ -82,7 +87,10 @@ class guideProfileUpdate : Fragment() {
                     guideRepository.addUserToDB(Guide(email = email, name = name, tel = tel , desc = desc, loc = loc, imageUri = selectedImageUri!!))
 
                 }
+                val action = guideProfileUpdateDirections.actionGuideProfile2ToBooking3()
+                findNavController().navigate(action)
             }
+
 
         }else{
             binding.profileUpdate.setOnClickListener {
@@ -94,7 +102,7 @@ class guideProfileUpdate : Fragment() {
                     Log.e("user",loc)
                     Log.e("user",desc)
                     Log.e("user",tel)
-                    guideRepository.updateUserToDB(Guide(id =args.id ,email = email, name = name, tel = tel , desc = desc, loc = loc, imageUri = "", price = price))
+                    guideRepository.updateUserToDB(Guide(id =args.guide.id ,email = email, name = name, tel = tel , desc = desc, loc = loc, imageUri = "", price = price))
                    // guideRepository.addUserToDB(Guide(email = email, name = name, tel = tel , desc = desc, loc = loc, imageUri = "", price = price))
 
                 }
@@ -102,13 +110,16 @@ class guideProfileUpdate : Fragment() {
                     Log.e("user",loc)
                     Log.e("user",desc)
                     Log.e("user",tel)
-                    guideRepository.updateUserToDB(Guide(id =args.id ,email = email, name = name, tel = tel , desc = desc, loc = loc, imageUri = selectedImageUri!!, price = price))
+                    guideRepository.updateUserToDB(Guide(id =args.guide.id ,email = email, name = name, tel = tel , desc = desc, loc = loc, imageUri = selectedImageUri!!, price = price))
 
 
                     //guideRepository.addUserToDB(Guide(email = email, name = name, tel = tel , desc = desc, loc = loc, imageUri = selectedImageUri!!))
 
                 }
+                val action = guideProfileUpdateDirections.actionGuideProfile2ToBooking3()
+                findNavController().navigate(action)
             }
+
         }
 
 

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.touristguide.R
+import com.example.touristguide.databinding.BookinghViewBinding
 import com.example.touristguide.databinding.GuideViewBinding
 import com.example.touristguide.model.Guide
 import com.example.touristguide.model.TourBooking
@@ -13,13 +14,17 @@ class TourBookingAdapter(private val context: Context,
                    private val bookingList:ArrayList<TourBooking>
                    ) : RecyclerView.Adapter<TourBookingAdapter.BookingViewHolder>() {
 
-    class BookingViewHolder(var binding: GuideViewBinding): RecyclerView.ViewHolder(binding.root){
+    class BookingViewHolder(var binding: BookinghViewBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(currentBooking: TourBooking){
             binding.guideName.setText(currentBooking.cusName)
-            binding.guideTel.setText("Date:${currentBooking.bookDate}")
+            binding.bookingDate.setText("Date:${currentBooking.bookDate}")
 //            if(currentPlace.rating!=null){
 //                binding.tvRating.setText(currentPlace.rating!!.toString())
 //            }
+
+            binding.chat.setOnClickListener {
+
+            }
 
 
 
@@ -29,7 +34,7 @@ class TourBookingAdapter(private val context: Context,
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TourBookingAdapter.BookingViewHolder {
 
         return TourBookingAdapter.BookingViewHolder(
-            GuideViewBinding.inflate(
+            BookinghViewBinding.inflate(
                 LayoutInflater.from(context),
                 parent,
                 false
