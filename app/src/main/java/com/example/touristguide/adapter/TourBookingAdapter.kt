@@ -22,9 +22,6 @@ class TourBookingAdapter(private val context: Context,
 //                binding.tvRating.setText(currentPlace.rating!!.toString())
 //            }
 
-            binding.chat.setOnClickListener {
-
-            }
 
 
 
