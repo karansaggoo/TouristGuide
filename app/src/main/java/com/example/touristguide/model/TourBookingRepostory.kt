@@ -48,18 +48,18 @@ class TourBookingRepostory(private  val context: Context) {
 
 
             data[FIELD_USER_EMAIL] = newUser.cusEmail;
-            data[FIELD_USER_NAME] = newUser.cusName;
+            data[FIELD_USER_NAME] = newUser.ncusName;
             data[FIELD_GUIDE_EMAIL] = newUser.guideEmail;
             data[FIELD_GUIDE_NAME] = newUser.guideName;
             data[FIELD_PAYMENT_MODE] = newUser.paymentMode
-            data[FIELD_TEL] = newUser.guideTel
-            data[FIELD_NO_MEMBER] = newUser.people
-            data[FIELD_DATE] = newUser.bookDate
+            data[FIELD_TEL] = newUser.tel
+            data[FIELD_NO_MEMBER] = newUser.numOfPMember
+            data[FIELD_DATE] = newUser.bookingDate
 
             data[FIELD_CARD_NAME] = newUser.cardName
             data[FIELD_CARD_NUMBER] = newUser.cardNumber
-            data[FIELD_CARD_DATE] = newUser.cardExpiry
-            data[FIELD_CARD_CVV] = newUser.cardCVV
+            data[FIELD_CARD_DATE] = newUser.card_date
+            data[FIELD_CARD_CVV] = newUser.card_cvv
 
 
             db.collection(COLLECTION_BOOKING_NAME).add(data).addOnSuccessListener { docRef ->

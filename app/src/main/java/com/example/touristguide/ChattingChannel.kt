@@ -18,11 +18,13 @@ import androidx.navigation.fragment.navArgs
 import com.example.touristguide.adapter.MessageAdapter
 import com.example.touristguide.databinding.FragmentChattingChannelBinding
 import com.example.touristguide.databinding.FragmentViewBookingDetailBinding
+import com.example.touristguide.databinding.ItemMessageBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import kotlinx.coroutines.NonDisposableHandle.parent
 import kotlin.collections.List
 
 class ChattingChannel : Fragment() {
@@ -126,9 +128,11 @@ class ChattingChannel : Fragment() {
         // Send button sends a message and clears the EditText
         mSendButton!!.setOnClickListener { // TODO: Send messages on click
             var messagae = com.example.touristguide.model.Message(mMessageEditText!!.text.toString(),mUsername,null)
+            // Clear input box
             mMessageDatabaseReference.push().setValue(messagae)
 
-            // Clear input box
+
+
             mMessageEditText!!.setText("")
         }
 

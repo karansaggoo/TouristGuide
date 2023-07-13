@@ -118,7 +118,7 @@ class List : Fragment(),onPlaceClickListener {
 
                         val wish = WishListPlace(name = PlaceList[position].name, icon =  image, place_id = PlaceList[position].place_id, rating = PlaceList[position].rating.toString())
                         wishListRepository.addFavouriteWish(wish)
-                        Toast.makeText(requireContext(), "News is added", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Place is added", Toast.LENGTH_SHORT).show()
                         adapter.notifyDataSetChanged()
 
                     }

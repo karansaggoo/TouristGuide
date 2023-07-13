@@ -32,6 +32,7 @@ class GuideRepository(private val context:Context) {
     private val sharedPreference = context.getSharedPreferences("com.example.touristguide", Context.MODE_PRIVATE)
     var firstTime = MutableLiveData<Boolean>(false)
     private var loggedInUserID = ""
+    var isEmpty = false
 
     init {
         loggedInUserID = sharedPreference.getString("USER_EMAIL","").toString()
@@ -271,9 +272,66 @@ class GuideRepository(private val context:Context) {
 
     }
 
+    fun getUserBookingByEmail(email:String){
+        try{
+            db.collection(COLLECTION_BOOKING_NAME)
+                .whereEqualTo("cusEmail", email)
+                .addSnapshotListener(EventListener{ snapshot, error ->
+                    if (error != null){
+                        Log.e(TAG, "searchUserBookingsWithEmail: Listening to collection documents FAILED ${error}")
+                        return@EventListener
+                    }
 
+                    if (snapshot != null){
+                        Log.e(
+                            TAG,
+                            "searchUserBookingsWithEmail: ${snapshot.size()} Received the documents from collection ${snapshot}"
+                        )
+
+                        if(snapshot.size()==0){
+                            isEmpty = true
+                        }
+
+
+                        val guideBookingArrayList:MutableList<TourBooking> = ArrayList<TourBooking>()
+                        for(documentChange in snapshot.documentChanges){
+                            val currentBooking: TourBooking = documentChange.document.toObject(TourBooking::class.java)
+
+                            when(documentChange.type){
+                                DocumentChange.Type.ADDED->{guideBookingArrayList.add(currentBooking)}
+                                DocumentChange.Type.MODIFIED->{}
+                                DocumentChange.Type.REMOVED->{}
+                            }
+                        }
+
+                        bookingList.postValue(guideBookingArrayList)
+                        Log.e("datafromfirebase","${guideBookingArrayList}")
+
+
+                        //process the received documents
+                        //save the doc ID to the SharedPreferences
+//                        for(doc in snapshot.documentChanges){
+//                            val currentUser : User = doc.document.toObject(User::class.java)
+//                            editor.putString("USER_NAME",currentUser.name)
+//                            Log.e(TAG, "searchUserWithEmail: user found  : ${currentUser.name}", )
+//                            editor.commit()
+//                        }
+                    }else{
+                        Log.e(TAG, "searchGuideBookingsWithEmail: No Documents received from collection")
+                    }
+                })
+
+        }catch(ex: Exception){
+            Log.e(TAG, "docId : ${ex}")
+        }
 
     }
+
+
+
+
+
+}
 
 
 

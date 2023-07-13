@@ -143,7 +143,7 @@ class Booking : Fragment() {
                 }
             }
 
-            tourBookingRepository.addTourBooking(TourBooking(cusName = cusName, cusEmail = cusEmail, guideEmail = guideEmail, guideName = guideName, guideTel = guideTel, bookDate = bookingDate , people = numOfMember, paymentMode = paymentMode , cardName = cardName, cardNumber = cardNumber, cardCVV = cardCvv, cardExpiry = cardDate ))
+            tourBookingRepository.addTourBooking(TourBooking(ncusName = cusName, cusEmail = cusEmail, guideEmail = guideEmail, guideName = guideName, tel = guideTel, bookingDate = bookingDate , numOfPMember = numOfMember, paymentMode = paymentMode , cardName = cardName, cardNumber = cardNumber, card_cvv = cardCvv, card_date = cardDate ))
 
 
         }

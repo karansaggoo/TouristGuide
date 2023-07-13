@@ -10,16 +10,17 @@ import com.example.touristguide.model.Guide
 import com.example.touristguide.model.TourBooking
 
 class TourBookingAdapter(private val context: Context,
-                   private val bookingList:ArrayList<TourBooking>
+                   private val bookingList:ArrayList<TourBooking>,private var clickListener: onBookingClickListener
                    ) : RecyclerView.Adapter<TourBookingAdapter.BookingViewHolder>() {
 
     class BookingViewHolder(var binding: GuideViewBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(currentBooking: TourBooking){
-            //binding.guideName.setText(currentBooking.cusName)
-           // binding.guideTel.setText("Date:${currentBooking.bookDate}")
-//            if(currentPlace.rating!=null){
-//                binding.tvRating.setText(currentPlace.rating!!.toString())
-//            }
+        fun bind(currentBooking: TourBooking,clickListener: onBookingClickListener){
+            binding.guideName.setText(currentBooking.ncusName)
+            binding.guideTel.setText("Date:${currentBooking.bookingDate}")
+
+            itemView.setOnClickListener {
+                clickListener.onItemClickListener(currentBooking)
+            }
 
 
 
@@ -38,7 +39,7 @@ class TourBookingAdapter(private val context: Context,
     }
 
     override fun onBindViewHolder(holder: TourBookingAdapter.BookingViewHolder, position: Int) {
-        holder.bind(bookingList[position])
+        holder.bind(bookingList[position], clickListener)
     }
 
     override fun getItemCount(): Int {
