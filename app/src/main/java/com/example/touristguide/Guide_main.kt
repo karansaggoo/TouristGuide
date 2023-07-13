@@ -42,6 +42,13 @@ class Guide_main : Fragment() {
             val action = Guide_mainDirections.actionGuideMainToBooking3()
             findNavController().navigate(action)
         }
+
+        binding.cardList.setOnClickListener {
+            val action = Guide_mainDirections.actionGuideMainToViewGuideBookings2()
+            findNavController().navigate(action)
+        }
+
+
         binding.name.setText(name)
     }
 

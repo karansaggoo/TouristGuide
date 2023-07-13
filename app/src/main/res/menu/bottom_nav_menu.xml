@@ -10,4 +10,10 @@
         android:title="Wishlist"
        />
 
+    <item
+        android:id="@+id/viewGuideBookings"
+        android:icon="@drawable/ic_baseline_format_list_bulleted_24"
+        android:title="Bookings"
+        />
+
 </menu>

@@ -113,4 +113,33 @@
             android:name="guide"
             app:argType="com.example.touristguide.model.Guide" />
     </fragment>
+    <fragment
+        android:id="@+id/viewGuideBookings"
+        android:name="com.example.touristguide.ViewGuideBookings"
+        android:label="fragment_view_guide_bookings"
+        tools:layout="@layout/fragment_view_guide_bookings" >
+        <action
+            android:id="@+id/action_viewGuideBookings_to_viewBookingDetail"
+            app:destination="@id/viewBookingDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewBookingDetail"
+        android:name="com.example.touristguide.ViewBookingDetail"
+        android:label="fragment_view_booking_detail"
+        tools:layout="@layout/fragment_view_booking_detail" >
+        <action
+            android:id="@+id/action_viewBookingDetail_to_chattingChannel"
+            app:destination="@id/chattingChannel" />
+        <argument
+            android:name="booking"
+            app:argType="com.example.touristguide.model.TourBooking" />
+    </fragment>
+    <fragment
+        android:id="@+id/chattingChannel"
+        android:name="com.example.touristguide.ChattingChannel"
+        android:label="ChattingChannel" >
+        <argument
+            android:name="booking"
+            app:argType="com.example.touristguide.model.TourBooking" />
+    </fragment>
 </navigation>
