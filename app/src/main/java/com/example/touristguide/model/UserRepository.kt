@@ -2,6 +2,8 @@ package com.example.touristguide.model
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.ktx.Firebase
@@ -9,6 +11,7 @@ import java.util.HashMap
 
 class UserRepository(private val context: Context) {
     private val TAG = this.toString()
+
     private val db = Firebase.firestore
     //    private val FIELD_USER_ID = "id"
     private val COLLECTION_NAME = "users"
@@ -42,6 +45,7 @@ class UserRepository(private val context: Context) {
             Log.e(TAG, "addUserToDB: ${ex.toString()}")
         }
     }
+
 
     fun getDocID(email:String){
         try{
@@ -96,8 +100,9 @@ class UserRepository(private val context: Context) {
                         for(doc in snapshot.documentChanges){
                             val currentUser : User = doc.document.toObject(User::class.java)
                             editor.putString("USER_NAME",currentUser.name)
-
+                           // editor.putString("USER_ACCOUNT_TYPE",currentUser.accountType)
                             curUserAccType = currentUser.accountType
+                            Log.d(TAG, "+++++++++++++++userRepos ${curUserAccType}==================")
                             Log.e(TAG, "searchUserWithEmail: user found================================  : ${currentUser.accountType}", )
                             editor.commit()
                         }
@@ -110,4 +115,6 @@ class UserRepository(private val context: Context) {
             Log.e(TAG, "docId : ${ex}")
         }
     }
+
+
 }
