@@ -187,7 +187,7 @@
         android:layout_marginBottom="60dp"
         android:backgroundTint="@color/yellow"
         android:contentDescription="@string/add_tour_guide"
-        android:src="@drawable/ic_baseline_add_24"
+        android:src="@drawable/ic_baseline_star_24"
         app:fabCustomSize="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

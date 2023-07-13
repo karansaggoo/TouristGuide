@@ -109,9 +109,9 @@ class HomeScreen : Fragment() {
                     .setTitle("Invalid Category")
                     .setMessage(
                         Html.fromHtml(
-                        "<b>"+ "Category should be either of the following:<br>"+"</b>"+"accounting<br>aquarium<br>bar<br>bank<br>museum<br>parking<br>bus station",
+                            "<b>"+ "Category should be either of the following:<br>"+"</b>"+"accounting<br>aquarium<br>bar<br>bank<br>museum<br>parking<br>bus station",
                             Html.FROM_HTML_MODE_LEGACY
-                    ))
+                        ))
                     .setNegativeButton("Ok", null).show()
             }
             else{
@@ -273,4 +273,3 @@ class HomeScreen : Fragment() {
 
 
 }
-
