@@ -31,6 +31,11 @@ class GuideRepository(private val context:Context) {
     private val FIELD_PRICE = "price"
     private val sharedPreference = context.getSharedPreferences("com.example.touristguide", Context.MODE_PRIVATE)
     var firstTime = MutableLiveData<Boolean>(false)
+    private var loggedInUserID = ""
+
+    init {
+        loggedInUserID = sharedPreference.getString("USER_EMAIL","").toString()
+    }
 
     fun addUserToDB(newUser: Guide){
         try{
@@ -268,5 +273,8 @@ class GuideRepository(private val context:Context) {
 
 
 
+    }
 
-}
+
+
+

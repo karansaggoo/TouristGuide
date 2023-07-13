@@ -32,13 +32,13 @@
        app:layout_constraintTop_toBottomOf="@id/profile_pic"/>
 
    <ImageView
-      android:id="@+id/tel_icon"
+       android:id="@+id/tel_icon"
        android:layout_width="20dp"
        android:layout_height="20sp"
        android:layout_marginRight="8dp"
-       android:background="@drawable/ic_baseline_local_phone_24"
-      app:layout_constraintEnd_toStartOf="@id/guide_tel"
-      app:layout_constraintBottom_toBottomOf="@id/guide_tel"/>
+       android:background="@drawable/home_screen"
+       app:layout_constraintEnd_toStartOf="@id/guide_tel"
+       app:layout_constraintBottom_toBottomOf="@id/guide_tel"/>
    <TextView
        android:id="@+id/guide_tel"
        android:layout_width="wrap_content"

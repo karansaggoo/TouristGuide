@@ -15,8 +15,8 @@ class TourBookingAdapter(private val context: Context,
 
     class BookingViewHolder(var binding: GuideViewBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(currentBooking: TourBooking){
-            binding.guideName.setText(currentBooking.cusName)
-            binding.guideTel.setText("Date:${currentBooking.bookDate}")
+            //binding.guideName.setText(currentBooking.cusName)
+           // binding.guideTel.setText("Date:${currentBooking.bookDate}")
 //            if(currentPlace.rating!=null){
 //                binding.tvRating.setText(currentPlace.rating!!.toString())
 //            }
