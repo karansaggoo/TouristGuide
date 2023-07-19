@@ -8,3 +8,4 @@ data class User(var id : String = UUID.randomUUID().toString(),
                 var password : String = "",
                 var accountType:String= "" ) {
 }
+
