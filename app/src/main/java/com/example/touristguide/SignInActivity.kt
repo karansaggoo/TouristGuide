@@ -70,6 +70,9 @@ class SignInActivity : AppCompatActivity() {
             val intent = Intent(this,SignUpActivity::class.java)
             startActivity(intent)
         }
+        binding.forgetPassword.setOnClickListener {
+            goToForgotPassword()
+        }
     }
     private fun validateData() {
         if (binding.emailEt.text.toString().isEmpty()) {
@@ -125,6 +128,11 @@ class SignInActivity : AppCompatActivity() {
     private fun goToGuideProfile(){
         val guideIntent = Intent(this, GuideMainActivity::class.java)
         startActivity(guideIntent)
+        finish()
+    }
+    private fun goToForgotPassword(){
+        val forgotIntent = Intent(this, ForgotPasswordActivity::class.java)
+        startActivity(forgotIntent)
         finish()
     }
     private fun clearField(){

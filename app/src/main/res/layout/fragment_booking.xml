@@ -114,6 +114,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:clickable="false"
+            android:focusable="false"
             android:hint="@string/enter_tour_date"
 
             />
