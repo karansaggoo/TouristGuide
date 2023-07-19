@@ -328,6 +328,19 @@ class GuideRepository(private val context:Context) {
     }
 
 
+    fun deleteBooking(docId: String) {
+        try {
+            db.collection(COLLECTION_BOOKING_NAME)
+                .document(docId)
+                .delete()
+
+        }
+        catch (ex: Exception) {
+            Log.e("ERROR", "delete: Couldn't delete")
+        }
+    }
+
+
 
 
 

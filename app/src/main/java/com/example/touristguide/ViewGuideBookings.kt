@@ -1,5 +1,6 @@
 package com.example.touristguide
 
+import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.method.TextKeyListener.clear
@@ -30,6 +31,7 @@ class ViewGuideBookings : Fragment(),onBookingClickListener {
     private lateinit var prefs: SharedPreferences
     private lateinit var userRepository : UserRepository
     private var email:String=""
+    private var acctype = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +70,7 @@ class ViewGuideBookings : Fragment(),onBookingClickListener {
 
         bookingList.clear()
         Log.e("harsh","calling")
-        var  acctype = prefs.getString("USER_ACCOUNT_TYPE","").toString()
+          acctype = prefs.getString("USER_ACCOUNT_TYPE","").toString()
         if(acctype=="customer"){
             Log.e("type",userRepository.curUserAccType)
             guideRepository.getUserBookingByEmail(email)
@@ -83,9 +85,15 @@ class ViewGuideBookings : Fragment(),onBookingClickListener {
 
     override fun onResume() {
         super.onResume()
-        guideRepository.getBookingByEmail(email)
+       // guideRepository.getBookingByEmail(email)
         //Get up-to-date favorite list from Firestore
-
+        if(acctype=="customer"){
+            Log.e("type",userRepository.curUserAccType)
+            guideRepository.getUserBookingByEmail(email)
+        }else{
+            Log.e("type",userRepository.curUserAccType)
+            guideRepository.getBookingByEmail(email)
+        }
 
 
 
@@ -111,6 +119,21 @@ class ViewGuideBookings : Fragment(),onBookingClickListener {
     override fun onItemClickListener(booking: TourBooking) {
         val action = ViewGuideBookingsDirections.actionViewGuideBookingsToViewBookingDetail(booking)
         findNavController().navigate(action)
+    }
+
+    override fun onItemLongClickListener(place_id: String) {
+        val alert = AlertDialog.Builder(requireContext())
+            .setTitle("Confirmation")
+            .setMessage("Do you want to remove delete this booking?")
+            .setNegativeButton("Cancel", null)
+            .setPositiveButton("Confirm") { which, dialog ->
+                guideRepository.deleteBooking(place_id)
+                bookingList.clear()
+                guideRepository.getBookingByEmail(email)
+                bookingAdapter.notifyDataSetChanged()
+            }
+
+        alert.show()
     }
 
 

@@ -122,6 +122,7 @@
                     style="@style/LoginTextInputInnerFieldStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textAllCaps="true"
                     android:hint="@string/enter_your_location"
                     android:inputType="text"
                     />

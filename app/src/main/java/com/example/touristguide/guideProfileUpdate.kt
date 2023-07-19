@@ -61,7 +61,7 @@ class guideProfileUpdate : Fragment() {
         binding.guideEmail.setText(email)
         binding.guideTel.setText(args.guide.tel)
         binding.guideDesc.setText(args.guide.desc)
-        binding.guideLoc.setText(args.guide.loc)
+        binding.guideLoc.setText(args.guide.loc.lowercase())
         binding.guidePrice.setText(args.guide.price)
         binding.photoPicker.setOnClickListener {
 

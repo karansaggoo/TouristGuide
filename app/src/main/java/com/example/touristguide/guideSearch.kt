@@ -53,7 +53,7 @@ class guideSearch : Fragment(),onGuideClickListener {
         super.onViewCreated(view, savedInstanceState)
         binding.searchBtn.setOnClickListener {
             GuideRepository.getGuideByLoc(binding.guideLoc.text.toString())
-            Log.e("location",binding.guideLoc.text.toString())
+            Log.e("location",binding.guideLoc.text.toString().lowercase())
             GuideList.clear()
             guideAdapter.notifyDataSetChanged()
 
