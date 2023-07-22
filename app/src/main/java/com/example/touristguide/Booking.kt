@@ -10,17 +10,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.RadioButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.touristguide.databinding.FragmentBookingBinding
+import com.example.touristguide.model.Mailer
 import com.example.touristguide.model.TourBooking
 import com.example.touristguide.model.TourBookingRepostory
 import com.example.touristguide.model.UserRepository
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
@@ -150,8 +154,12 @@ class Booking : Fragment() {
             }
 
             tourBookingRepository.addTourBooking(TourBooking(ncusName = cusName, cusEmail = cusEmail, guideEmail = guideEmail, guideName = guideName, tel = guideTel, bookingDate = bookingDate , numOfPMember = numOfMember, paymentMode = paymentMode , cardName = cardName, cardNumber = cardNumber, card_cvv = cardCvv, card_date = cardDate ))
+//
+            var mailer = Mailer(requireContext(),"harshdeep4544@gmail.com","Booking confirmed","Thank you")
+            mailer.execute()
 
-        }
+
+                    }
     }
 
    inner class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener{

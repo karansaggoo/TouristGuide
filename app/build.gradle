@@ -98,9 +98,10 @@ dependencies {
     // explicitly depend on RxJava's latest version for bug fixes and new features.
     // (see https://github.com/ReactiveX/RxJava/releases for latest 3.x.x version)
     implementation 'io.reactivex.rxjava3:rxjava:3.1.5'
-    implementation 'javax.mail:javax.mail-api:1.5.3'
-    implementation files('libs/mail.jar')
-    implementation files('libs/activation.jar')
-    implementation files('libs/additional.jar')
+   // implementation 'javax.mail:javax.mail-api:1.5.3'
+    implementation 'com.sun.mail:android-mail:1.6.2'
+    implementation 'com.sun.mail:android-activation:1.6.2'
+//    implementation files('libs/activation.jar')
+//    implementation files('libs/additionnal.jar')
 
 }

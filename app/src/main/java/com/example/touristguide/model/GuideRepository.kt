@@ -146,7 +146,7 @@ class GuideRepository(private val context:Context) {
                             val currentGuide: Guide = documentChange.document.toObject(Guide::class.java)
 
 
-                            currentGuide.id=documentChange.document.id
+                            currentGuide.id=documentChange.document.get("id").toString()
 
                             when(documentChange.type){
                                 DocumentChange.Type.ADDED->{guideArrayList.add(currentGuide)}
@@ -238,14 +238,12 @@ class GuideRepository(private val context:Context) {
                         val guideBookingArrayList:MutableList<TourBooking> = ArrayList<TourBooking>()
                         for(documentChange in snapshot.documentChanges){
                             val currentBooking: TourBooking = documentChange.document.toObject(TourBooking::class.java)
-
-
-                            currentBooking.id=documentChange.document.id
+                            currentBooking.id=documentChange.document.get("id").toString()
 
                             when(documentChange.type){
                                 DocumentChange.Type.ADDED->{guideBookingArrayList.add(currentBooking)}
                                 DocumentChange.Type.MODIFIED->{}
-                                DocumentChange.Type.REMOVED->{}
+                                DocumentChange.Type.REMOVED->{guideBookingArrayList.remove(currentBooking)}
                             }
                         }
 
@@ -296,11 +294,12 @@ class GuideRepository(private val context:Context) {
                         val guideBookingArrayList:MutableList<TourBooking> = ArrayList<TourBooking>()
                         for(documentChange in snapshot.documentChanges){
                             val currentBooking: TourBooking = documentChange.document.toObject(TourBooking::class.java)
+                            currentBooking.id = documentChange.document.get("id").toString()
 
                             when(documentChange.type){
                                 DocumentChange.Type.ADDED->{guideBookingArrayList.add(currentBooking)}
                                 DocumentChange.Type.MODIFIED->{}
-                                DocumentChange.Type.REMOVED->{}
+                                DocumentChange.Type.REMOVED->{guideBookingArrayList.remove(currentBooking)}
                             }
                         }
 
@@ -333,6 +332,7 @@ class GuideRepository(private val context:Context) {
             db.collection(COLLECTION_BOOKING_NAME)
                 .document(docId)
                 .delete()
+            Log.e("delete","successful")
 
         }
         catch (ex: Exception) {

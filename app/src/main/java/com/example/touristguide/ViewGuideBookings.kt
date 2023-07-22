@@ -129,7 +129,13 @@ class ViewGuideBookings : Fragment(),onBookingClickListener {
             .setPositiveButton("Confirm") { which, dialog ->
                 guideRepository.deleteBooking(place_id)
                 bookingList.clear()
-                guideRepository.getBookingByEmail(email)
+//                if(acctype=="customer"){
+//
+//                    guideRepository.getUserBookingByEmail(email)
+//                }else{
+//
+//                    guideRepository.getBookingByEmail(email)
+//                }
                 bookingAdapter.notifyDataSetChanged()
             }
 

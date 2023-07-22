@@ -33,6 +33,7 @@ class TourBookingRepostory(private  val context: Context) {
     private val FIELD_CARD_NUMBER = "cardNumber"
     private val FIELD_CARD_DATE = "card_date"
     private val FIELD_CARD_CVV = "card_cvv"
+    private val FIELD_ID = "id"
 //    private val sharedPreference = context.getSharedPreferences("com.example.touristguide", Context.MODE_PRIVATE)
   //  var firstTime = MutableLiveData<Boolean>(false)
     private var loggedInUserID = ""
@@ -45,8 +46,7 @@ class TourBookingRepostory(private  val context: Context) {
     fun addTourBooking(newUser: TourBooking){
         try{
             val data: MutableMap<String, Any> = HashMap()
-
-
+            data[FIELD_ID] = newUser.id
             data[FIELD_USER_EMAIL] = newUser.cusEmail;
             data[FIELD_USER_NAME] = newUser.ncusName;
             data[FIELD_GUIDE_EMAIL] = newUser.guideEmail;
