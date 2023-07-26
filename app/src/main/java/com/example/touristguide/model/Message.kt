@@ -1,6 +1,8 @@
 package com.example.touristguide.model
 
-class Message( var text: String? = null,
+class Message(
+                var sender_id:String?=null,
+                var text: String? = null,
                var name: String? = null,
                var photoUrl: String? = null) {
 

@@ -155,7 +155,9 @@ class Booking : Fragment() {
 
             tourBookingRepository.addTourBooking(TourBooking(ncusName = cusName, cusEmail = cusEmail, guideEmail = guideEmail, guideName = guideName, tel = guideTel, bookingDate = bookingDate , numOfPMember = numOfMember, paymentMode = paymentMode , cardName = cardName, cardNumber = cardNumber, card_cvv = cardCvv, card_date = cardDate ))
 //
-            var mailer = Mailer(requireContext(),"harshdeep4544@gmail.com","Booking confirmed","Thank you")
+
+            var message = "Your booking with ${guideName} has been confirmed for ${bookingDate}./n Thanks"
+            var mailer = Mailer(requireContext(),"harshdeep4544@gmail.com","Booking confirmed",message)
             mailer.execute()
 
 

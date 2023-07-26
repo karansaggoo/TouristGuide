@@ -20,8 +20,10 @@ import com.example.touristguide.databinding.FragmentChattingChannelBinding
 import com.example.touristguide.databinding.FragmentViewBookingDetailBinding
 import com.example.touristguide.databinding.ItemMessageBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.NonDisposableHandle.parent
@@ -43,6 +45,8 @@ class ChattingChannel : Fragment() {
     private final var RC_PHOTO_PICKER =2
     private lateinit var mChatPhotoStorageRefeference: StorageReference
     private lateinit var prefs: SharedPreferences
+    var sender_id:String=""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +79,12 @@ class ChattingChannel : Fragment() {
 
         // Initialize message ListView and its adapter
         val friendlyMessages: List<Message> = ArrayList<Message>()
+        val user = Firebase.auth.currentUser
+        user?.let {
+            val uid = it.uid
+            sender_id = uid
+        }
+
         mMessageAdapter = MessageAdapter(requireContext(),com.example.touristguide.R.layout.item_message,friendlyMessages)
         mMessageListView!!.adapter = mMessageAdapter
 
@@ -97,7 +107,7 @@ class ChattingChannel : Fragment() {
                     var photoRef = mChatPhotoStorageRefeference.child(selectedImageUri.lastPathSegment!!)
                     photoRef.putFile(selectedImageUri).addOnSuccessListener { taskSnapshot ->
                         var downloadUrl = taskSnapshot.uploadSessionUri
-                        var friendlyMessage = com.example.touristguide.model.Message(null,mUsername,downloadUrl.toString())
+                        var friendlyMessage = com.example.touristguide.model.Message(sender_id,null,mUsername,downloadUrl.toString())
                         mMessageDatabaseReference.push().setValue(friendlyMessage)
                     }
                 }
@@ -127,7 +137,7 @@ class ChattingChannel : Fragment() {
 
         // Send button sends a message and clears the EditText
         mSendButton!!.setOnClickListener { // TODO: Send messages on click
-            var messagae = com.example.touristguide.model.Message(mMessageEditText!!.text.toString(),mUsername,null)
+            var messagae = com.example.touristguide.model.Message(sender_id,mMessageEditText!!.text.toString(),mUsername,null)
             // Clear input box
             mMessageDatabaseReference.push().setValue(messagae)
 

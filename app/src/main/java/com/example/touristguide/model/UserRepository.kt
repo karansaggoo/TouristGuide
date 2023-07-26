@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.ktx.Firebase
@@ -22,6 +23,16 @@ class UserRepository(private val context: Context) {
     private val sharedPreference = context.getSharedPreferences("com.example.touristguide", Context.MODE_PRIVATE)
     private var editor = sharedPreference.edit()
     var curUserAccType = ""
+
+
+    fun getUserId():String{
+        val user = Firebase.auth.currentUser
+        var uid:String=""
+        user?.let {
+             uid = it.uid
+        }
+        return uid
+    }
 
     fun addUserToDB(newUser: User){
         try{
