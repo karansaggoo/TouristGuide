@@ -4,29 +4,28 @@ package com.example.touristguide
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import com.example.touristguide.model.Message
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.touristguide.adapter.MessageAdapter
 import com.example.touristguide.databinding.FragmentChattingChannelBinding
-import com.example.touristguide.databinding.FragmentViewBookingDetailBinding
-import com.example.touristguide.databinding.ItemMessageBinding
-import com.google.firebase.auth.FirebaseAuth
+import com.example.touristguide.model.Message
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import kotlinx.coroutines.NonDisposableHandle.parent
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.collections.List
 
 class ChattingChannel : Fragment() {
@@ -137,7 +136,10 @@ class ChattingChannel : Fragment() {
 
         // Send button sends a message and clears the EditText
         mSendButton!!.setOnClickListener { // TODO: Send messages on click
-            var messagae = com.example.touristguide.model.Message(sender_id,mMessageEditText!!.text.toString(),mUsername,null)
+            val sdfDate = SimpleDateFormat("yyyy-MM-dd HH:mm") //dd/MM/yyyy
+            val now = Date()
+            val timeStamp: String = sdfDate.format(now)
+            var messagae = com.example.touristguide.model.Message(sender_id,mMessageEditText!!.text.toString(),mUsername,timeStamp,null)
             // Clear input box
             mMessageDatabaseReference.push().setValue(messagae)
 
