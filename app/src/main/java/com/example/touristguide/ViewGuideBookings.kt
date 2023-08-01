@@ -1,5 +1,6 @@
 package com.example.touristguide
 
+import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.method.TextKeyListener.clear
@@ -35,6 +36,7 @@ class ViewGuideBookings : Fragment(),onBookingClickListener {
         super.onCreate(savedInstanceState)
         guideRepository = GuideRepository(requireContext())
         userRepository = UserRepository(requireContext())
+        bookingList = ArrayList()
         prefs=requireContext().getSharedPreferences("com.example.touristguide", AppCompatActivity.MODE_PRIVATE)
 
 
@@ -45,28 +47,27 @@ class ViewGuideBookings : Fragment(),onBookingClickListener {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentViewGuideBookingsBinding.inflate(inflater,container,false)
-        bookingList = ArrayList()
-        email = prefs.getString("USER_EMAIL","").toString()
 
+        email = prefs.getString("USER_EMAIL","").toString()
+        bookingList = ArrayList()
         bookingAdapter = TourBookingAdapter(requireContext(), bookingList,this)
         binding.rvViewBooking.layoutManager = LinearLayoutManager(requireContext())
         binding.rvViewBooking.adapter = bookingAdapter
         val view = binding.root
 
-        return view
+   return view
 
     }
 
 
     override fun onStart() {
         super.onStart()
-
-        bookingList =  ArrayList()
+      bookingList =  ArrayList()
         bookingAdapter = TourBookingAdapter(requireContext(), bookingList,this)
         binding.rvViewBooking.layoutManager = LinearLayoutManager(requireContext())
         binding.rvViewBooking.adapter = bookingAdapter
 
-        bookingList.clear()
+       bookingList.clear()
         Log.e("harsh","calling")
         var  acctype = prefs.getString("USER_ACCOUNT_TYPE","").toString()
         if(acctype=="customer"){
@@ -85,9 +86,6 @@ class ViewGuideBookings : Fragment(),onBookingClickListener {
         super.onResume()
         guideRepository.getBookingByEmail(email)
         //Get up-to-date favorite list from Firestore
-
-
-
 
         guideRepository.bookingList.observe(this){
                 list ->
@@ -111,6 +109,22 @@ class ViewGuideBookings : Fragment(),onBookingClickListener {
     override fun onItemClickListener(booking: TourBooking) {
         val action = ViewGuideBookingsDirections.actionViewGuideBookingsToViewBookingDetail(booking)
         findNavController().navigate(action)
+    }
+
+    override fun onItemLongClickListener(booking: TourBooking) {
+        val alert = AlertDialog.Builder(requireContext())
+            .setTitle("Confirmation")
+            .setMessage("Do you want to remove it from your booking list?")
+            .setNegativeButton("Cancel", null)
+            .setPositiveButton("Confirm") { which, dialog ->
+               guideRepository.deleteFromBookinglist(booking.id)
+                bookingList.clear()
+                guideRepository.getUserBookingByEmail(email)
+                bookingAdapter.notifyDataSetChanged()
+            }
+
+        alert.show()
+
     }
 
 

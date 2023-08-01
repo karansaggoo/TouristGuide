@@ -327,7 +327,17 @@ class GuideRepository(private val context:Context) {
 
     }
 
+    fun deleteFromBookinglist(docId: String) {
+        try {
+            db.collection(COLLECTION_BOOKING_NAME)
+                .document(docId)
+                .delete()
 
+        }
+        catch (ex: Exception) {
+            Log.e("ERROR", "deleteFromFavorite(): Couldn't delete a given place from wishlist")
+        }
+    }
 
 
 
