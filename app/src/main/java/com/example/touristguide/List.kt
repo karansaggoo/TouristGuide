@@ -138,8 +138,9 @@ class List : Fragment(),onPlaceClickListener {
 }
 
     override fun onItemClickListener(place_id:String , place:com.example.touristguide.model.Result) {
+        var image=if (place.photos != null)place.photos?.get(0)!!.photo_reference  else ""
 
-        val action = ListDirections.actionList2ToDetailFragment( place.place_id,place.icon,place.rating!!,place.name,)
+        val action = ListDirections.actionList2ToDetailFragment( place.place_id, image,place.rating!!,place.name,)
         findNavController().navigate(action)
 
 

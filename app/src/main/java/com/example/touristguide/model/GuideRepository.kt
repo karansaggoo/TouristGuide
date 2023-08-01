@@ -32,7 +32,7 @@ class GuideRepository(private val context:Context) {
     private val sharedPreference = context.getSharedPreferences("com.example.touristguide", Context.MODE_PRIVATE)
     var firstTime = MutableLiveData<Boolean>(false)
     private var loggedInUserID = ""
-    var isEmpty = false
+    var isEmpty = MutableLiveData<Boolean>(false)
 
     init {
         loggedInUserID = sharedPreference.getString("USER_EMAIL","").toString()
@@ -287,14 +287,26 @@ class GuideRepository(private val context:Context) {
                         )
 
                         if(snapshot.size()==0){
-                            isEmpty = true
+                            isEmpty.value = true
                         }
 
 
                         val guideBookingArrayList:MutableList<TourBooking> = ArrayList<TourBooking>()
                         for(documentChange in snapshot.documentChanges){
                             val currentBooking: TourBooking = documentChange.document.toObject(TourBooking::class.java)
-                            currentBooking.id = documentChange.document.get("id").toString()
+                            currentBooking.guideName = documentChange.document.get("guideName").toString()
+                            currentBooking.bookingDate = documentChange.document.get("bookingDate").toString()
+                            currentBooking.id = documentChange.document.id
+                            currentBooking.cusEmail  =documentChange.document.get("cusEmail").toString()
+                            currentBooking.cardName=documentChange.document.get("cardName").toString()
+                            currentBooking.cardNumber=documentChange.document.get("cardNumber").toString()
+                            currentBooking.card_cvv=documentChange.document.get("card_cvv").toString()
+                            currentBooking.card_date=documentChange.document.get("card_date").toString()
+                            currentBooking.ncusName=documentChange.document.get("ncusName").toString()
+                            currentBooking.numOfPMember=documentChange.document.get("numOfMember").toString()
+                            currentBooking.paymentMode=documentChange.document.get("paymentMode").toString()
+                            currentBooking.guideEmail=documentChange.document.get("guideEmail").toString()
+                            currentBooking.tel=documentChange.document.get("tel").toString()
 
                             when(documentChange.type){
                                 DocumentChange.Type.ADDED->{guideBookingArrayList.add(currentBooking)}

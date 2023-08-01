@@ -157,7 +157,7 @@ class Booking : Fragment() {
 //
 
             var message = "Your booking with ${guideName} has been confirmed for ${bookingDate}./n Thanks"
-            var mailer = Mailer(requireContext(),"harshdeep4544@gmail.com","Booking confirmed",message)
+            var mailer = Mailer(requireContext(),"${cusEmail}","Booking confirmed",message)
             mailer.execute()
 
 

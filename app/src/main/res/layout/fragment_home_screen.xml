@@ -169,8 +169,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="16dp"
-            android:background="@drawable/border2"
+            android:background="@color/yellow"
             android:padding="16dp"
+            android:textStyle="bold"
             android:textColor="@color/white"
             android:visibility="invisible"
 

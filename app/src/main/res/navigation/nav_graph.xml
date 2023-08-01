@@ -98,7 +98,7 @@
     <fragment
         android:id="@+id/guideSearch"
         android:name="com.example.touristguide.guideSearch"
-        android:label="fragment_guide_search"
+        android:label="Search Guide"
         tools:layout="@layout/fragment_guide_search" >
         <action
             android:id="@+id/action_guideSearch_to_guideBook"
@@ -107,16 +107,16 @@
     <fragment
         android:id="@+id/guideBook"
         android:name="com.example.touristguide.Booking"
-        android:label="fragment_guide_search"
+        android:label="Booking Screen"
         tools:layout="@layout/fragment_booking" >
         <argument
             android:name="guide"
             app:argType="com.example.touristguide.model.Guide" />
     </fragment>
     <fragment
-        android:id="@+id/viewGuideBookings"
+        android:id="@+id/Booking"
         android:name="com.example.touristguide.ViewGuideBookings"
-        android:label="fragment_view_guide_bookings"
+        android:label="Booking History"
         tools:layout="@layout/fragment_view_guide_bookings" >
         <action
             android:id="@+id/action_viewGuideBookings_to_viewBookingDetail"
@@ -125,7 +125,7 @@
     <fragment
         android:id="@+id/viewBookingDetail"
         android:name="com.example.touristguide.ViewBookingDetail"
-        android:label="fragment_view_booking_detail"
+        android:label="Booking Details"
         tools:layout="@layout/fragment_view_booking_detail" >
         <action
             android:id="@+id/action_viewBookingDetail_to_chattingChannel"
@@ -137,7 +137,7 @@
     <fragment
         android:id="@+id/chattingChannel"
         android:name="com.example.touristguide.ChattingChannel"
-        android:label="ChattingChannel" >
+        android:label="Chatting Channel" >
         <argument
             android:name="booking"
             app:argType="com.example.touristguide.model.TourBooking" />

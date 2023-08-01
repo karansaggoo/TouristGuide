@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.touristguide.adapter.PlaceAdapter
 import com.example.touristguide.adapter.WishAdapter
@@ -108,6 +109,8 @@ class WishList : Fragment(),onWishClickListener {
     }
 
     override fun onItemClickListener(place_id: String, place: WishListPlace) {
+        val action = WishListDirections.actionWishList2ToDetailFragment(place_id,place.icon,place.rating.toFloat(),place.name)
+        findNavController().navigate(action)
 
 
     }
@@ -118,7 +121,7 @@ class WishList : Fragment(),onWishClickListener {
             .setMessage("Do you want to remove it from your wish list?")
             .setNegativeButton("Cancel", null)
             .setPositiveButton("Confirm") { which, dialog ->
-                wishListRepository.deleteFromWishlist(place.id)
+                wishListRepository.deleteFromWishList(place.id)
                 WishList.clear()
                 wishListRepository.getFavouriteWish()
                 wishAdapter.notifyDataSetChanged()

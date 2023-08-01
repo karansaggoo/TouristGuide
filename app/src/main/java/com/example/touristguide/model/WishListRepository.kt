@@ -56,6 +56,7 @@ class WishListRepository(private val context: Context) {
                             val wish = WishListPlace()
                             wish.name = documentChange.document.get("name").toString()
                             wish.icon = documentChange.document.get("icon").toString()
+                            wish.id = documentChange.document.id
                             wish.place_id = documentChange.document.get("place_id").toString()
                             wish.rating = documentChange.document.get("rating").toString()
 
@@ -75,7 +76,7 @@ class WishListRepository(private val context: Context) {
     }
 
     //Delete a favorite news from Firestore with document id equals to the given docId
-    fun deleteFromWishlist(docId: String) {
+    fun deleteFromWishList(docId: String) {
         try {
             db.collection(COLLECTION_WISHLIST)
                 .document(loggedInUserID)

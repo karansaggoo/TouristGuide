@@ -56,7 +56,7 @@ class LocationHelper private constructor(){
 
     //used specify configuration information about the location access
     private val locationRequest : com.google.android.gms.location.LocationRequest
-    private val UPDATE_LOCATION_INTERVAL = 5000 //5 sec
+    private val UPDATE_LOCATION_INTERVAL = 300000 //5 min
     var currentLocation = MutableLiveData<Location>()
 
     init {

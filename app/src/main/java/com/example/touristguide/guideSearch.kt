@@ -52,7 +52,7 @@ class guideSearch : Fragment(),onGuideClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.searchBtn.setOnClickListener {
-            GuideRepository.getGuideByLoc(binding.guideLoc.text.toString())
+            GuideRepository.getGuideByLoc(binding.guideLoc.text.toString().lowercase())
             Log.e("location",binding.guideLoc.text.toString().lowercase())
             GuideList.clear()
             guideAdapter.notifyDataSetChanged()

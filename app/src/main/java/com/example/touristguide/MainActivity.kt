@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var prefs: SharedPreferences
     var name = ""
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         prefs=applicationContext.getSharedPreferences(packageName, AppCompatActivity.MODE_PRIVATE)
         super.onCreate(savedInstanceState)
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -43,6 +45,8 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+
         menuInflater.inflate(R.menu.menu,menu)
         return super.onCreateOptionsMenu(menu)
     }

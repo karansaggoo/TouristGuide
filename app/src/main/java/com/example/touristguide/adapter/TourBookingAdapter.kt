@@ -22,7 +22,7 @@ class TourBookingAdapter(private val context: Context,
                 clickListener.onItemClickListener(currentBooking)
             }
             itemView.setOnLongClickListener {
-                clickListener.onItemLongClickListener((currentBooking.id))
+                clickListener.onItemLongClickListener((currentBooking.id),currentBooking)
                 true
             }
 

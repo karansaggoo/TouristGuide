@@ -6,9 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.project_g08.api.RetrofitInstance
 import com.example.touristguide.api.IAPIResponse2
 import com.example.touristguide.databinding.FragmentDetailBinding
@@ -76,6 +78,12 @@ class DetailFragment : Fragment() {
             }
             Log.d("details","${placeDetailFromAPI.result}")
             binding.detailName.setText(placeDetailFromAPI.result!!.name)
+            if(args.icon!=""){
+                var uri = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${args.icon}&key=AIzaSyBTmys4lYnABAKI4gEbAByuxiL2nCbAm9o".toUri()
+                Glide.with(binding.detailName.context).load(uri).into(binding.detailImage)
+
+            }
+            //binding.detailImage.setImageURI(uri)
             binding.detailrating.setText(placeDetailFromAPI.result!!.rating.toString())
             binding.detailaddress.setText(placeDetailFromAPI.result!!.formatted_address)
             binding.addReviewBtn.setOnClickListener(){
@@ -84,7 +92,7 @@ class DetailFragment : Fragment() {
             }
             binding.reviewBtn.setOnClickListener {
                  val action = DetailFragmentDirections.actionDetailFragmentToViewReview(
-                        placeDetailFromAPI.result!!.reviews!!)
+                     placeDetailFromAPI.result!!.reviews!!)
                     findNavController().navigate(action)
             }
 
