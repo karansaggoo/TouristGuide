@@ -3,6 +3,7 @@ package com.example.touristguide
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -134,7 +135,7 @@ class Booking : Fragment() {
             guideName = args.guide.name
             guideEmail =args.guide.email
             cardName = binding.cardName.getText().toString()
-            cardNumber = binding.cardNumber.getText().toString()
+            cardNumber = binding.cardNumber.getText().toString().trim()
             cardCvv = binding.cardCvv.getText().toString()
             cardDate = binding.cardDate.getText().toString()
             bookingDate = binding.tourDate.getText().toString()
@@ -146,22 +147,7 @@ class Booking : Fragment() {
                 }
                 R.id.rb_card -> {
                     paymentMode = "Card"
-                    if(binding.cardName.text.toString().isEmpty()){
-                        Toast.makeText(requireContext(), "Please enter Card Name ", Toast.LENGTH_LONG)
-                            .show()
-                    }
-                    if(binding.cardNumber.text.toString().isEmpty()){
-                        Toast.makeText(requireContext(), "Please enter Card Number ", Toast.LENGTH_LONG)
-                            .show()
-                    }
-                    if(binding.cardDate.text.toString().isEmpty()){
-                        Toast.makeText(requireContext(), "Please enter Card Date ", Toast.LENGTH_LONG)
-                            .show()
-                    }
-                    if(binding.cardCvv.text.toString().isEmpty()){
-                        Toast.makeText(requireContext(), "Please enter Card CVV ", Toast.LENGTH_LONG)
-                            .show()
-                    }
+
 
 
                 }
@@ -179,11 +165,43 @@ class Booking : Fragment() {
                 Toast.makeText(requireContext(), "Guide is alredy booked on ${bookingDate} ", Toast.LENGTH_LONG)
                     .show()
             }
+            if(paymentMode == "Card"){
+                if(binding.cardName.text.toString().isEmpty()){
+                    Toast.makeText(requireContext(), "Please enter Card Name ", Toast.LENGTH_LONG)
+                        .show()
+                }
+                if(binding.cardNumber.text.toString().isEmpty()){
+                    Toast.makeText(requireContext(), "Please enter Card Number ", Toast.LENGTH_LONG)
+                        .show()
+                }
+//               Patterns.PHONE.matcher(cardNumber).matches()
+                if(cardNumber.length != 16 ){
+                    Toast.makeText(requireContext(), "Please enter Card Number Properly, should be 16", Toast.LENGTH_LONG)
+                        .show()
+                }
+                if(binding.cardDate.text.toString().isEmpty()){
+                    Toast.makeText(requireContext(), "Please enter Card Date ", Toast.LENGTH_LONG)
+                        .show()
+                }
+                if(binding.cardCvv.text.toString().isEmpty()){
+                    Toast.makeText(requireContext(), "Please enter Card CVV ", Toast.LENGTH_LONG)
+                        .show()
+                }
+            }
 
             else{
 
                 tourBookingRepository.addTourBooking(TourBooking(ncusName = cusName, cusEmail = cusEmail, guideEmail = guideEmail, guideName = guideName, tel = guideTel, bookingDate = bookingDate , numOfPMember = numOfMember, paymentMode = paymentMode , cardName = cardName, cardNumber = cardNumber, card_cvv = cardCvv, card_date = cardDate ))
 
+                numOfMember = ""
+                guideTel = ""
+                guideName = ""
+                guideEmail =""
+                cardName = ""
+                cardNumber = ""
+                cardCvv = ""
+                cardDate = ""
+                bookingDate = ""
                 var action = BookingDirections.actionGuideBookToViewBookingDetail(TourBooking(ncusName = cusName, cusEmail = cusEmail, guideEmail = guideEmail, guideName = guideName, tel = guideTel, bookingDate = bookingDate , numOfPMember = numOfMember, paymentMode = paymentMode , cardName = cardName, cardNumber = cardNumber, card_cvv = cardCvv, card_date = cardDate))
                 findNavController().navigate(action)
 
