@@ -40,6 +40,11 @@ class ViewBookingDetail : Fragment() {
             var action = ViewBookingDetailDirections.actionViewBookingDetailToChattingChannel(args.booking)
             findNavController().navigate(action)
         }
+
+        binding.customerName.setText("${args.booking.ncusName}")
+        binding.guideName.setText("${args.booking.guideName}")
+        binding.tourMember.setText("${args.booking.numOfPMember}")
+        binding.bookingDate.setText("${args.booking.bookingDate}")
     }
 
 

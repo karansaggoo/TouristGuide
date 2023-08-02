@@ -218,6 +218,7 @@
                     android:textColor="@color/black"
                     android:layout_height="wrap_content"
                     android:clickable="false"
+                    android:inputType="number"
                     android:hint="@string/enter_card_number"
                     />
 

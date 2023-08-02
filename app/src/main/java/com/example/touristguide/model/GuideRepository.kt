@@ -32,7 +32,7 @@ class GuideRepository(private val context:Context) {
     private val sharedPreference = context.getSharedPreferences("com.example.touristguide", Context.MODE_PRIVATE)
     var firstTime = MutableLiveData<Boolean>(false)
     private var loggedInUserID = ""
-    var isEmpty = MutableLiveData<Boolean>(false)
+    var isEmpty = false
 
     init {
         loggedInUserID = sharedPreference.getString("USER_EMAIL","").toString()
@@ -146,7 +146,7 @@ class GuideRepository(private val context:Context) {
                             val currentGuide: Guide = documentChange.document.toObject(Guide::class.java)
 
 
-                            currentGuide.id=documentChange.document.get("id").toString()
+                            currentGuide.id=documentChange.document.id
 
                             when(documentChange.type){
                                 DocumentChange.Type.ADDED->{guideArrayList.add(currentGuide)}
@@ -238,12 +238,14 @@ class GuideRepository(private val context:Context) {
                         val guideBookingArrayList:MutableList<TourBooking> = ArrayList<TourBooking>()
                         for(documentChange in snapshot.documentChanges){
                             val currentBooking: TourBooking = documentChange.document.toObject(TourBooking::class.java)
-                            currentBooking.id=documentChange.document.get("id").toString()
+
+
+                            currentBooking.id=documentChange.document.id
 
                             when(documentChange.type){
                                 DocumentChange.Type.ADDED->{guideBookingArrayList.add(currentBooking)}
                                 DocumentChange.Type.MODIFIED->{}
-                                DocumentChange.Type.REMOVED->{guideBookingArrayList.remove(currentBooking)}
+                                DocumentChange.Type.REMOVED->{}
                             }
                         }
 
@@ -287,31 +289,18 @@ class GuideRepository(private val context:Context) {
                         )
 
                         if(snapshot.size()==0){
-                            isEmpty.value = true
+                            isEmpty = true
                         }
 
 
                         val guideBookingArrayList:MutableList<TourBooking> = ArrayList<TourBooking>()
                         for(documentChange in snapshot.documentChanges){
                             val currentBooking: TourBooking = documentChange.document.toObject(TourBooking::class.java)
-                            currentBooking.guideName = documentChange.document.get("guideName").toString()
-                            currentBooking.bookingDate = documentChange.document.get("bookingDate").toString()
-                            currentBooking.id = documentChange.document.id
-                            currentBooking.cusEmail  =documentChange.document.get("cusEmail").toString()
-                            currentBooking.cardName=documentChange.document.get("cardName").toString()
-                            currentBooking.cardNumber=documentChange.document.get("cardNumber").toString()
-                            currentBooking.card_cvv=documentChange.document.get("card_cvv").toString()
-                            currentBooking.card_date=documentChange.document.get("card_date").toString()
-                            currentBooking.ncusName=documentChange.document.get("ncusName").toString()
-                            currentBooking.numOfPMember=documentChange.document.get("numOfMember").toString()
-                            currentBooking.paymentMode=documentChange.document.get("paymentMode").toString()
-                            currentBooking.guideEmail=documentChange.document.get("guideEmail").toString()
-                            currentBooking.tel=documentChange.document.get("tel").toString()
 
                             when(documentChange.type){
                                 DocumentChange.Type.ADDED->{guideBookingArrayList.add(currentBooking)}
                                 DocumentChange.Type.MODIFIED->{}
-                                DocumentChange.Type.REMOVED->{guideBookingArrayList.remove(currentBooking)}
+                                DocumentChange.Type.REMOVED->{}
                             }
                         }
 
@@ -336,20 +325,6 @@ class GuideRepository(private val context:Context) {
             Log.e(TAG, "docId : ${ex}")
         }
 
-    }
-
-
-    fun deleteBooking(docId: String) {
-        try {
-            db.collection(COLLECTION_BOOKING_NAME)
-                .document(docId)
-                .delete()
-            Log.e("delete","successful")
-
-        }
-        catch (ex: Exception) {
-            Log.e("ERROR", "delete: Couldn't delete")
-        }
     }
 
 

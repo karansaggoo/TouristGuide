@@ -37,6 +37,7 @@ class TourBookingRepostory(private  val context: Context) {
 //    private val sharedPreference = context.getSharedPreferences("com.example.touristguide", Context.MODE_PRIVATE)
   //  var firstTime = MutableLiveData<Boolean>(false)
     private var loggedInUserID = ""
+    var bookingDate = ""
 
 //    init {
 //        loggedInUserID = sharedPreference.getString("USER_EMAIL","").toString()
@@ -73,5 +74,44 @@ class TourBookingRepostory(private  val context: Context) {
             Log.e(TAG, "addUserToDB: ${ex.toString()}")
         }
     }
+
+    fun checkBookingDate(date:String){
+        try{
+            db.collection(COLLECTION_BOOKING_NAME)
+                .whereEqualTo(FIELD_DATE, date)
+                .addSnapshotListener(EventListener{ snapshot, error ->
+                    if (error != null){
+                        Log.e(TAG, "searchUserWithEmail: Listening to collection documents FAILED ${error}")
+                        return@EventListener
+                    }
+
+                    if (snapshot != null){
+                        Log.e(
+                            TAG,
+                            "searchUserWithEmail: ${snapshot.size()} Received the documents from collection ${snapshot}"
+                        )
+
+                        //process the received documents
+                        //save the doc ID to the SharedPreferences
+                            for(documentChange in snapshot.documentChanges){
+                                val currentTour: TourBooking = documentChange.document.toObject(TourBooking::class.java)
+
+
+                                bookingDate = currentTour.bookingDate
+
+
+                            }
+                    }else{
+                        Log.e(TAG, "searchUserWithEmail: No Documents received from collection")
+                    }
+                })
+
+        }catch(ex: Exception){
+            Log.e(TAG, "getAllFruits: ${ex}")
+        }
+    }
+
+
+
 
 }
