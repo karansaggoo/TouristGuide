@@ -49,6 +49,19 @@
     <string name="enter_card_number">Enter Card Number</string>
     <string name="enter_card_date">Expiry Date</string>
     <string name="enter_card_cvv">CVV</string>
+    <string name="chat">Chat</string>
+    <string name="members">Members</string>
+    <string name="number_of_member">Number of Member :</string>
+    <string name="booking_date">Booking Date</string>
+    <string name="bookng_date">Bookng Date :</string>
+    <string name="guide_name">Guide Name</string>
+    <string name="customer_name">Customer Name</string>
+    <string name="chatting_channel">Chatting Channel</string>
+    <string name="booking_details">Booking Details</string>
+    <string name="booking_history">Booking History</string>
+    <string name="booking_screen">Booking Screen</string>
+    <string name="guide_profile">Guide Profile</string>
+    <string name="guide_main">Guide_main</string>
 
 
 </resources>

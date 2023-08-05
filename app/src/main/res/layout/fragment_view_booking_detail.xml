@@ -21,7 +21,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Customer Name : "
+                    android:text="@string/customer_name"
                     android:textColor="@color/yellow"
                     android:textStyle="bold"
                     android:layout_marginStart="10dp"
@@ -29,7 +29,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Customer Name"
+                    android:text="@string/customer_name"
                     android:layout_marginStart="10dp"
                     android:textSize="16sp"
                     android:id="@+id/customer_Name"/>
@@ -51,7 +51,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Guide Name"
+                    android:text="@string/guide_name"
                     android:layout_marginStart="10dp"
                     android:textSize="16sp"
                     android:id="@+id/guide_Name"/>
@@ -64,7 +64,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bookng Date : "
+                    android:text="@string/bookng_date"
                     android:textColor="@color/yellow"
                     android:textStyle="bold"
                     android:layout_marginStart="10dp"
@@ -72,7 +72,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Booking Date"
+                    android:text="@string/booking_date"
                     android:layout_marginStart="10dp"
                     android:textSize="16sp"
                     android:id="@+id/booking_Date"/>
@@ -86,7 +86,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Number of  Member : "
+                    android:text="@string/number_of_member"
                     android:textColor="@color/yellow"
                     android:textStyle="bold"
                     android:layout_marginStart="10dp"
@@ -94,7 +94,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Members"
+                    android:text="@string/members"
                     android:layout_marginStart="10dp"
                     android:textSize="16sp"
                     android:id="@+id/tour_Member"/>
@@ -108,7 +108,7 @@
                 android:layout_margin="8dp"
                 android:textSize="14sp"
                 android:textColor="@color/black"
-                android:text="Chat"
+                android:text="@string/chat"
                 />
         </LinearLayout>
 

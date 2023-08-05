@@ -64,10 +64,10 @@ class guideSearch : Fragment(),onGuideClickListener {
                 if(list != null){
                     for(guide in list){
                         binding.tvError.visibility=View.INVISIBLE
-                        GuideList.clear()
-                        binding.rvView.visibility=View.VISIBLE
+                       // binding.rvView.visibility=View.VISIBLE
                         GuideList.add(guide)
                         guideAdapter.notifyDataSetChanged()
+                        Log.e("listofguide","${GuideList}")
                     }
                 }else{
                     Log.e("wrong","location")

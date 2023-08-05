@@ -27,11 +27,21 @@ interface IAPIResponse {
 
     @GET("/maps/api/place/nearbysearch/json?radius=1500&type=shopping_mall&key=AIzaSyBTmys4lYnABAKI4gEbAByuxiL2nCbAm9o")
     suspend fun getShopping(@Query("location") location:String): Place
-    @GET("/maps/api/place/nearbysearch/json?radius=1500&key=AIzaSyBTmys4lYnABAKI4gEbAByuxiL2nCbAm9o")
-    suspend fun getOther(@Query("location") location:String,@Query("type") type:String): Place
 
-
-
+    @GET("/maps/api/place/nearbysearch/json?radius=1500&type=bar&key=AIzaSyBTmys4lYnABAKI4gEbAByuxiL2nCbAm9o")
+    suspend fun getBar(@Query("location") location:String): Place
+    @GET("/maps/api/place/nearbysearch/json?radius=1500&type=accounting&key=AIzaSyBTmys4lYnABAKI4gEbAByuxiL2nCbAm9o")
+    suspend fun getAccounting(@Query("location") location:String): Place
+    @GET("/maps/api/place/nearbysearch/json?radius=1500&type=aquarium&key=AIzaSyBTmys4lYnABAKI4gEbAByuxiL2nCbAm9o")
+    suspend fun getAquarium(@Query("location") location:String): Place
+    @GET("/maps/api/place/nearbysearch/json?radius=1500&type=bank&key=AIzaSyBTmys4lYnABAKI4gEbAByuxiL2nCbAm9o")
+    suspend fun getBank(@Query("location") location:String): Place
+    @GET("/maps/api/place/nearbysearch/json?radius=1500&type=museum&key=AIzaSyBTmys4lYnABAKI4gEbAByuxiL2nCbAm9o")
+    suspend fun getMuseum(@Query("location") location:String): Place
+    @GET("/maps/api/place/nearbysearch/json?radius=1500&type=parking&key=AIzaSyBTmys4lYnABAKI4gEbAByuxiL2nCbAm9o")
+    suspend fun getParking(@Query("location") location:String): Place
+    @GET("/maps/api/place/nearbysearch/json?radius=1500&type=bus_staionl&key=AIzaSyBTmys4lYnABAKI4gEbAByuxiL2nCbAm9o")
+    suspend fun getBusStation(@Query("location") location:String): Place
 
 
 

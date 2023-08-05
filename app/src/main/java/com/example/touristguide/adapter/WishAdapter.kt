@@ -1,6 +1,7 @@
 package com.example.touristguide.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -23,8 +24,9 @@ class WishAdapter(private val context:Context,
            }
 
             if(currentPlace.icon!=null){
-                //var url = "https://maps.googleapis.com/maps/api/place/photo?${currentPlace.photos!![0].photo_reference}&key=AIzaSyBTmys4lYnABAKI4gEbAByuxiL2nCbAm9o"
-                Glide.with(binding.tvTitle.context).load(currentPlace.icon).into(binding.ivPic)
+                Log.e("iconLabel",currentPlace.icon)
+                var url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${currentPlace.icon}&key=AIzaSyBTmys4lYnABAKI4gEbAByuxiL2nCbAm9o"
+                Glide.with(binding.tvTitle.context).load(url).into(binding.ivPic)
             }else{
                 binding.ivPic.setImageResource(R.drawable.image)
             }

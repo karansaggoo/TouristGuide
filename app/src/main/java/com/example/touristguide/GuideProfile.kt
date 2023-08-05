@@ -16,6 +16,7 @@ import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.touristguide.databinding.FragmentGuideProfileBinding
 import com.example.touristguide.model.Guide
 import com.example.touristguide.model.GuideRepository
@@ -73,6 +74,10 @@ class GuideProfile : Fragment() {
                     binding.guideName.setText(guide.name)
                     binding.guideTel.setText("tel:${guide.tel}")
                     binding.guideDesc.setText(guide.desc)
+                    if(guide.uri!=null){
+                        Glide.with(binding.guideName.context).load(guide.uri).into(binding.profilePic)
+
+                    }
                 }
            }
             //else{

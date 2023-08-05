@@ -83,11 +83,16 @@ class List : Fragment(),onPlaceClickListener {
                 "library"->placeListFromAPI=api.getLibrary(location)
                 "shop"->placeListFromAPI=api.getShopping(location)
                 "theater"->placeListFromAPI=api.getTheatre(location)
-                "bar"->placeListFromAPI=api.getTheatre(location)
+                "bar"->placeListFromAPI=api.getBar(location)
+                "accounting"->placeListFromAPI=api.getAccounting(location)
+                "aquarium"->placeListFromAPI=api.getAquarium(location)
+                "bank"->placeListFromAPI=api.getBank(location)
+                "museum"->placeListFromAPI=api.getMuseum(location)
+                "parking"->placeListFromAPI=api.getParking(location)
+                "bus station"->placeListFromAPI=api.getBusStation(location)
 
 
             }
-
             PlaceList.clear()
             PlaceList.addAll(placeListFromAPI.results)
             adapter.notifyDataSetChanged()
@@ -111,10 +116,11 @@ class List : Fragment(),onPlaceClickListener {
                     .setTitle("Do you want to save this ?")
                     .setPositiveButton("Yes") { dialog, which ->
                         var position = viewHolder.adapterPosition
-                        var image = ""
-                        if(PlaceList[position].icon!=null){
-                            image = PlaceList[position].icon.toString()
-                        }
+
+//                        if(PlaceList[position].icon!=null){
+//                            image = PlaceList[position].icon.toString()
+//                        }
+                        var image=if (PlaceList[position].photos != null)PlaceList[position].photos?.get(0)!!.photo_reference  else ""
 
                         val wish = WishListPlace(name = PlaceList[position].name, icon =  image, place_id = PlaceList[position].place_id, rating = PlaceList[position].rating.toString())
                         wishListRepository.addFavouriteWish(wish)

@@ -4,10 +4,12 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -80,11 +82,42 @@ class guideProfileUpdate : Fragment() {
                     Log.e("photo null",loc)
                     Log.e("user",desc)
                     Log.e("user",tel)
-                    guideRepository.addUserToDB(Guide(email = email, name = name, tel = tel , desc = desc, loc = loc, imageUri = "", price = price))
+
+                    if(binding.guideLoc.text.toString().isEmpty()&&binding.guideDesc.text.toString().isEmpty()&&binding.guideTel.text.toString().isEmpty()&&
+                            binding.guidePrice.text.toString().isEmpty()&&binding.guideTel.text.toString().isEmpty()){
+                        Toast.makeText(requireContext(), "All entries are required" , Toast.LENGTH_LONG)
+                            .show()
+                    }else{
+                        if(binding.guideTel.text!!.toString().length<10){
+
+                            Toast.makeText(requireContext(), "Enter valid phone number" , Toast.LENGTH_LONG)
+                                .show()
+                        }else{
+                            guideRepository.addUserToDB(Guide(email = email, name = name, tel = tel , desc = desc, loc = loc, uri = "", price = price))
+
+                        }
+
+                    }
 
                 }
                 else{
-                    guideRepository.addUserToDB(Guide(email = email, name = name, tel = tel , desc = desc, loc = loc, imageUri = selectedImageUri!!))
+                    if(binding.guideLoc.text.toString().isEmpty()&&binding.guideDesc.text.toString().isEmpty()&&binding.guideTel.text.toString().isEmpty()&&
+                        binding.guidePrice.text.toString().isEmpty()){
+                        Toast.makeText(requireContext(), "All entries are required" , Toast.LENGTH_LONG)
+                            .show()
+                    }else{
+                        if(binding.guideTel.text!!.toString().length<10){
+
+                            Toast.makeText(requireContext(), "Enter valid phone number" , Toast.LENGTH_LONG)
+                                .show()
+                        }else{
+                            guideRepository.addUserToDB(Guide(email = email, name = name, tel = tel , desc = desc, loc = loc, uri = selectedImageUri!!))
+
+                        }
+
+
+                    }
+
 
                 }
                 val action = guideProfileUpdateDirections.actionGuideProfile2ToBooking3()
@@ -102,7 +135,7 @@ class guideProfileUpdate : Fragment() {
                     Log.e("user",loc)
                     Log.e("user",desc)
                     Log.e("user",tel)
-                    guideRepository.updateUserToDB(Guide(id =args.guide.id ,email = email, name = name, tel = tel , desc = desc, loc = loc, imageUri = "", price = price))
+                    guideRepository.updateUserToDB(Guide(id =args.guide.id ,email = email, name = name, tel = tel , desc = desc, loc = loc, uri = "null", price = price))
                    // guideRepository.addUserToDB(Guide(email = email, name = name, tel = tel , desc = desc, loc = loc, imageUri = "", price = price))
 
                 }
@@ -110,7 +143,7 @@ class guideProfileUpdate : Fragment() {
                     Log.e("user",loc)
                     Log.e("user",desc)
                     Log.e("user",tel)
-                    guideRepository.updateUserToDB(Guide(id =args.guide.id ,email = email, name = name, tel = tel , desc = desc, loc = loc, imageUri = selectedImageUri!!, price = price))
+                    guideRepository.updateUserToDB(Guide(id =args.guide.id ,email = email, name = name, tel = tel , desc = desc, loc = loc, uri = selectedImageUri!!, price = price))
 
 
                     //guideRepository.addUserToDB(Guide(email = email, name = name, tel = tel , desc = desc, loc = loc, imageUri = selectedImageUri!!))
@@ -121,7 +154,6 @@ class guideProfileUpdate : Fragment() {
             }
 
         }
-
 
     }
 

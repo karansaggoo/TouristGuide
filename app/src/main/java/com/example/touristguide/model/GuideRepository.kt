@@ -32,7 +32,7 @@ class GuideRepository(private val context:Context) {
     private val sharedPreference = context.getSharedPreferences("com.example.touristguide", Context.MODE_PRIVATE)
     var firstTime = MutableLiveData<Boolean>(false)
     private var loggedInUserID = ""
-    var isEmpty = false
+    var isEmpty = MutableLiveData<Boolean>(false)
 
     init {
         loggedInUserID = sharedPreference.getString("USER_EMAIL","").toString()
@@ -48,7 +48,7 @@ class GuideRepository(private val context:Context) {
             data[FIELD_LOC] = newUser.loc
             data[FIELD_TEL] = newUser.tel
             data[FIELD_DESC] = newUser.desc
-            data[FIELD_URI]=newUser.imageUri
+            data[FIELD_URI]=newUser.uri!!
             data[FIELD_PRICE] = newUser.price
 
 
@@ -147,6 +147,7 @@ class GuideRepository(private val context:Context) {
 
 
                             currentGuide.id=documentChange.document.id
+                            currentGuide.uri = documentChange.document.get(FIELD_URI).toString()
 
                             when(documentChange.type){
                                 DocumentChange.Type.ADDED->{guideArrayList.add(currentGuide)}
@@ -156,7 +157,7 @@ class GuideRepository(private val context:Context) {
                         }
 
                         guideList.postValue(guideArrayList)
-                        Log.e("datafromfirebase","${guideArrayList}")
+                        Log.e("Guidedatafromfirebase","${guideArrayList}")
 
 
                         //process the received documents
@@ -182,20 +183,21 @@ class GuideRepository(private val context:Context) {
         try{
             val data: MutableMap<String, Any> = HashMap()
 
+            data[FIELD_ID] = newUser.id
             data[FIELD_USER_EMAIL] = newUser.email;
             data[FIELD_USER_NAME] = newUser.name;
             data[FIELD_LOC] = newUser.loc
             data[FIELD_TEL] = newUser.tel
             data[FIELD_DESC] = newUser.desc
-            data[FIELD_URI]=newUser.imageUri
+            data[FIELD_URI]=newUser.uri!!
 
 
             db.collection(COLLECTION_NAME).document(newUser.id).update(data).addOnSuccessListener {
                 Log.e(TAG,"update successfull")
             }
-            .addOnFailureListener{
-                Log.e(TAG, "update unsuccessful")
-            }
+                .addOnFailureListener{
+                    Log.e(TAG, "update unsuccessful ${it}")
+                }
 
         }catch(ex: Exception){
             Log.e(TAG, "updateUserToDB: ${ex.toString()}")
@@ -238,14 +240,12 @@ class GuideRepository(private val context:Context) {
                         val guideBookingArrayList:MutableList<TourBooking> = ArrayList<TourBooking>()
                         for(documentChange in snapshot.documentChanges){
                             val currentBooking: TourBooking = documentChange.document.toObject(TourBooking::class.java)
-
-
-                            currentBooking.id=documentChange.document.id
+                            currentBooking.id=documentChange.document.get("id").toString()
 
                             when(documentChange.type){
                                 DocumentChange.Type.ADDED->{guideBookingArrayList.add(currentBooking)}
                                 DocumentChange.Type.MODIFIED->{}
-                                DocumentChange.Type.REMOVED->{}
+                                DocumentChange.Type.REMOVED->{guideBookingArrayList.remove(currentBooking)}
                             }
                         }
 
@@ -289,18 +289,31 @@ class GuideRepository(private val context:Context) {
                         )
 
                         if(snapshot.size()==0){
-                            isEmpty = true
+                            isEmpty.value = true
                         }
 
 
                         val guideBookingArrayList:MutableList<TourBooking> = ArrayList<TourBooking>()
                         for(documentChange in snapshot.documentChanges){
                             val currentBooking: TourBooking = documentChange.document.toObject(TourBooking::class.java)
+                            currentBooking.guideName = documentChange.document.get("guideName").toString()
+                            currentBooking.bookingDate = documentChange.document.get("bookingDate").toString()
+                            currentBooking.id = documentChange.document.id
+                            currentBooking.cusEmail  =documentChange.document.get("cusEmail").toString()
+                            currentBooking.cardName=documentChange.document.get("cardName").toString()
+                            currentBooking.cardNumber=documentChange.document.get("cardNumber").toString()
+                            currentBooking.card_cvv=documentChange.document.get("card_cvv").toString()
+                            currentBooking.card_date=documentChange.document.get("card_date").toString()
+                            currentBooking.ncusName=documentChange.document.get("ncusName").toString()
+                            currentBooking.numOfPMember=documentChange.document.get("numOfMember").toString()
+                            currentBooking.paymentMode=documentChange.document.get("paymentMode").toString()
+                            currentBooking.guideEmail=documentChange.document.get("guideEmail").toString()
+                            currentBooking.tel=documentChange.document.get("tel").toString()
 
                             when(documentChange.type){
                                 DocumentChange.Type.ADDED->{guideBookingArrayList.add(currentBooking)}
                                 DocumentChange.Type.MODIFIED->{}
-                                DocumentChange.Type.REMOVED->{}
+                                DocumentChange.Type.REMOVED->{guideBookingArrayList.remove(currentBooking)}
                             }
                         }
 
@@ -317,7 +330,7 @@ class GuideRepository(private val context:Context) {
 //                            editor.commit()
 //                        }
                     }else{
-                        Log.e(TAG, "searchGuideBookingsWithEmail: No Documents received from collection")
+                        Log.e(TAG, "searchUserBookingsWithEmail: No Documents received from collection")
                     }
                 })
 
@@ -325,6 +338,20 @@ class GuideRepository(private val context:Context) {
             Log.e(TAG, "docId : ${ex}")
         }
 
+    }
+
+
+    fun deleteBooking(docId: String) {
+        try {
+            db.collection(COLLECTION_BOOKING_NAME)
+                .document(docId)
+                .delete()
+            Log.e("delete","successful")
+
+        }
+        catch (ex: Exception) {
+            Log.e("ERROR", "delete: Couldn't delete")
+        }
     }
 
 

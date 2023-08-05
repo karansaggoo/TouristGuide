@@ -83,6 +83,10 @@ class WishList : Fragment(),onWishClickListener {
         binding.rvView.layoutManager = LinearLayoutManager(requireContext())
         binding.rvView.adapter = wishAdapter
 
+        if(WishList.isEmpty()){
+
+        }
+
         WishList.clear()
         Log.e("harsh","calling")
         wishListRepository.getFavouriteWish()

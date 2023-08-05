@@ -37,7 +37,7 @@ class TourBookingRepostory(private  val context: Context) {
 //    private val sharedPreference = context.getSharedPreferences("com.example.touristguide", Context.MODE_PRIVATE)
   //  var firstTime = MutableLiveData<Boolean>(false)
     private var loggedInUserID = ""
-    var bookingDate = ""
+    var alreadyBooked = MutableLiveData<Boolean>(false)
 
 //    init {
 //        loggedInUserID = sharedPreference.getString("USER_EMAIL","").toString()
@@ -86,23 +86,40 @@ class TourBookingRepostory(private  val context: Context) {
                     }
 
                     if (snapshot != null){
-                        Log.e(
-                            TAG,
-                            "searchUserWithEmail: ${snapshot.size()} Received the documents from collection ${snapshot}"
-                        )
+                        if(snapshot.size()==0){
+                            alreadyBooked.value=true
+                        }
+                        Log.e(TAG, "searchUserWithEmail: ${snapshot.size()} documents received")
 
-                        //process the received documents
-                        //save the doc ID to the SharedPreferences
-                            for(documentChange in snapshot.documentChanges){
-                                val currentTour: TourBooking = documentChange.document.toObject(TourBooking::class.java)
-
-
-                                bookingDate = currentTour.bookingDate
-
-
+                        val bookingArrayList:MutableList<TourBooking> = ArrayList<TourBooking>()
+                        for(documentChange in snapshot.documentChanges){
+                            val currentBooking: TourBooking = documentChange.document.toObject(TourBooking::class.java)
+                            when(documentChange.type){
+                                DocumentChange.Type.ADDED->{bookingArrayList.add(currentBooking)}
+                                DocumentChange.Type.MODIFIED->{}
+                                DocumentChange.Type.REMOVED->{}
                             }
+                        }
+
+                        bookingList.postValue(bookingArrayList)
+
+//                        if(snapshot.size()==0){
+//                            alreadyBooked.value = true
+//                            Log.e(
+//                                TAG,
+//                                "searchUserWithEmail: ${snapshot.size()} Received the documents from collection ${snapshot}"
+//                            )
+//
+//                        }else{
+//                            alreadyBooked.value = false
+//                        }
+
+
+//
+//                            }
+
                     }else{
-                        Log.e(TAG, "searchUserWithEmail: No Documents received from collection")
+                        Log.e(TAG, "searchUserWithEmail: No Documents received from collection:${alreadyBooked}")
                     }
                 })
 
