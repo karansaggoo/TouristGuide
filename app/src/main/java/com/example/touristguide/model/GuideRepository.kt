@@ -190,6 +190,7 @@ class GuideRepository(private val context:Context) {
             data[FIELD_TEL] = newUser.tel
             data[FIELD_DESC] = newUser.desc
             data[FIELD_URI]=newUser.uri!!
+            data[FIELD_PRICE] = newUser.price
 
 
             db.collection(COLLECTION_NAME).document(newUser.id).update(data).addOnSuccessListener {

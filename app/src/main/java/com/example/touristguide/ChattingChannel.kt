@@ -3,14 +3,18 @@
 package com.example.touristguide
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
@@ -92,10 +96,11 @@ class ChattingChannel : Fragment() {
 
         // ImagePickerButton shows an image picker to upload a image for a message
         mPhotoPickerButton!!.setOnClickListener {
-            var intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.setType("images/jpeg")
-            intent.putExtra(Intent.EXTRA_LOCAL_ONLY,true)
-            startActivityForResult(Intent.createChooser(intent,"complete action using"),RC_PHOTO_PICKER)
+            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+//            var intent = Intent(Intent.ACTION_GET_CONTENT)
+//            intent.setType("images*/")
+//            intent.putExtra(Intent.EXTRA_LOCAL_ONLY,true)
+//            startActivityForResult(Intent.createChooser(intent,"complete action using"),RC_PHOTO_PICKER)
         }
 
         fun onActivityResult(requestCode:Int,resultCode:Int,data: Intent){
@@ -195,6 +200,32 @@ class ChattingChannel : Fragment() {
         if(mChildEventListener!=null){
             mMessageDatabaseReference.removeEventListener(mChildEventListener!!)
             mChildEventListener = null
+        }
+    }
+
+    var pickMedia = registerForActivityResult(
+        ActivityResultContracts.PickVisualMedia()
+    ) { uri: Uri? ->
+        // Callback is invoked after the user selects a media item or closes the
+        // photo picker.
+        if (uri != null) {
+
+            var photoRef = mChatPhotoStorageRefeference
+                .child(uri.lastPathSegment!!)
+            photoRef.putFile(uri).addOnSuccessListener { taskSnapshot ->
+                photoRef.downloadUrl.addOnSuccessListener{
+                    val sdfDate = SimpleDateFormat("yyyy-MM-dd HH:mm") //dd/MM/yyyy
+                    val now = Date()
+                    val timeStamp: String = sdfDate.format(now)
+                    var messagae = com.example.touristguide.model.Message(sender_id,null,mUsername,timeStamp,it.toString())
+                    // Clear input box
+                    mMessageDatabaseReference.push().setValue(messagae)
+                }
+
+                Log.d("PhotoPicker", "Selected URI: $uri")
+            }
+        }else {
+            Log.d("PhotoPicker", "No media selected")
         }
     }
 

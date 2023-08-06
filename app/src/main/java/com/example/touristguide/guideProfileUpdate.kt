@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.input.key.Key.Companion.G
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.touristguide.databinding.FragmentGuideProfileBinding
 import com.example.touristguide.databinding.FragmentGuideProfileUpdateBinding
 import com.example.touristguide.model.Guide
@@ -65,6 +66,9 @@ class guideProfileUpdate : Fragment() {
         binding.guideDesc.setText(args.guide.desc)
         binding.guideLoc.setText(args.guide.loc.lowercase())
         binding.guidePrice.setText(args.guide.price)
+        if(args.guide.uri !=null){
+            Glide.with(binding.guideName.context).load(args.guide.uri).into(binding.profilePic)
+        }
         binding.photoPicker.setOnClickListener {
 
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
@@ -135,7 +139,7 @@ class guideProfileUpdate : Fragment() {
                     Log.e("user",loc)
                     Log.e("user",desc)
                     Log.e("user",tel)
-                    guideRepository.updateUserToDB(Guide(id =args.guide.id ,email = email, name = name, tel = tel , desc = desc, loc = loc, uri = "null", price = price))
+                    guideRepository.updateUserToDB(Guide(id =args.guide.id ,email = email, name = name, tel = tel , desc = desc, loc = loc, uri = args.guide.uri, price = price))
                    // guideRepository.addUserToDB(Guide(email = email, name = name, tel = tel , desc = desc, loc = loc, imageUri = "", price = price))
 
                 }
@@ -166,8 +170,12 @@ class guideProfileUpdate : Fragment() {
             binding.profilePic.setImageURI(uri)
             var photoRef = photoStorageRefeference.child(uri.lastPathSegment!!)
             photoRef.putFile(uri).addOnSuccessListener { taskSnapshot ->
-                var downloadUrl = taskSnapshot.uploadSessionUri
-                selectedImageUri = downloadUrl.toString()
+                photoRef.downloadUrl.addOnSuccessListener{
+                    selectedImageUri = it.toString()
+                }
+
+
+
                 Log.d("PhotoPicker", "Selected URI: $uri")
             }
         }else {

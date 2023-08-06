@@ -27,13 +27,13 @@ class GuideAdapter(private val context: Context,
 //                binding.tvRating.setText(currentPlace.rating!!.toString())
 //            }
 
-            binding.profilePic.setImageResource(R.drawable.ic_baseline_person_24)
+            //binding.profilePic.setImageResource(R.drawable.ic_baseline_person_24)
 
             //  Glide.with(binding.guideName.context).load(currentGuide.imageUri).into(binding.profilePic)
-            if(currentGuide.uri!=""){
+            if(currentGuide.uri !=null){
                 //var url = "https://maps.googleapis.com/maps/api/place/photo?${currentPlace.photos!![0].photo_reference}&key=AIzaSyBTmys4lYnABAKI4gEbAByuxiL2nCbAm9o"
-                //Glide.with(binding.guideName.context).load(currentGuide.imageUri).into(binding.profilePic)
-                binding.profilePic.setImageResource(R.drawable.ic_baseline_person_24)
+                Glide.with(binding.guideName.context).load(currentGuide.uri).into(binding.profilePic)
+                //binding.profilePic.setImageResource(R.drawable.ic_baseline_person_24)
 
             }else{
                binding.profilePic.setImageResource(R.drawable.ic_baseline_person_24)
