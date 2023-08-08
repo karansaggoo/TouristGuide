@@ -85,6 +85,9 @@ class WishList : Fragment(),onWishClickListener {
         WishList.clear()
         Log.e("harsh","calling")
         wishListRepository.getFavouriteWish()
+        if(WishList.isEmpty()){
+            binding.header.setText("Nothing To Show")
+        }
         Log.e("wishlist","${WishList}")
         wishAdapter.notifyDataSetChanged()
     }
@@ -99,6 +102,7 @@ class WishList : Fragment(),onWishClickListener {
             WishList.clear()
             if(list != null){
                 for(wish in list){
+
                     WishList.add(wish)
                     wishAdapter.notifyDataSetChanged()
                 }
@@ -118,6 +122,7 @@ class WishList : Fragment(),onWishClickListener {
             .setMessage("Do you want to remove it from your wish list?")
             .setNegativeButton("Cancel", null)
             .setPositiveButton("Confirm") { which, dialog ->
+                Log.d("id","id ====== ${place.id}")
                 wishListRepository.deleteFromWishlist(place.id)
                 WishList.clear()
                 wishListRepository.getFavouriteWish()

@@ -16,6 +16,8 @@ class WishListRepository(private val context: Context) {
     private val db = Firebase.firestore
     private val prefs= context.getSharedPreferences("com.example.touristguide", AppCompatActivity.MODE_PRIVATE)
     private var COLLECTION_USERS = "users"
+    private var COLLECTION_ID = "id"
+
     private var COLLECTION_WISHLIST = "wishlist"
     private var loggedInUserID = ""
     var userWishListLive = MutableLiveData<List<WishListPlace>>()

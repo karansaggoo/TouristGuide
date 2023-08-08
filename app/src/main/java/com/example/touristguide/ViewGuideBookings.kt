@@ -73,9 +73,16 @@ class ViewGuideBookings : Fragment(),onBookingClickListener {
         if(acctype=="customer"){
             Log.e("type",userRepository.curUserAccType)
             guideRepository.getUserBookingByEmail(email)
+            if(bookingList.isEmpty()){
+                binding.header.setText("No Booking To Show")
+            }
         }else{
             Log.e("type",userRepository.curUserAccType)
             guideRepository.getBookingByEmail(email)
+            if(bookingList.isEmpty()){
+                binding.header.setText("No Booking To Show")
+            }
+
         }
 
         Log.e("bookinglist","${bookingList}")

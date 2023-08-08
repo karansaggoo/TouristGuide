@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/list2"
         android:name="com.example.touristguide.List"
-        android:label="@string/app_name"
+        android:label="List"
         tools:layout="@layout/fragment_list" >
         <argument
             android:name="category"
@@ -98,7 +98,7 @@
     <fragment
         android:id="@+id/guideSearch"
         android:name="com.example.touristguide.guideSearch"
-        android:label="fragment_guide_search"
+        android:label="Search"
         tools:layout="@layout/fragment_guide_search" >
         <action
             android:id="@+id/action_guideSearch_to_guideBook"
@@ -107,7 +107,7 @@
     <fragment
         android:id="@+id/guideBook"
         android:name="com.example.touristguide.Booking"
-        android:label="Guide Search"
+        android:label="Tour Booking"
         tools:layout="@layout/fragment_booking" >
         <argument
             android:name="guide"

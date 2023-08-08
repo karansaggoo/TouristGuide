@@ -151,6 +151,7 @@ class Booking : Fragment() {
 
 
                 }
+
             }
 
             if(binding.tourDate.text.toString().isEmpty()){
@@ -161,10 +162,7 @@ class Booking : Fragment() {
                 Toast.makeText(requireContext(), "Please enter number of members ", Toast.LENGTH_LONG)
                     .show()
             }
-            if (bookingDate == tourBookingRepository.bookingDate){
-                Toast.makeText(requireContext(), "Guide is alredy booked on ${bookingDate} ", Toast.LENGTH_LONG)
-                    .show()
-            }
+
             if(paymentMode == "Card"){
                 if(binding.cardName.text.toString().isEmpty()){
                     Toast.makeText(requireContext(), "Please enter Card Name ", Toast.LENGTH_LONG)
@@ -174,7 +172,7 @@ class Booking : Fragment() {
                     Toast.makeText(requireContext(), "Please enter Card Number ", Toast.LENGTH_LONG)
                         .show()
                 }
-//               Patterns.PHONE.matcher(cardNumber).matches()
+
                 if(cardNumber.length != 16 ){
                     Toast.makeText(requireContext(), "Please enter Card Number Properly, should be 16", Toast.LENGTH_LONG)
                         .show()
@@ -187,6 +185,10 @@ class Booking : Fragment() {
                     Toast.makeText(requireContext(), "Please enter Card CVV ", Toast.LENGTH_LONG)
                         .show()
                 }
+            }
+            if (bookingDate == tourBookingRepository.bookingDate){
+                Toast.makeText(requireContext(), "Guide is alredy booked on ${bookingDate} ", Toast.LENGTH_LONG)
+                    .show()
             }
 
             else{

@@ -19,6 +19,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
         binding = ActivityForgotPasswordBinding.inflate(layoutInflater)
         mAuth = FirebaseAuth.getInstance()
         setContentView(binding.root)
+        setTitle("Forget Password")
 
 
         binding.button.setOnClickListener{
