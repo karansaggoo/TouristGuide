@@ -1,5 +1,7 @@
 package com.example.touristguide
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -24,8 +26,17 @@ class ForgotPasswordActivity : AppCompatActivity() {
         binding.button.setOnClickListener{
             Log.e("email=======", "***********${email}")
             if (binding.emailEt.text.toString().isEmpty()) {
-                Toast.makeText(applicationContext, "Email can not be empty", Toast.LENGTH_LONG)
-                    .show()
+                val builder = AlertDialog.Builder(this)
+                builder.setMessage("Email cannot be emptied")
+                    .setPositiveButton("OK",
+                        DialogInterface.OnClickListener { dialog, id ->
+                            // START THE GAME!
+                            dialog.cancel()
+                        })
+
+                // Create the AlertDialog object and return it
+                builder.create()
+                builder.show()
 
             } else {
                 email = binding.emailEt.text.toString()

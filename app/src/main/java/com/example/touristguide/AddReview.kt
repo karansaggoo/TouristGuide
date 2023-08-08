@@ -1,5 +1,7 @@
 package com.example.touristguide
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -78,8 +80,17 @@ class AddReview : Fragment() {
                         review = review
                     )
                 )
-                Toast.makeText(getActivity(), "Your review is added",
-                    Toast.LENGTH_LONG).show();
+                val builder = AlertDialog.Builder(requireContext())
+                builder.setMessage("Your review is added.")
+                    .setPositiveButton("OK",
+                        DialogInterface.OnClickListener { dialog, id ->
+                            // START THE GAME!
+                            dialog.cancel()
+                        })
+
+                // Create the AlertDialog object and return it
+                builder.create()
+                builder.show()
                 binding.reviewEt.setText("")
                 binding.error.setText("")
 

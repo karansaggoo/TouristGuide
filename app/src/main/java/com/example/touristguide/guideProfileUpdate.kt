@@ -1,5 +1,7 @@
 package com.example.touristguide
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
@@ -89,13 +91,31 @@ class guideProfileUpdate : Fragment() {
 
                     if(binding.guideLoc.text.toString().isEmpty()&&binding.guideDesc.text.toString().isEmpty()&&binding.guideTel.text.toString().isEmpty()&&
                             binding.guidePrice.text.toString().isEmpty()&&binding.guideTel.text.toString().isEmpty()){
-                        Toast.makeText(requireContext(), "All entries are required" , Toast.LENGTH_LONG)
-                            .show()
+                        val builder = AlertDialog.Builder(requireContext())
+                        builder.setMessage("All entries are required")
+                            .setPositiveButton("OK",
+                                DialogInterface.OnClickListener { dialog, id ->
+                                    // START THE GAME!
+                                    dialog.cancel()
+                                })
+
+                        // Create the AlertDialog object and return it
+                        builder.create()
+                        builder.show()
                     }else{
                         if(binding.guideTel.text!!.toString().length<10){
+                            val builder = AlertDialog.Builder(requireContext())
+                            builder.setMessage("Enter valid phone number")
+                                .setPositiveButton("OK",
+                                    DialogInterface.OnClickListener { dialog, id ->
+                                        // START THE GAME!
+                                        dialog.cancel()
+                                    })
 
-                            Toast.makeText(requireContext(), "Enter valid phone number" , Toast.LENGTH_LONG)
-                                .show()
+                            // Create the AlertDialog object and return it
+                            builder.create()
+                            builder.show()
+
                         }else{
                             guideRepository.addUserToDB(Guide(email = email, name = name, tel = tel , desc = desc, loc = loc, uri = "", price = price))
 
@@ -107,13 +127,31 @@ class guideProfileUpdate : Fragment() {
                 else{
                     if(binding.guideLoc.text.toString().isEmpty()&&binding.guideDesc.text.toString().isEmpty()&&binding.guideTel.text.toString().isEmpty()&&
                         binding.guidePrice.text.toString().isEmpty()){
-                        Toast.makeText(requireContext(), "All entries are required" , Toast.LENGTH_LONG)
-                            .show()
+                        val builder = AlertDialog.Builder(requireContext())
+                        builder.setMessage("All entries are required")
+                            .setPositiveButton("OK",
+                                DialogInterface.OnClickListener { dialog, id ->
+                                    // START THE GAME!
+                                    dialog.cancel()
+                                })
+
+                        // Create the AlertDialog object and return it
+                        builder.create()
+                        builder.show()
                     }else{
                         if(binding.guideTel.text!!.toString().length<10){
 
-                            Toast.makeText(requireContext(), "Enter valid phone number" , Toast.LENGTH_LONG)
-                                .show()
+                            val builder = AlertDialog.Builder(requireContext())
+                            builder.setMessage("Enter valid phone number")
+                                .setPositiveButton("OK",
+                                    DialogInterface.OnClickListener { dialog, id ->
+                                        // START THE GAME!
+                                        dialog.cancel()
+                                    })
+
+                            // Create the AlertDialog object and return it
+                            builder.create()
+                            builder.show()
                         }else{
                             guideRepository.addUserToDB(Guide(email = email, name = name, tel = tel , desc = desc, loc = loc, uri = selectedImageUri!!))
 
@@ -139,15 +177,45 @@ class guideProfileUpdate : Fragment() {
                     Log.e("user",loc)
                     Log.e("user",desc)
                     Log.e("user",tel)
-                    guideRepository.updateUserToDB(Guide(id =args.guide.id ,email = email, name = name, tel = tel , desc = desc, loc = loc, uri = args.guide.uri, price = price))
-                   // guideRepository.addUserToDB(Guide(email = email, name = name, tel = tel , desc = desc, loc = loc, imageUri = "", price = price))
+                    if(binding.guideTel.text!!.toString().length<10){
+                        val builder = AlertDialog.Builder(requireContext())
+                        builder.setMessage("Enter valid phone number")
+                            .setPositiveButton("OK",
+                                DialogInterface.OnClickListener { dialog, id ->
+                                    // START THE GAME!
+                                    dialog.cancel()
+                                })
+
+                        // Create the AlertDialog object and return it
+                        builder.create()
+                        builder.show()
+
+                    }else{
+                        guideRepository.updateUserToDB(Guide(id =args.guide.id ,email = email, name = name, tel = tel , desc = desc, loc = loc, uri = args.guide.uri, price = price))
+                    }
 
                 }
                 else{
                     Log.e("user",loc)
                     Log.e("user",desc)
                     Log.e("user",tel)
-                    guideRepository.updateUserToDB(Guide(id =args.guide.id ,email = email, name = name, tel = tel , desc = desc, loc = loc, uri = selectedImageUri!!, price = price))
+                    if(binding.guideTel.text!!.toString().length<10){
+                        val builder = AlertDialog.Builder(requireContext())
+                        builder.setMessage("Enter valid phone number")
+                            .setPositiveButton("OK",
+                                DialogInterface.OnClickListener { dialog, id ->
+                                    // START THE GAME!
+                                    dialog.cancel()
+                                })
+
+                        // Create the AlertDialog object and return it
+                        builder.create()
+                        builder.show()
+
+                    }else{
+                        guideRepository.updateUserToDB(Guide(id =args.guide.id ,email = email, name = name, tel = tel , desc = desc, loc = loc, uri = selectedImageUri!!, price = price))
+
+                    }
 
 
                     //guideRepository.addUserToDB(Guide(email = email, name = name, tel = tel , desc = desc, loc = loc, imageUri = selectedImageUri!!))

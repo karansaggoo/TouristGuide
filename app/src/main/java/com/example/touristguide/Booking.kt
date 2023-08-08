@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.touristguide.databinding.FragmentBookingBinding
 import com.example.touristguide.model.TourBooking
 import com.example.touristguide.model.TourBookingRepostory
@@ -68,6 +69,9 @@ class Booking : Fragment() {
         binding.guideName.setText(args.guide.name)
         binding.guideTel.setText(args.guide.tel)
         binding.guideDesc.setText(args.guide.desc)
+        if(args.guide.uri !=null){
+            Glide.with(binding.guideName.context).load(args.guide.uri).into(binding.profilePic)
+        }
         prefs=requireContext().getSharedPreferences("com.example.touristguide", AppCompatActivity.MODE_PRIVATE)
         cusName = prefs.getString("USER_NAME","").toString()
         cusEmail= prefs.getString("USER_EMAIL","").toString()
@@ -160,8 +164,17 @@ class Booking : Fragment() {
             }
             if (binding.tourDate.text.toString().isEmpty()) {
                 anyEmpty = true
-                Toast.makeText(requireContext(), "Please enter Date ", Toast.LENGTH_LONG)
-                    .show()
+                val builder = AlertDialog.Builder(requireContext())
+                builder.setMessage("Please enter date")
+                    .setPositiveButton("OK",
+                        DialogInterface.OnClickListener { dialog, id ->
+                            // START THE GAME!
+                            dialog.cancel()
+                        })
+
+                // Create the AlertDialog object and return it
+                builder.create()
+                builder.show()
             } else {
                 tourBookingRepository.bookingList.observe(viewLifecycleOwner) { list ->
                     if (list.size != 0) {
