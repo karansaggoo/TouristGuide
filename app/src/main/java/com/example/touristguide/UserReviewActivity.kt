@@ -26,6 +26,7 @@ class UserReviewActivity : AppCompatActivity() {
         prefs=applicationContext.getSharedPreferences("com.example.touristguide", AppCompatActivity.MODE_PRIVATE)
         email = prefs.getString("USER_EMAIL","").toString()
         setContentView(binding.root)
+        setTitle("User Review")
 
         ReviewList = ArrayList()
         userReviewAdapter = UserReviewAdapter(applicationContext,ReviewList)
