@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeScreen">
+
+    <fragment
+        android:id="@+id/homeScreen"
+        android:name="com.example.touristguide.HomeScreen"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_home_screen" >
+        <action
+            android:id="@+id/action_homeScreen_to_list2"
+            app:destination="@id/list2" />
+        <action
+            android:id="@+id/action_homeScreen_to_mapFragment"
+            app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_homeScreen_to_guideSearch"
+            app:destination="@id/guideSearch" />
+    </fragment>
+    <fragment
+        android:id="@+id/list2"
+        android:name="com.example.touristguide.List"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_list" >
+        <argument
+            android:name="category"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_list2_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.touristguide.MapFragment"
+        android:label="@string/place_map"
+        tools:layout="@layout/fragment_map" >
+        <argument
+            android:name="lat"
+            app:argType="float" />
+        <argument
+            android:name="log"
+            app:argType="float" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.touristguide.DetailFragment"
+        android:label="@string/place_detail"
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="place_id"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_detailFragment_to_addReview"
+            app:destination="@id/addReview" />
+        <argument
+            android:name="icon"
+            app:argType="string" />
+        <argument
+            android:name="rating"
+            app:argType="float" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_detailFragment_to_viewReview"
+            app:destination="@id/viewReview" />
+    </fragment>
+    <fragment
+        android:id="@+id/addReview"
+        android:name="com.example.touristguide.AddReview"
+        android:label="@string/add_review"
+        tools:layout="@layout/fragment_add_review" >
+        <argument
+            android:name="name"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/wishList2"
+        android:name="com.example.touristguide.WishList"
+        android:label="@string/wishlist"
+        tools:layout="@layout/fragment_wish_list" >
+        <action
+            android:id="@+id/action_wishList2_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewReview"
+        android:name="com.example.touristguide.ViewReview"
+        android:label="@string/view_review"
+        tools:layout="@layout/fragment_view_review" >
+        <argument
+            android:name="reviews"
+            app:argType="com.example.touristguide.model.Review[]" />
+    </fragment>
+    <fragment
+        android:id="@+id/guideSearch"
+        android:name="com.example.touristguide.guideSearch"
+        android:label="Search Guide"
+        tools:layout="@layout/fragment_guide_search" >
+        <action
+            android:id="@+id/action_guideSearch_to_guideBook"
+            app:destination="@id/guideBook" />
+    </fragment>
+    <fragment
+        android:id="@+id/guideBook"
+        android:name="com.example.touristguide.Booking"
+        android:label="@string/booking_screen"
+        tools:layout="@layout/fragment_booking" >
+        <argument
+            android:name="guide"
+            app:argType="com.example.touristguide.model.Guide" />
+        <action
+            android:id="@+id/action_guideBook_to_viewBookingDetail"
+            app:destination="@id/viewBookingDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/Booking"
+        android:name="com.example.touristguide.ViewGuideBookings"
+        android:label="@string/booking_history"
+        tools:layout="@layout/fragment_view_guide_bookings" >
+        <action
+            android:id="@+id/action_viewGuideBookings_to_viewBookingDetail"
+            app:destination="@id/viewBookingDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewBookingDetail"
+        android:name="com.example.touristguide.ViewBookingDetail"
+        android:label="@string/booking_details"
+        tools:layout="@layout/fragment_view_booking_detail" >
+        <action
+            android:id="@+id/action_viewBookingDetail_to_chattingChannel"
+            app:destination="@id/chattingChannel" />
+        <argument
+            android:name="booking"
+            app:argType="com.example.touristguide.model.TourBooking" />
+    </fragment>
+    <fragment
+        android:id="@+id/chattingChannel"
+        android:name="com.example.touristguide.ChattingChannel"
+        android:label="@string/chatting_channel" >
+        <argument
+            android:name="booking"
+            app:argType="com.example.touristguide.model.TourBooking" />
+    </fragment>
+</navigation>
